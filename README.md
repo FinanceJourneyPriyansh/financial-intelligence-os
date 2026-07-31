@@ -1,23 +1,27 @@
-# 📊 Financial Intelligence OS
+# 📊 Financial Intelligence OS (FIOS)
 
-A professional Python-based Financial Intelligence Platform for collecting, analyzing, visualizing, and automating financial and economic data from multiple trusted sources.
-
----
-
-## 🎯 Project Goals
-
-- Collect financial market data
-- Analyze company fundamentals
-- Perform valuation and ratio analysis
-- Build portfolio analytics
-- Monitor macroeconomic indicators
-- Generate Excel and dashboard reports
-- Automate financial workflows
-- Provide AI-assisted financial insights
+> A modular Financial Intelligence Operating System built with Python to collect, validate, analyze, value, visualize, and automate financial and economic intelligence through specialized engines.
 
 ---
 
-# 📁 Project Structure
+# 🎯 Vision
+
+Financial Intelligence OS (FIOS) is designed as a scalable financial platform rather than a collection of scripts. Every major capability is implemented as an independent engine that works together to provide professional-grade financial intelligence.
+
+The long-term objective is to create a centralized ecosystem capable of:
+
+- Collecting financial and economic data
+- Validating information from multiple sources
+- Performing financial analysis
+- Building valuation models
+- Managing investment portfolios
+- Monitoring macroeconomic indicators
+- Generating automated reports
+- Providing AI-assisted financial insights
+
+---
+
+# 🏗 Engine Architecture
 
 ```
 financial-intelligence-os/
@@ -55,9 +59,180 @@ financial-intelligence-os/
 
 ---
 
+# ⚙ Engine Overview
+
+## 📡 Data Engine
+
+Responsible for collecting data from external providers.
+
+Supported connectors:
+
+- Yahoo Finance
+- NSE India
+- BSE India
+- Alpha Vantage
+- Finnhub
+- RBI
+- FRED
+- World Bank
+- IMF
+- OECD
+- Trading Economics
+- SEC EDGAR
+- NewsAPI
+
+Responsibilities
+
+- Historical Market Data
+- Live Market Data
+- Financial Statements
+- Company Information
+- Economic Indicators
+- News Collection
+
+---
+
+## 📊 Analytics Engine
+
+Transforms raw data into meaningful financial insights.
+
+Capabilities
+
+- Financial Ratio Analysis
+- Trend Analysis
+- Growth Analysis
+- Company Comparison
+- Industry Benchmarking
+- Performance Metrics
+
+---
+
+## 💰 Valuation Engine
+
+Provides multiple valuation methodologies.
+
+Models
+
+- Discounted Cash Flow (DCF)
+- Comparable Company Analysis
+- Dividend Discount Model
+- Enterprise Value
+- Intrinsic Value
+- Relative Valuation
+
+---
+
+## 📈 Portfolio Engine
+
+Portfolio monitoring and investment analysis.
+
+Features
+
+- Portfolio Tracking
+- Asset Allocation
+- Return Analysis
+- Diversification Metrics
+- Portfolio Performance
+- Benchmark Comparison
+
+---
+
+## ⚠ Risk Engine
+
+Measures investment risk and portfolio stability.
+
+Capabilities
+
+- Beta
+- Volatility
+- Sharpe Ratio
+- Sortino Ratio
+- Value at Risk (VaR)
+- Maximum Drawdown
+- Stress Testing
+- Scenario Analysis
+
+---
+
+## 🌍 Macro Engine
+
+Tracks economic indicators from multiple institutions.
+
+Coverage
+
+- Inflation
+- GDP
+- Interest Rates
+- Repo Rate
+- Exchange Rates
+- Government Debt
+- Employment
+- Monetary Policy
+
+---
+
+## 📑 Excel Engine
+
+Dedicated engine for Microsoft Excel 2019 integration.
+
+Capabilities
+
+- Excel Report Generation
+- Workbook Automation
+- Pivot Tables
+- Charts
+- Financial Templates
+- Excel-Compatible Output
+
+---
+
+## 📊 Dashboard Engine
+
+Visualization layer for the operating system.
+
+Features
+
+- Interactive Dashboards
+- KPI Monitoring
+- Financial Charts
+- Portfolio Dashboard
+- Macroeconomic Dashboard
+- Executive Reports
+
+---
+
+## 🤖 AI Engine
+
+Artificial Intelligence support for financial workflows.
+
+Capabilities
+
+- Financial Summaries
+- News Summarization
+- Earnings Analysis
+- Research Assistance
+- Insight Generation
+- Forecast Support
+
+---
+
+## ⚙ Automation Engine
+
+Automates repetitive financial processes.
+
+Functions
+
+- Scheduled Data Collection
+- Report Generation
+- Data Validation
+- Backup Management
+- Workflow Automation
+
+---
+
 # 🌍 Supported Data Sources
 
-## Market Data
+## Financial Markets
 
 - Yahoo Finance
 - NSE India
@@ -65,20 +240,20 @@ financial-intelligence-os/
 - Alpha Vantage
 - Finnhub
 
-## Economic Data
+## Economic Institutions
 
-- RBI
-- FRED
+- Reserve Bank of India (RBI)
+- Federal Reserve Economic Data (FRED)
 - World Bank
-- IMF
-- OECD
+- International Monetary Fund (IMF)
+- Organisation for Economic Co-operation and Development (OECD)
 - Trading Economics
 
-## Company Filings
+## Regulatory Filings
 
 - SEC EDGAR
 
-## News
+## Financial News
 
 - NewsAPI
 
@@ -86,86 +261,93 @@ financial-intelligence-os/
 
 # 🛠 Technology Stack
 
+### Programming
+
 - Python 3.13
+
+### Data Analysis
+
 - Pandas
 - NumPy
+- SciPy
+- Statsmodels
+
+### Visualization
+
 - Plotly
 - Matplotlib
+
+### Machine Learning
+
 - Scikit-learn
-- Statsmodels
-- Requests
+
+### Database
+
 - SQLAlchemy
-- Streamlit
-- Jupyter Notebook
+
+### Excel Integration
+
 - OpenPyXL
 - XlsxWriter
 
----
+### Dashboard
 
-# 📊 Planned Features
+- Streamlit
 
-## Data Collection
+### Development
 
-- Historical Prices
-- Live Market Data
-- Company Financial Statements
-- Economic Indicators
-- News Collection
-
-## Analytics
-
-- Financial Ratios
-- Peer Comparison
-- Trend Analysis
-- Performance Metrics
-
-## Valuation
-
-- Discounted Cash Flow (DCF)
-- Comparable Company Analysis
-- Dividend Discount Model
-- Intrinsic Value Estimation
-
-## Portfolio
-
-- Portfolio Tracking
-- Asset Allocation
-- Risk Analysis
-- Performance Reporting
-
-## Risk
-
-- Beta
-- Volatility
-- Value at Risk (VaR)
-- Stress Testing
-
-## Dashboards
-
-- Streamlit Dashboard
-- Interactive Charts
-- Excel Reports
+- Jupyter Notebook
+- VS Code
+- Git
+- GitHub
 
 ---
 
-# 🚀 Project Roadmap
+# 🚀 Development Roadmap
 
-- [x] Environment Setup
-- [x] Git & GitHub Configuration
-- [x] Virtual Environment
+## Foundation
+
+- [x] Repository Setup
+- [x] Git Configuration
+- [x] Python Environment
 - [x] Dependency Installation
-- [x] Initial Project Structure
-- [ ] Data Connectors
+- [x] Engine Architecture
+- [x] Documentation
+
+## Data Engine
+
+- [ ] Yahoo Finance Connector
+- [ ] NSE Connector
+- [ ] BSE Connector
+- [ ] RBI Connector
+- [ ] FRED Connector
+- [ ] World Bank Connector
+- [ ] IMF Connector
+- [ ] SEC EDGAR Connector
+
+## Core Engines
+
 - [ ] Data Validation Engine
-- [ ] Data Storage Layer
-- [ ] Financial Analytics Engine
-- [ ] Valuation Models
-- [ ] Portfolio Management
-- [ ] Macroeconomic Dashboard
-- [ ] AI Financial Assistant
-- [ ] Excel 2019 Automation
-- [ ] Streamlit Dashboard
-- [ ] Production Deployment
+- [ ] Data Storage Engine
+- [ ] Analytics Engine
+- [ ] Valuation Engine
+- [ ] Portfolio Engine
+- [ ] Risk Engine
+- [ ] Macro Engine
+
+## User Experience
+
+- [ ] Excel Engine
+- [ ] Dashboard Engine
+- [ ] AI Engine
+- [ ] Automation Engine
+
+## Production
+
+- [ ] Testing
+- [ ] Documentation
+- [ ] Packaging
+- [ ] Deployment
 
 ---
 
@@ -185,9 +367,7 @@ pip install -r requirements.txt
 
 ---
 
-# ▶️ Running
-
-Example:
+# ▶ Running
 
 ```bash
 python src/test.py
@@ -197,10 +377,12 @@ python src/test.py
 
 # 📄 License
 
-MIT License
+This engine is released under the MIT License.
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
-FinanceJourneyPriyansh
+**FinanceJourneyPriyansh**
+
+Building a modular Financial Intelligence Operating System for professional financial analysis, valuation, portfolio management, automation, and AI-assisted investment research.
