@@ -1,9 +1,43 @@
-pandas
+# Core
 numpy
+pandas
+scipy
+
+# Visualization
 matplotlib
 plotly
+seaborn
+
+# Finance
 yfinance
-openpyxl
-jupyter
-requests
+pandas-datareader
+investpy
+
+# Machine Learning
 scikit-learn
+statsmodels
+
+# Web
+requests
+httpx
+beautifulsoup4
+lxml
+
+# Excel
+openpyxl
+xlsxwriter
+
+# Database
+sqlalchemy
+
+# Dashboard
+streamlit
+
+# Notebook
+jupyter
+ipykernel
+
+# Utilities
+python-dotenv
+PyYAML
+tqdm
