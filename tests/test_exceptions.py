@@ -7,32 +7,31 @@ from src.exceptions import (
     ConnectorError,
     DataValidationError,
     ExportError,
+    DatabaseError,
+    APIError,
+    AuthenticationError,
 )
 
-print("=" * 60)
+print("=" * 70)
 print("CUSTOM EXCEPTION TEST")
-print("=" * 60)
+print("=" * 70)
 
-try:
-    raise ConfigurationError("Invalid configuration.")
-except ConfigurationError as error:
-    print(f"✓ {error}")
+tests = [
+    ConfigurationError("Invalid configuration."),
+    ConnectorError("World Bank connection failed."),
+    DataValidationError("Dataset contains missing values."),
+    ExportError("Export operation failed."),
+    DatabaseError("Database connection failed."),
+    APIError("API returned status code 500."),
+    AuthenticationError("Authentication failed."),
+]
 
-try:
-    raise ConnectorError("World Bank API unavailable.")
-except ConnectorError as error:
-    print(f"✓ {error}")
+for error in tests:
+    try:
+        raise error
+    except Exception as e:
+        print(f"✓ {type(e).__name__:<25} : {e}")
 
-try:
-    raise DataValidationError("Dataset contains missing values.")
-except DataValidationError as error:
-    print(f"✓ {error}")
-
-try:
-    raise ExportError("CSV export failed.")
-except ExportError as error:
-    print(f"✓ {error}")
-
-print("=" * 60)
-print("All custom exceptions are working correctly.")
-print("=" * 60)
+print("=" * 70)
+print("All custom exceptions are working successfully.")
+print("=" * 70)
