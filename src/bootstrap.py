@@ -12,6 +12,8 @@ from src.config import (
 )
 
 from src.helper import setup_logger
+from src.data.acquisition import DataAcquisitionEngine
+from src.data.connectors.api_connector import APIConnector
 
 logger = setup_logger()
 
@@ -48,15 +50,28 @@ def initialize() -> None:
 
 def start() -> None:
     """
-    Start the application.
+    Start the Financial Intelligence OS.
     """
 
+    # Display application banner
     display_banner()
 
+    # Initialize application
     initialize()
 
     print()
     print("Financial Intelligence OS is ready.")
     print()
+
+    # Create Data Acquisition Engine
+    engine = DataAcquisitionEngine()
+
+    # Register connectors
+    engine.register_connector(
+    APIConnector("world_bank")
+    )
+
+    # Run all connectors
+    engine.run()
 
     logger.info("Application started successfully.")
