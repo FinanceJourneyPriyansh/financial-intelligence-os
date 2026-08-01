@@ -1,3 +1,11 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+
+
+
 """
 Configuration Module
 ====================
@@ -65,3 +73,17 @@ REQUIRED_DIRECTORIES = [
 
 for directory in REQUIRED_DIRECTORIES:
     directory.mkdir(parents=True, exist_ok=True)
+
+
+    # =============================================================================
+# APPLICATION SETTINGS
+# =============================================================================
+
+APP_NAME = os.getenv("APP_NAME", "Financial Intelligence OS")
+APP_VERSION = os.getenv("APP_VERSION", "0.2.0")
+
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+TIMEZONE = os.getenv("TIMEZONE", "UTC")
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")

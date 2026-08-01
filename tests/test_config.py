@@ -15,6 +15,12 @@ from src.config import (
     NOTEBOOKS_DIR,
     DOCS_DIR,
     DASHBOARDS_DIR,
+    APP_NAME,
+    APP_VERSION,
+    ENVIRONMENT,
+    DEBUG,
+    TIMEZONE,
+    LOG_LEVEL,
 )
 
 print("=" * 70)
@@ -33,6 +39,12 @@ print(f"Reports          : {REPORTS_DIR}")
 print(f"Notebooks        : {NOTEBOOKS_DIR}")
 print(f"Docs             : {DOCS_DIR}")
 print(f"Dashboards       : {DASHBOARDS_DIR}")
+print(f"Application     : {APP_NAME}")
+print(f"Version         : {APP_VERSION}")
+print(f"Environment     : {ENVIRONMENT}")
+print(f"Debug           : {DEBUG}")
+print(f"Timezone        : {TIMEZONE}")
+print(f"Log Level       : {LOG_LEVEL}")
 
 print("=" * 70)
 print("Configuration loaded successfully.")
