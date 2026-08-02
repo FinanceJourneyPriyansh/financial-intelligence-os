@@ -1,0 +1,185 @@
+company:
+
+  identity:
+
+    name: Financial Intelligence OS
+
+    short_name: FIOS
+
+    founder: Priyansh Soni
+
+    founded_on: 2026-08-02
+
+    headquarters: India
+
+    category: AI Financial Intelligence Platform
+
+    platform_type: Open Financial Intelligence Operating System
+
+    stage: Development
+
+    version: 0.1.0
+
+    license: MIT
+
+  branding:
+
+    tagline: Build Once. Learn Once. Earn Many Times.
+
+    theme: Dark
+
+    primary_color: "#0B5FFF"
+
+    secondary_color: "#111827"
+
+    logo: ""
+
+  contact:
+
+    website: "https://financejourneypriyansh.github.io/"
+
+    github: "https://github.com/FinanceJourneyPriyansh"
+
+    linkedin: "https://www.linkedin.com/in/priyanshsonis/"
+
+    email: "priyanshsonis999@gmail.com"
+
+    phone: "+91 8827103511"
+
+    country: India
+
+  objective: >
+    Build intelligent financial systems that automate data collection,
+    analysis, forecasting, reporting, monitoring and business decision support.
+
+  purpose: >
+    Solve real-world financial and business problems using automation,
+    artificial intelligence and continuously updated data.
+
+  philosophy:
+
+    automation: true
+
+    reusable_products: true
+
+    build_small_then_expand: true
+
+    public_first: true
+
+    roi_first: true
+
+    data_driven: true
+
+    open_learning: true
+
+    continuous_improvement: true
+
+  principles:
+
+    - Solve real-world problems
+
+    - Every model must provide measurable value
+
+    - Every completed phase should become a usable product
+
+    - Automation before manual work
+
+    - Build once and reuse everywhere
+
+    - Learn once and earn many times
+
+    - Data should remain continuously updated
+
+    - Documentation is part of development
+
+    - Every project should be portfolio ready
+
+    - Every system should be scalable
+
+  target_users:
+
+    - Students
+
+    - Job Seekers
+
+    - Freelancers
+
+    - Investors
+
+    - Traders
+
+    - Researchers
+
+    - Financial Analysts
+
+    - Business Owners
+
+    - Startup Founders
+
+    - CEOs
+
+    - Enterprises
+
+    - Government Organizations
+
+  long_term_goal: >
+   Become the world's financial intelligence operating system where
+   anyone, from a student investing INR 50 to a multinational enterprise
+   investing INR 100 crore, can make smarter decisions using
+   real-time data, automation, and artificial intelligence.
+
+  ecosystem:
+
+    dashboards: planned
+
+    ai_models: planned
+
+    automation: building
+
+    portfolio: active
+
+    public_platform: planned
+
+    api_services: planned
+
+    excel_tools: planned
+
+    power_bi: planned
+
+    mobile_app: future
+
+    desktop_app: future
+
+    marketplace: future
+
+  status:
+
+    blueprint: active
+
+    development: active
+
+    testing: upcoming
+
+    deployment: planned
+
+    commercialization: planned
+
+  metadata:
+
+    last_updated: 2026-08-02
+
+    maintained_by: Priyansh Soni
+
+  repository:
+
+  project: financial-intelligence-os
+
+  repository_type: Open Source
+
+  default_branch: main
+
+  development_stage: Phase 2.5
+
+  architecture_version: 1.0
+
+  blueprint_version: 1.0

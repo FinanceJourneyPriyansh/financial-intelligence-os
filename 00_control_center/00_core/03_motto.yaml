@@ -1,0 +1,71 @@
+motto:
+
+  primary:
+
+    title: Build Once. Learn Once. Earn Many Times.
+
+    meaning: >
+      Every skill, module, engine, dashboard, automation, and product
+      should create long-term value through continuous reuse.
+
+  engineering_principles:
+
+    - Build once, reuse everywhere.
+    - Solve real problems before adding new features.
+    - Automation before manual work.
+    - One source of truth.
+    - Documentation is part of development.
+    - Keep architecture simple and scalable.
+    - Every completed phase must produce a working prototype.
+    - Every module should be independently testable.
+    - Every product should create measurable value.
+    - Prefer modular design over monolithic systems.
+
+  development_rules:
+
+    planning: Design before coding.
+
+    architecture: Build for long-term scalability.
+
+    implementation: Keep components reusable.
+
+    validation: Test continuously.
+
+    documentation: Update together with development.
+
+    automation: Automate repetitive work whenever possible.
+
+    deployment: Release small improvements frequently.
+
+  product_philosophy:
+
+    - Every feature should solve a user problem.
+    - Every product should have real users.
+    - Every dashboard should support decision-making.
+    - Every engine should power multiple products.
+    - Every automation should save time.
+    - Every project should strengthen the portfolio.
+
+  learning_philosophy:
+
+    - Learn by building.
+    - Build by solving.
+    - Improve through iteration.
+    - Share knowledge publicly.
+    - Continuously expand skills.
+
+  business_philosophy:
+
+    - Build sustainable products.
+    - Create long-term value.
+    - Focus on ROI.
+    - Think like a company.
+    - Deliver professional quality.
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  last_updated: 2026-08-02

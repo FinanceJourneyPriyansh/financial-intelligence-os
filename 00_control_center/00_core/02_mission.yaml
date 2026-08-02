@@ -1,0 +1,78 @@
+mission:
+
+  title: Build Practical Financial Intelligence
+
+  statement: >
+    Design, develop, and continuously improve Financial Intelligence OS
+    by building practical, reusable, and automated solutions that solve
+    real-world financial, business, and analytical problems.
+
+  current_focus:
+
+    - Build reusable software components.
+    - Create automated financial data pipelines.
+    - Develop intelligence engines.
+    - Generate interactive dashboards.
+    - Build AI-assisted decision support.
+    - Produce portfolio-ready projects.
+    - Learn through real product development.
+
+  commitments:
+
+    automation: true
+
+    documentation_first: true
+
+    testing_first: true
+
+    modular_design: true
+
+    reusable_components: true
+
+    scalable_architecture: true
+
+    continuous_learning: true
+
+    open_source_when_possible: true
+
+  development_principles:
+
+    - Build small, release often.
+    - Every phase delivers something usable.
+    - Every module solves a real problem.
+    - Every feature should be reusable.
+    - Keep architecture clean and maintainable.
+    - Minimize manual work through automation.
+    - Validate before expanding.
+    - Learn by building.
+
+  success_metrics:
+
+    technical:
+
+      - Stable architecture
+      - Automated workflows
+      - High code quality
+      - Modular components
+
+    professional:
+
+      - Portfolio projects
+      - Open-source contributions
+      - Freelance opportunities
+      - Employment opportunities
+
+    business:
+
+      - Useful products
+      - Real users
+      - Sustainable revenue
+      - Long-term platform growth
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  last_updated: 2026-08-02

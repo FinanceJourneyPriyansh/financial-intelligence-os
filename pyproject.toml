@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "financial-intelligence-os"
+version = "0.1.0"
+description = "AI Powered Financial Intelligence Operating System"
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" }
+
+authors = [
+    { name = "Priyansh Soni", email = "priyanshsonis999@gmail.com" }
+]
+
+keywords = [
+    "finance",
+    "ai",
+    "automation",
+    "analytics",
+    "python",
+    "business-intelligence"
+]
+
+dependencies = []
+
+[tool.setuptools]
+include-package-data = true

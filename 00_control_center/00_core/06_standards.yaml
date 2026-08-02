@@ -1,0 +1,171 @@
+﻿standards:
+
+  repository:
+
+    root_numbering: true
+
+    numbered_folders: true
+
+    numbered_files: true
+
+    lowercase_names: true
+
+    separator: "_"
+
+    max_folder_depth: 3
+
+    duplicate_folders: false
+
+    duplicate_files: false
+
+    duplicate_logic: false
+
+    one_source_of_truth: true
+
+  architecture:
+
+    modular_design: true
+
+    reusable_components: true
+
+    scalable_structure: true
+
+    clean_architecture: true
+
+    dependency_direction:
+      - Core
+      - Blueprint
+      - Generators
+      - Automation
+      - Monitoring
+      - Products
+
+  development:
+
+    planning_before_coding: true
+
+    documentation_required: true
+
+    testing_required: true
+
+    commit_after_milestone: true
+
+    code_review_before_merge: true
+
+    automation_first: true
+
+    configuration_driven: true
+
+  blueprint:
+
+    yaml_as_source_of_truth: true
+
+    excel_generated: true
+
+    dashboard_generated: true
+
+    documentation_generated: true
+
+    validator_required: true
+
+  products:
+
+    every_phase_has_working_demo: true
+
+    every_phase_public_showcase: true
+
+    every_module_reusable: true
+
+    every_product_user_focused: true
+
+    roi_driven: true
+
+    portfolio_ready: true
+
+  data:
+
+    source_required: true
+
+    source_documented: true
+
+    update_frequency_required: true
+
+    last_updated_required: true
+
+    data_quality_validation: true
+
+    automation_preferred: true
+
+  coding:
+
+    python_style: PEP8
+
+    type_hints: preferred
+
+    docstrings: required
+
+    logging: required
+
+    exceptions_handled: true
+
+    linting: enabled
+
+  documentation:
+
+    readme_required: true
+
+    architecture_documented: true
+
+    roadmap_documented: true
+
+    examples_required: true
+
+    diagrams_preferred: true
+
+  ai:
+
+    explainable_outputs: true
+
+    human_review_supported: true
+
+    reusable_prompts: true
+
+    model_versioning: true
+
+  business:
+
+    solve_real_problem: true
+
+    measurable_value: true
+
+    automation_enabled: true
+
+    reusable_solution: true
+
+    scalable_product: true
+
+    monetization_possible: true
+  
+  engineering:
+
+    build_once_learn_once_earn_many_times: true
+
+    every_feature_solves_real_problem: true
+
+    every_feature_can_be_demonstrated: true
+
+    every_feature_has_clear_owner: true
+
+    every_feature_can_be_automated: true
+
+    every_feature_supports_future_integration: true
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  maintained_by: Priyansh Soni
+
+  last_updated: 2026-08-02

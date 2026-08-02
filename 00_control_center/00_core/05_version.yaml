@@ -1,0 +1,45 @@
+version:
+
+  current:
+
+    major: 0
+
+    minor: 1
+
+    patch: 0
+
+    release: Alpha
+
+    codename: Foundation
+
+    full_version: 0.1.0-alpha
+
+  project:
+
+    architecture_version: 1.0
+
+    blueprint_version: 1.0
+
+    roadmap_version: 1.0
+
+    documentation_version: 1.0
+
+  lifecycle:
+
+    current_phase: 2.5
+
+    status: Active Development
+
+    next_milestone: Blueprint System
+
+  releases:
+
+    - version: 0.1.0-alpha
+      date: 2026-08-02
+      description: Initial architecture and Control Center foundation.
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  last_updated: 2026-08-02
