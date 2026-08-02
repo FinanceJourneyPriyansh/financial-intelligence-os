@@ -1,0 +1,67 @@
+python:
+
+  version:
+
+    minimum: "3.12"
+
+    recommended: "3.13"
+
+    current: "3.13"
+
+environment:
+
+  virtual_environment: .venv
+
+  package_manager: pip
+
+  dependency_file: requirements.txt
+
+coding:
+
+  style: PEP8
+
+  formatter: Black
+
+  linter: Ruff
+
+  type_checking: MyPy
+
+  docstrings: Google
+
+testing:
+
+  framework: Pytest
+
+  coverage: true
+
+  minimum_coverage: 80
+
+imports:
+
+  absolute_imports: true
+
+  relative_imports: false
+
+  sort_imports: true
+
+execution:
+
+  entry_point: main.py
+
+  cli_entry: fios.py
+
+performance:
+
+  multiprocessing: enabled
+
+  async_support: enabled
+
+  caching: enabled
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

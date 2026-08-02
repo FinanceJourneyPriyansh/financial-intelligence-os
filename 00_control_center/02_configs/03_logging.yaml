@@ -1,0 +1,73 @@
+logging:
+
+  enabled: true
+
+  level: INFO
+
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+
+  timezone: Asia/Kolkata
+
+console:
+
+  enabled: true
+
+  colored_output: true
+
+  show_timestamp: true
+
+  show_level: true
+
+file:
+
+  enabled: true
+
+  directory: ./09_logs
+
+  filename: fios.log
+
+  rotation: daily
+
+  retention_days: 30
+
+levels:
+
+  development: DEBUG
+
+  testing: INFO
+
+  production: WARNING
+
+modules:
+
+  cli: true
+
+  control_center: true
+
+  blueprint: true
+
+  automation: true
+
+  monitoring: true
+
+  data_engine: true
+
+  dashboard: true
+
+settings:
+
+  log_exceptions: true
+
+  log_startup: true
+
+  log_shutdown: true
+
+  log_execution_time: true
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

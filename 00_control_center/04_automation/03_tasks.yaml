@@ -1,0 +1,75 @@
+tasks:
+
+  objective: >
+    Define reusable automation tasks that can be executed
+    independently or as part of larger workflows.
+
+  categories:
+
+    data_collection:
+
+      - Download Data
+
+      - Fetch API
+
+      - Read CSV
+
+      - Read Excel
+
+      - Import Database
+
+    data_processing:
+
+      - Validate Data
+
+      - Clean Data
+
+      - Transform Data
+
+      - Aggregate Data
+
+      - Store Data
+
+    reporting:
+
+      - Generate Excel
+
+      - Generate PDF
+
+      - Generate Dashboard
+
+      - Generate Markdown
+
+      - Generate JSON
+
+    monitoring:
+
+      - Health Check
+
+      - Progress Check
+
+      - Validation Check
+
+      - Coverage Check
+
+      - Performance Check
+
+    maintenance:
+
+      - Cleanup Logs
+
+      - Archive Reports
+
+      - Backup Files
+
+      - Update Metadata
+
+      - Refresh Cache
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  last_updated: 2026-08-02

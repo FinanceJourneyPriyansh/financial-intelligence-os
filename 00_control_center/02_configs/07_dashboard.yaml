@@ -1,0 +1,71 @@
+dashboard:
+
+  enabled: true
+
+  default_framework: Streamlit
+
+  theme: Dark
+
+  refresh:
+
+    enabled: true
+
+    interval_minutes: 15
+
+layout:
+
+  responsive: true
+
+  sidebar: expanded
+
+  navigation: left
+
+  default_page: Home
+
+visualization:
+
+  default_library: Plotly
+
+  animations: true
+
+  tooltips: true
+
+  export_png: true
+
+  export_pdf: true
+
+  export_csv: true
+
+kpi:
+
+  show_summary_cards: true
+
+  show_last_updated: true
+
+  show_data_source: true
+
+  show_refresh_status: true
+
+reporting:
+
+  scheduled_reports: true
+
+  default_format: PDF
+
+  include_timestamp: true
+
+  include_logo: true
+
+security:
+
+  authentication: planned
+
+  authorization: planned
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

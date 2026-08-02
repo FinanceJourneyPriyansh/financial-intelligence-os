@@ -1,0 +1,98 @@
+registry:
+
+  objective: >
+    Maintain the single source of truth for all reusable assets
+    managed by the Financial Intelligence OS.
+
+  description: >
+    The Registry catalogs every generator, template, workflow,
+    pipeline, task, and output available within the system.
+    It enables discovery, validation, reuse, and future automation.
+
+  generators:
+
+    documentation:
+
+      - README Generator
+
+      - Markdown Generator
+
+      - Architecture Generator
+
+      - Project Tree Generator
+
+    reporting:
+
+      - Excel Generator
+
+      - PDF Generator
+
+      - HTML Generator
+
+      - JSON Generator
+
+    dashboards:
+
+      - Dashboard Generator
+
+      - KPI Generator
+
+      - Chart Generator
+
+    configuration:
+
+      - Config Generator
+
+      - Template Generator
+
+      - Environment Generator
+
+    development:
+
+      - Project Generator
+
+      - Module Generator
+
+      - API Generator
+
+      - Test Generator
+
+  templates:
+
+    root: 00_control_center/05_templates
+
+    categories:
+
+      - Documentation
+
+      - Repository
+
+      - Reporting
+
+      - Dashboard
+
+      - Web
+
+      - Excel
+
+      - CLI
+
+      - Python
+
+  workflows: []
+
+  pipelines: []
+
+  tasks: []
+
+  outputs: []
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  owner: Financial Intelligence OS
+
+  last_updated: 2026-08-03

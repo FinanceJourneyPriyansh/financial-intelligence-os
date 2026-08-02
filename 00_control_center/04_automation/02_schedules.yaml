@@ -1,0 +1,37 @@
+schedules:
+
+  objective: >
+    Define when automated workflows and pipelines should execute.
+
+  frequencies:
+
+    realtime:
+      description: Execute immediately when new data is available.
+
+    hourly:
+      description: Execute every hour.
+
+    daily:
+      description: Execute once every day.
+
+    weekly:
+      description: Execute once every week.
+
+    monthly:
+      description: Execute once every month.
+
+    manual:
+      description: Run only when triggered by a user.
+
+  priorities:
+
+    - critical
+    - high
+    - normal
+    - low
+
+metadata:
+
+  version: 1.0
+  status: Active
+  last_updated: 2026-08-02

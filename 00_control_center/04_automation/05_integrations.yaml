@@ -1,0 +1,84 @@
+integrations:
+
+  objective: >
+    Define external systems, platforms, APIs, and services that
+    Financial Intelligence OS can integrate with to exchange data,
+    automate workflows, and extend platform capabilities.
+
+  categories:
+
+    financial_data:
+
+      - Yahoo Finance
+
+      - Alpha Vantage
+
+      - Twelve Data
+
+      - Polygon.io
+
+      - Finnhub
+
+      - NSE India
+
+      - BSE India
+
+    economic_data:
+
+      - FRED
+
+      - World Bank
+
+      - IMF
+
+      - RBI
+
+      - OECD
+
+    development:
+
+      - GitHub
+
+      - GitHub Actions
+
+      - VS Code
+
+      - Docker
+
+    business_intelligence:
+
+      - Power BI
+
+      - Microsoft Excel
+
+      - Streamlit
+
+      - Plotly Dash
+
+    cloud:
+
+      - GitHub Pages
+
+      - Azure
+
+      - AWS
+
+      - Render
+
+    communication:
+
+      - Email
+
+      - Slack
+
+      - Microsoft Teams
+
+      - Discord
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  last_updated: 2026-08-02

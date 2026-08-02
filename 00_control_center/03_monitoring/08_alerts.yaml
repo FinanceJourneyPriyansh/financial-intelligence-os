@@ -1,0 +1,96 @@
+alerts:
+
+  vision:
+
+    statement: >
+      Detect, classify, and notify important events, warnings,
+      failures, and critical conditions across Financial Intelligence OS
+      to ensure reliable operation and rapid issue resolution.
+
+  monitoring:
+
+    enabled: true
+
+    mode: On Demand
+
+    notifications: Planned
+
+  severity:
+
+    information:
+
+      enabled: true
+
+    warning:
+
+      enabled: true
+
+    error:
+
+      enabled: true
+
+    critical:
+
+      enabled: true
+
+  categories:
+
+    repository:
+
+      enabled: true
+
+    blueprint:
+
+      enabled: true
+
+    configuration:
+
+      enabled: true
+
+    monitoring:
+
+      enabled: true
+
+    automation:
+
+      enabled: true
+
+    data:
+
+      enabled: true
+
+    security:
+
+      enabled: true
+
+  delivery:
+
+    console: true
+
+    log_file: true
+
+    email: planned
+
+    dashboard: planned
+
+    mobile: future
+
+  thresholds:
+
+    validation_failure: true
+
+    missing_configuration: true
+
+    duplicate_files: true
+
+    failed_automation: true
+
+    performance_degradation: true
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

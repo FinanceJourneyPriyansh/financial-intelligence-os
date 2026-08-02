@@ -1,0 +1,72 @@
+performance:
+
+  vision:
+
+    statement: >
+      Monitor the operational performance of Financial Intelligence OS
+      by tracking execution efficiency, automation performance,
+      resource utilization, and overall system responsiveness.
+
+  monitoring:
+
+    enabled: true
+
+    tracking_mode: Manual
+
+    measurement_unit: Percentage
+
+  execution:
+
+    startup_time: Unknown
+
+    execution_time: Unknown
+
+    response_time: Unknown
+
+    throughput: Unknown
+
+  automation:
+
+    success_rate: Unknown
+
+    failed_runs: Unknown
+
+    completed_runs: Unknown
+
+    average_runtime: Unknown
+
+  resources:
+
+    cpu_usage: Unknown
+
+    memory_usage: Unknown
+
+    disk_usage: Unknown
+
+    network_usage: Unknown
+
+  data:
+
+    ingestion_speed: Unknown
+
+    processing_speed: Unknown
+
+    report_generation_speed: Unknown
+
+  scoring:
+
+    efficiency: 0
+
+    reliability: 0
+
+    stability: 0
+
+    performance_score: 0
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

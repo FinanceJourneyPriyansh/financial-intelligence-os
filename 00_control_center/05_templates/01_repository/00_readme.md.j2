@@ -1,0 +1,114 @@
+# {{ company.identity.name }}
+
+> {{ company.branding.tagline }}
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Vision](#vision)
+- [Mission](#mission)
+- [Current Status](#current-status)
+- [Core Principles](#core-principles)
+- [Key Features](#key-features)
+- [Target Users](#target-users)
+- [Technology Stack](#technology-stack)
+- [Contact](#contact)
+
+---
+
+## Overview
+
+{{ company.objective }}
+
+---
+
+## Vision
+
+{{ vision.statement }}
+
+---
+
+## Mission
+
+{{ mission.statement }}
+
+---
+
+## Current Status
+
+> **Version:** {{ version.current.full_version }}
+
+> **Phase:** {{ version.lifecycle.current_phase }}
+
+> **Status:** {{ version.lifecycle.status }}
+
+| Property | Value |
+|----------|-------|
+| Version | {{ version.current.full_version }} |
+| Phase | {{ version.lifecycle.current_phase }} |
+| Status | {{ version.lifecycle.status }} |
+
+---
+
+## Core Principles
+
+{% for principle in company.principles %}
+- {{ principle }}
+{% endfor %}
+
+---
+
+## Key Features
+
+{% if company.features %}
+
+{% for feature in company.features %}
+- {{ feature }}
+{% endfor %}
+
+{% else %}
+
+Features will be documented as the project evolves.
+
+{% endif %}
+
+---
+
+## Target Users
+
+{% for user in company.target_users %}
+- {{ user }}
+{% endfor %}
+
+---
+
+## Technology Stack
+
+{% for category, tech in technologies.categories.items() %}
+
+### {{ category }}
+
+{% for item in tech.technologies %}
+- {{ item }}
+{% endfor %}
+
+{% endfor %}
+
+---
+
+## Contact
+
+- **Website:** {{ company.contact.website }}
+- **GitHub:** {{ company.contact.github }}
+- **LinkedIn:** {{ company.contact.linkedin }}
+- **Email:** {{ company.contact.email }}
+
+---
+
+*Generated automatically using Financial Intelligence OS Generator Engine.*
+
+**Generator Version:** {{ version.current.full_version }}
+
+**Status:** {{ version.lifecycle.status }}

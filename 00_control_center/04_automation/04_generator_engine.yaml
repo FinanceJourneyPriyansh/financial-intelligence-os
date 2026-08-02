@@ -1,0 +1,126 @@
+generator_engine:
+
+  name: Financial Intelligence OS Generator Engine
+
+  version: 1.0
+
+  objective: >
+    Configure and manage the Generator Engine responsible for
+    transforming structured YAML metadata into reusable artifacts
+    using predefined templates.
+
+  description: >
+    The Generator Engine is the core rendering component of the
+    Financial Intelligence OS. It reads metadata, validates inputs,
+    loads templates, renders outputs, validates generated artifacts,
+    and stores them in the appropriate destination.
+
+  engine:
+
+    template_engine: Jinja2
+
+    configuration_format: YAML
+
+    encoding: UTF-8
+
+    strict_mode: true
+
+  lifecycle:
+
+    - Load Configuration
+
+    - Validate Metadata
+
+    - Load Input Data
+
+    - Select Generator
+
+    - Load Template
+
+    - Render Template
+
+    - Validate Output
+
+    - Save Output
+
+    - Generate Logs
+
+    - Complete Execution
+
+  inputs:
+
+    metadata:
+
+      - company
+
+      - vision
+
+      - mission
+
+      - roadmap
+
+      - version
+
+      - blueprint
+
+      - configuration
+
+    supported_formats:
+
+      - yaml
+
+  outputs:
+
+    supported_formats:
+
+      - markdown
+
+      - html
+
+      - pdf
+
+      - json
+
+      - excel
+
+      - python
+
+      - yaml
+
+      - text
+
+  directories:
+
+    templates: 00_control_center/05_templates
+
+    output: .
+
+    logs: 09_logs
+
+  validation:
+
+    validate_templates: true
+
+    validate_metadata: true
+
+    validate_output: true
+
+    stop_on_error: true
+
+  logging:
+
+    enabled: true
+
+    level: INFO
+
+    save_history: true
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  owner: Financial Intelligence OS
+
+  last_updated: 2026-08-03

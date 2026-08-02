@@ -1,0 +1,71 @@
+ui:
+
+  theme:
+
+    default: Dark
+
+    primary_color: "#0B5FFF"
+
+    secondary_color: "#111827"
+
+    accent_color: "#22C55E"
+
+    font: Inter
+
+branding:
+
+  application_name: Financial Intelligence OS
+
+  short_name: FIOS
+
+  logo: ""
+
+  favicon: ""
+
+layout:
+
+  responsive: true
+
+  sidebar: expanded
+
+  navigation: left
+
+  footer: enabled
+
+display:
+
+  language: en
+
+  timezone: Asia/Kolkata
+
+  date_format: YYYY-MM-DD
+
+  currency: INR
+
+notifications:
+
+  enabled: true
+
+  success: true
+
+  warning: true
+
+  error: true
+
+  info: true
+
+accessibility:
+
+  high_contrast: false
+
+  scalable_fonts: true
+
+  keyboard_navigation: true
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

@@ -1,0 +1,64 @@
+recovery:
+
+  objective: >
+    Define recovery strategies for failed workflows, interrupted
+    executions, validation errors, and unexpected system failures
+    within Financial Intelligence OS.
+
+  recovery_modes:
+
+    automatic:
+
+      enabled: true
+
+      description: Retry recoverable failures automatically.
+
+    manual:
+
+      enabled: true
+
+      description: Allow users to manually restart failed workflows.
+
+    checkpoint:
+
+      enabled: Planned
+
+      description: Resume execution from the last successful step.
+
+    rollback:
+
+      enabled: Planned
+
+      description: Restore the previous stable state when required.
+
+  retry_policy:
+
+    maximum_retries: 3
+
+    retry_delay_seconds: 60
+
+    exponential_backoff: true
+
+  failure_handling:
+
+    log_failure: true
+
+    notify_user: true
+
+    preserve_logs: true
+
+    preserve_partial_output: true
+
+  backup:
+
+    backup_before_execution: Planned
+
+    restore_from_backup: Planned
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  last_updated: 2026-08-02

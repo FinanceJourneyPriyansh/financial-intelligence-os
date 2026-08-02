@@ -1,0 +1,33 @@
+pipelines:
+
+  objective: >
+    Define all reusable data pipelines used by Financial Intelligence OS.
+
+  pipeline_types:
+
+    - market_data_pipeline
+    - financial_statement_pipeline
+    - macroeconomic_pipeline
+    - company_information_pipeline
+    - news_pipeline
+    - portfolio_pipeline
+    - risk_pipeline
+    - dashboard_pipeline
+    - ai_pipeline
+    - reporting_pipeline
+
+  lifecycle:
+
+    - extract
+    - validate
+    - transform
+    - enrich
+    - load
+    - monitor
+    - archive
+
+metadata:
+
+  version: 1.0
+  status: Active
+  last_updated: 2026-08-02

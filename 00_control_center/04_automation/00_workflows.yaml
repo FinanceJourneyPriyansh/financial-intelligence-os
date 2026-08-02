@@ -1,0 +1,23 @@
+workflows:
+
+  objective: >
+    Define every automated workflow used across Financial Intelligence OS.
+
+  categories:
+
+    - data_collection
+    - data_validation
+    - data_processing
+    - reporting
+    - monitoring
+    - deployment
+    - documentation
+    - testing
+    - notification
+    - maintenance
+
+metadata:
+
+  version: 1.0
+  status: Active
+  last_updated: 2026-08-02

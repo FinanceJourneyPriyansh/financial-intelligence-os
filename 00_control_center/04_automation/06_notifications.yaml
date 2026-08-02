@@ -1,0 +1,68 @@
+notifications:
+
+  objective: >
+    Define how Financial Intelligence OS notifies users, developers,
+    and administrators about important events, automation status,
+    failures, and system activities.
+
+  channels:
+
+    console:
+
+      enabled: true
+
+      priority: High
+
+    log_file:
+
+      enabled: true
+
+      priority: High
+
+    email:
+
+      enabled: Planned
+
+      priority: Medium
+
+    dashboard:
+
+      enabled: Planned
+
+      priority: Medium
+
+    mobile:
+
+      enabled: Future
+
+      priority: Low
+
+  event_types:
+
+    - Automation Completed
+
+    - Automation Failed
+
+    - Validation Failed
+
+    - Health Warning
+
+    - Critical Error
+
+    - Report Generated
+
+    - Deployment Completed
+
+    - New Data Available
+
+    - System Startup
+
+    - System Shutdown
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  last_updated: 2026-08-02

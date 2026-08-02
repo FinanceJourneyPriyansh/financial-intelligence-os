@@ -1,0 +1,81 @@
+github:
+
+  repository:
+
+    owner: FinanceJourneyPriyansh
+
+    name: financial-intelligence-os
+
+    default_branch: main
+
+    visibility: public
+
+    license: MIT
+
+branches:
+
+  production:
+
+    - main
+
+  development:
+
+    - develop
+
+  feature_prefix: feature/
+
+  bugfix_prefix: fix/
+
+  release_prefix: release/
+
+version_control:
+
+  semantic_versioning: true
+
+  conventional_commits: true
+
+  require_pull_request: false
+
+  squash_merge: true
+
+issues:
+
+  enabled: true
+
+  templates: true
+
+  labels: true
+
+projects:
+
+  enabled: true
+
+  milestones: true
+
+  discussions: true
+
+automation:
+
+  github_actions: true
+
+  auto_release: planned
+
+  auto_documentation: planned
+
+  dependency_updates: planned
+
+pages:
+
+  enabled: true
+
+  branch: main
+
+  folder: docs
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

@@ -1,0 +1,139 @@
+products:
+
+  vision:
+
+    statement: >
+      Every completed phase should produce one or more reusable,
+      portfolio-ready, and commercially valuable products.
+
+  categories:
+
+    dashboards:
+
+      description: Interactive dashboards for financial and business intelligence.
+
+      products:
+
+        - Stock Market Dashboard
+
+        - Portfolio Dashboard
+
+        - Financial KPI Dashboard
+
+        - Company Analysis Dashboard
+
+        - Economic Dashboard
+
+        - Risk Dashboard
+
+        - ESG Dashboard
+
+    automation:
+
+      description: Automated workflows and productivity tools.
+
+      products:
+
+        - Financial Data Pipeline
+
+        - Report Generator
+
+        - Excel Automation Suite
+
+        - Data Validation Engine
+
+        - Scheduled Data Collector
+
+    intelligence:
+
+      description: Analytical and decision-support engines.
+
+      products:
+
+        - Valuation Engine
+
+        - Forecasting Engine
+
+        - Risk Intelligence Engine
+
+        - Investment Intelligence Engine
+
+        - Market Intelligence Engine
+
+        - Business Intelligence Engine
+
+        - Decision Support Engine
+
+    ai:
+
+      description: AI-powered financial applications.
+
+      products:
+
+        - AI Financial Assistant
+
+        - AI Research Assistant
+
+        - AI Report Summarizer
+
+        - AI Forecast Assistant
+
+        - AI Decision Advisor
+
+    developer_tools:
+
+      description: Tools for developers and analysts.
+
+      products:
+
+        - FIOS CLI
+
+        - Blueprint Generator
+
+        - Project Generator
+
+        - YAML Validator
+
+        - Documentation Generator
+
+        - API Generator
+
+    education:
+
+      description: Learning resources and educational platforms.
+
+      products:
+
+        - Finance Learning Hub
+
+        - Investment Simulator
+
+        - Financial Modeling Toolkit
+
+        - Interview Preparation Kit
+
+        - Learning Dashboard
+
+    enterprise:
+
+      description: Enterprise-grade business solutions.
+
+      products:
+
+        - Enterprise Financial Platform
+
+        - Executive Dashboard
+
+        - Decision Intelligence Platform
+
+        - Corporate Reporting Suite
+
+        - Organization Monitoring Platform
+
+metadata:
+
+  version: 1.0
+
+  maintained_by: Priyansh Soni
+
+  last_updated: 2026-08-02

@@ -1,0 +1,59 @@
+execution:
+
+  objective: >
+    Define how automation workflows are executed, monitored,
+    controlled, and completed within Financial Intelligence OS.
+
+  execution_modes:
+
+    manual:
+
+      enabled: true
+
+      description: Execute workflows on user request.
+
+    scheduled:
+
+      enabled: true
+
+      description: Execute workflows based on predefined schedules.
+
+    event_driven:
+
+      enabled: Planned
+
+      description: Execute workflows when specific events occur.
+
+    continuous:
+
+      enabled: Future
+
+      description: Execute workflows continuously in the background.
+
+  execution_control:
+
+    allow_parallel_execution: true
+
+    maximum_parallel_jobs: 4
+
+    retry_failed_tasks: true
+
+    maximum_retries: 3
+
+    stop_on_critical_failure: true
+
+  logging:
+
+    record_execution_history: true
+
+    record_execution_time: true
+
+    record_resource_usage: true
+
+metadata:
+
+  version: 1.0
+
+  status: Active
+
+  last_updated: 2026-08-02

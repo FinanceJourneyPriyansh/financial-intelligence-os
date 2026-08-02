@@ -1,0 +1,120 @@
+phases:
+
+  current:
+
+    id: 2.5
+
+    name: Control Center
+
+    status: Active
+
+    description: >
+      Build the Control Center that serves as the single source of truth
+      for the Financial Intelligence OS.
+
+  roadmap:
+
+    phase_1:
+
+      title: Foundation
+
+      objective: >
+        Establish project structure, development standards,
+        repository organization, and engineering practices.
+
+      status: Completed
+
+    phase_2:
+
+      title: Data Acquisition Engine
+
+      objective: >
+        Build reusable data connectors and automated ingestion
+        pipelines for financial and economic data.
+
+      status: Pending
+
+    phase_2_5:
+
+      title: Control Center
+
+      objective: >
+        Build the blueprint, configuration, automation,
+        monitoring, validation, and CLI foundation.
+
+      status: In Progress
+
+    phase_3:
+
+      title: Data Processing Engine
+
+      objective: >
+        Clean, transform, validate, and standardize collected data.
+
+      status: Planned
+
+    phase_4:
+
+      title: Intelligence Engine
+
+      objective: >
+        Build reusable financial intelligence and analytics engines.
+
+      status: Planned
+
+    phase_5:
+
+      title: Dashboard Platform
+
+      objective: >
+        Develop interactive dashboards and business intelligence reports.
+
+      status: Planned
+
+    phase_6:
+
+      title: Artificial Intelligence
+
+      objective: >
+        Integrate AI-assisted forecasting, recommendations,
+        summarization, and decision support.
+
+      status: Planned
+
+    phase_7:
+
+      title: Products
+
+      objective: >
+        Convert reusable engines into deployable products
+        for different user groups.
+
+      status: Planned
+
+    phase_8:
+
+      title: Enterprise Platform
+
+      objective: >
+        Expand FIOS into a scalable enterprise-grade
+        financial intelligence platform.
+
+      status: Planned
+
+    phase_9:
+
+      title: Global Intelligence Ecosystem
+
+      objective: >
+        Connect multiple intelligence domains including
+        finance, economics, business, ESG, and government.
+
+      status: Planned
+
+metadata:
+
+  version: 1.0
+
+  maintained_by: Priyansh Soni
+
+  last_updated: 2026-08-02

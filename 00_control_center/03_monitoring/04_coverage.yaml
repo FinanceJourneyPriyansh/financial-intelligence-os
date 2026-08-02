@@ -1,0 +1,94 @@
+coverage:
+
+  vision:
+
+    statement: >
+      Measure how much of the Financial Intelligence OS architecture,
+      roadmap, blueprint, products, engines, and supporting systems
+      have been implemented and documented.
+
+  monitoring:
+
+    enabled: true
+
+    update_method: Manual
+
+    coverage_unit: Percentage
+
+  architecture:
+
+    core: 100
+
+    blueprint: 100
+
+    configs: 100
+
+    monitoring: 40
+
+    automation: 0
+
+    templates: 0
+
+    cli: 0
+
+  blueprint:
+
+    architecture: 100
+
+    phases: 100
+
+    products: 100
+
+    engines: 100
+
+    users: 100
+
+    skills: 100
+
+    technologies: 100
+
+    datasources: 100
+
+    automation: 100
+
+    revenue: 100
+
+    ideas: 100
+
+  roadmap:
+
+    phase_1: 100
+
+    phase_2: 0
+
+    phase_2_5: 40
+
+    phase_3: 0
+
+    phase_4: 0
+
+    phase_5: 0
+
+    phase_6: 0
+
+    phase_7: 0
+
+    phase_8: 0
+
+    phase_9: 0
+
+  overall:
+
+    implementation: 22
+
+    documentation: 35
+
+    project_completion: 18
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

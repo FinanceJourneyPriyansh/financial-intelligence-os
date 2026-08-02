@@ -1,0 +1,43 @@
+app:
+
+  name: Financial Intelligence OS
+
+  short_name: FIOS
+
+  version: 0.1.0-alpha
+
+  architecture_version: 1.0
+
+  blueprint_version: 1.0
+
+  environment: development
+
+  timezone: Asia/Kolkata
+
+  language: en
+
+  encoding: utf-8
+
+  debug: true
+
+  logging: enabled
+
+  automation: enabled
+
+  monitoring: enabled
+
+  validation: enabled
+
+  dashboard: enabled
+
+  api: planned
+
+  status: Active Development
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  last_updated: 2026-08-02
+
+  version: 1.0

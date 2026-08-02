@@ -96,6 +96,28 @@ company:
 
     - Every system should be scalable
 
+  features:
+
+    - Financial Intelligence Platform
+
+    - Intelligent Data Acquisition
+
+    - YAML-Driven Architecture
+
+    - Generator Engine
+
+    - Automated Documentation
+
+    - Interactive Dashboards
+
+    - Modular Components
+
+    - Configuration-Driven Development
+
+    - AI-Assisted Financial Analysis
+
+    - Scalable Automation Framework
+
   target_users:
 
     - Students
@@ -123,10 +145,10 @@ company:
     - Government Organizations
 
   long_term_goal: >
-   Become the world's financial intelligence operating system where
-   anyone, from a student investing INR 50 to a multinational enterprise
-   investing INR 100 crore, can make smarter decisions using
-   real-time data, automation, and artificial intelligence.
+    Become the world's financial intelligence operating system where
+    anyone, from a student investing INR 50 to a multinational enterprise
+    investing INR 100 crore, can make smarter decisions using
+    real-time data, automation, and artificial intelligence.
 
   ecosystem:
 
@@ -164,22 +186,22 @@ company:
 
     commercialization: planned
 
+  repository:
+
+    project: financial-intelligence-os
+
+    repository_type: Open Source
+
+    default_branch: main
+
+    development_stage: Phase 2.5
+
+    architecture_version: 1.0
+
+    blueprint_version: 1.0
+
   metadata:
 
     last_updated: 2026-08-02
 
     maintained_by: Priyansh Soni
-
-  repository:
-
-  project: financial-intelligence-os
-
-  repository_type: Open Source
-
-  default_branch: main
-
-  development_stage: Phase 2.5
-
-  architecture_version: 1.0
-
-  blueprint_version: 1.0

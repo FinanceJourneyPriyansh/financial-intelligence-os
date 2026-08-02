@@ -1,0 +1,94 @@
+reports:
+
+  vision:
+
+    statement: >
+      Generate standardized reports that summarize the health,
+      progress, quality, validation, coverage, and overall
+      status of Financial Intelligence OS.
+
+  generation:
+
+    enabled: true
+
+    mode: On Demand
+
+    automatic_generation: Planned
+
+  report_types:
+
+    health:
+
+      enabled: true
+
+      frequency: On Demand
+
+    progress:
+
+      enabled: true
+
+      frequency: On Demand
+
+    validation:
+
+      enabled: true
+
+      frequency: On Demand
+
+    quality:
+
+      enabled: true
+
+      frequency: On Demand
+
+    coverage:
+
+      enabled: true
+
+      frequency: On Demand
+
+    performance:
+
+      enabled: true
+
+      frequency: On Demand
+
+  output_formats:
+
+    console: true
+
+    markdown: true
+
+    html: Planned
+
+    pdf: Planned
+
+    excel: Planned
+
+    json: true
+
+  storage:
+
+    directory: ./08_reports
+
+    archive_reports: true
+
+    retain_latest: 20
+
+summary:
+
+  include_timestamp: true
+
+  include_version: true
+
+  include_project_status: true
+
+  include_overall_score: true
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

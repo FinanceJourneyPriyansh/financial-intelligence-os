@@ -1,0 +1,83 @@
+validation:
+
+  enabled: true
+
+  fail_on_error: true
+
+  warnings_as_errors: false
+
+repository:
+
+  numbered_folders: true
+
+  numbered_files: true
+
+  lowercase_names: true
+
+  duplicate_files: false
+
+  duplicate_folders: false
+
+  maximum_folder_depth: 3
+
+yaml:
+
+  validate_syntax: true
+
+  require_metadata: true
+
+  require_version: true
+
+  require_last_updated: true
+
+  require_maintainer: true
+
+blueprint:
+
+  architecture_required: true
+
+  phases_required: true
+
+  products_required: true
+
+  engines_required: true
+
+  datasources_required: true
+
+configuration:
+
+  app_required: true
+
+  environment_required: true
+
+  paths_required: true
+
+  logging_required: true
+
+documentation:
+
+  readme_required: true
+
+  changelog_required: false
+
+  license_required: true
+
+  examples_required: true
+
+python:
+
+  pep8: true
+
+  type_hints: preferred
+
+  docstrings: required
+
+  tests_required: true
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

@@ -1,0 +1,69 @@
+paths:
+
+  root: .
+
+  control_center: ./00_control_center
+
+  source: ./01_src
+
+  data: ./02_data
+
+  documentation: ./03_docs
+
+  tests: ./04_tests
+
+  dashboards: ./05_dashboards
+
+  models: ./06_models
+
+  notebooks: ./07_notebooks
+
+  reports: ./08_reports
+
+  logs: ./09_logs
+
+control_center:
+
+  core: ./00_control_center/00_core
+
+  blueprint: ./00_control_center/01_blueprint
+
+  configs: ./00_control_center/02_configs
+
+  monitoring: ./00_control_center/03_monitoring
+
+  automation: ./00_control_center/04_automation
+
+  templates: ./00_control_center/05_templates
+
+generated:
+
+  excel: ./08_reports/excel
+
+  pdf: ./08_reports/pdf
+
+  html: ./08_reports/html
+
+  json: ./08_reports/json
+
+temporary:
+
+  cache: ./09_logs/cache
+
+  temp: ./09_logs/temp
+
+settings:
+
+  create_missing_directories: true
+
+  normalize_paths: true
+
+  use_relative_paths: true
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

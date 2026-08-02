@@ -160,6 +160,34 @@
 
     every_feature_supports_future_integration: true
 
+  git:
+
+  gitkeep_policy:
+
+    use_for_empty_folders_only: true
+
+    remove_when_folder_contains_files: true
+
+    never_commit_unused_gitkeep: true
+
+  commit_policy:
+
+    commit_after_completed_milestone: true
+
+    meaningful_commit_messages: true
+
+    feature_branch_preferred: true
+
+  repository_policy:
+
+    clean_repository: true
+
+    no_unused_files: true
+
+    no_duplicate_files: true
+
+    no_temporary_files: true
+
 metadata:
 
   version: 1.0

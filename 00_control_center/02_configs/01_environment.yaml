@@ -1,0 +1,57 @@
+environment:
+
+  current: development
+
+  available:
+
+    development:
+
+      debug: true
+
+      logging_level: DEBUG
+
+      auto_reload: true
+
+      database: local
+
+      api_mode: mock
+
+    testing:
+
+      debug: true
+
+      logging_level: INFO
+
+      auto_reload: false
+
+      database: test
+
+      api_mode: sandbox
+
+    production:
+
+      debug: false
+
+      logging_level: WARNING
+
+      auto_reload: false
+
+      database: production
+
+      api_mode: live
+
+settings:
+
+  default_environment: development
+
+  allow_environment_switch: true
+
+  require_confirmation_for_production: true
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02

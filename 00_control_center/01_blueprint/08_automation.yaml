@@ -1,0 +1,90 @@
+automation:
+
+  vision:
+
+    statement: >
+      Financial Intelligence OS automates repetitive, rule-based,
+      and data-driven processes to improve efficiency, accuracy,
+      scalability, and decision support.
+
+  categories:
+
+    data_automation:
+
+      description: Automate data collection and preparation.
+
+      workflows:
+
+        - Scheduled Data Collection
+        - Automated Data Validation
+        - Data Cleaning Pipeline
+        - Data Transformation Pipeline
+        - Incremental Data Updates
+
+    blueprint_automation:
+
+      description: Automate project blueprint management.
+
+      workflows:
+
+        - Blueprint Validation
+        - YAML Loading
+        - Metadata Synchronization
+        - Structure Verification
+        - Configuration Management
+
+    documentation_automation:
+
+      description: Generate project documentation automatically.
+
+      workflows:
+
+        - README Generation
+        - Markdown Generation
+        - Architecture Documentation
+        - API Documentation
+        - Release Notes Generation
+
+    reporting_automation:
+
+      description: Automate reporting and visualization.
+
+      workflows:
+
+        - Excel Report Generation
+        - Dashboard Updates
+        - KPI Reporting
+        - Financial Report Generation
+        - PDF Report Generation
+
+    development_automation:
+
+      description: Automate software development tasks.
+
+      workflows:
+
+        - Code Formatting
+        - Linting
+        - Testing
+        - Dependency Checks
+        - Build Automation
+
+    deployment_automation:
+
+      description: Automate deployment and release processes.
+
+      workflows:
+
+        - Continuous Integration
+        - Continuous Deployment
+        - Version Management
+        - Package Publishing
+        - Website Deployment
+
+metadata:
+
+  version: 1.0
+
+  maintained_by: Priyansh Soni
+
+  last_updated: 2026-08-02

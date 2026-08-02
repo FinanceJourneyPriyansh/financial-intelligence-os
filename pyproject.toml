@@ -23,7 +23,16 @@ keywords = [
     "business-intelligence"
 ]
 
-dependencies = []
+dependencies = [
+    "typer>=0.16",
+    "rich>=14.0",
+]
+
+[project.scripts]
+fios = "fios.cli:app"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["01_src"]

@@ -1,0 +1,106 @@
+progress:
+
+  vision:
+
+    statement: >
+      Track the development progress of Financial Intelligence OS
+      across milestones, phases, products, engines, and future
+      platform capabilities.
+
+  tracking:
+
+    enabled: true
+
+    update_method: Manual
+
+    progress_unit: Percentage
+
+  milestones:
+
+    control_center:
+
+      completion: 30
+
+      status: In Progress
+
+    core:
+
+      completion: 100
+
+      status: Completed
+
+    blueprint:
+
+      completion: 100
+
+      status: Completed
+
+    configs:
+
+      completion: 100
+
+      status: Completed
+
+    monitoring:
+
+      completion: 10
+
+      status: In Progress
+
+    automation:
+
+      completion: 0
+
+      status: Pending
+
+    templates:
+
+      completion: 0
+
+      status: Pending
+
+    cli:
+
+      completion: 0
+
+      status: Pending
+
+  roadmap:
+
+    phase_1:
+
+      completion: 100
+
+    phase_2:
+
+      completion: 0
+
+    phase_2_5:
+
+      completion: 35
+
+    phase_3:
+
+      completion: 0
+
+    phase_4:
+
+      completion: 0
+
+    phase_5:
+
+      completion: 0
+
+overall:
+
+  project_completion: 15
+
+  next_goal: Complete Monitoring System
+
+metadata:
+
+  maintained_by: Priyansh Soni
+
+  version: 1.0
+
+  last_updated: 2026-08-02
