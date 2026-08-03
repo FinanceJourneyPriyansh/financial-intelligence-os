@@ -1,0 +1,38 @@
+"""
+{{ company.identity.name }}
+{{ component.name }} Base
+
+Purpose
+-------
+Base class for {{ component.name }} components.
+
+This template provides the common foundation that
+specialized components can inherit and extend.
+"""
+
+from __future__ import annotations
+
+from abc import ABC
+
+
+class {{ component.base_class_name }}(ABC):
+    """
+    Base class for {{ component.name }}.
+    """
+
+    def __init__(self) -> None:
+
+        self.name = "{{ component.name }}"
+        self.version = "{{ version.current.full_version }}"
+        self.status = "Ready"
+
+    def info(self) -> dict:
+        """
+        Return component metadata.
+        """
+
+        return {
+            "name": self.name,
+            "version": self.version,
+            "status": self.status,
+        }

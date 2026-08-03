@@ -1,0 +1,63 @@
+"""
+{{ company.identity.name }}
+{{ component.name }}
+
+Purpose
+-------
+{{ component.purpose }}
+"""
+
+from __future__ import annotations
+
+from datetime import datetime
+
+
+class {{ component.class_name }}:
+    """
+    Core {{ component.name }}.
+    """
+
+    def __init__(self) -> None:
+
+        self.name = "{{ component.name }}"
+        self.version = "{{ version.current.full_version }}"
+        self.status = "Ready"
+        self.started_at = None
+
+    def start(self) -> None:
+        """
+        Start the component.
+        """
+
+        self.started_at = datetime.now()
+        self.status = "Running"
+
+        print(f"{self.name} started successfully.")
+
+    def stop(self) -> None:
+        """
+        Stop the component.
+        """
+
+        self.status = "Stopped"
+
+        print(f"{self.name} stopped successfully.")
+
+    def health(self) -> dict:
+        """
+        Return component health information.
+        """
+
+        return {
+            "name": self.name,
+            "version": self.version,
+            "status": self.status,
+            "started_at": self.started_at,
+        }
+
+    def execute(self) -> None:
+        """
+        Execute the primary operation.
+        """
+
+        print(f"Executing {self.name}.")

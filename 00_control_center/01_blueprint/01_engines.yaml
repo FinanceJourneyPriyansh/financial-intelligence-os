@@ -1,0 +1,573 @@
+engines:
+
+  objective: >
+    Define every engine that powers Financial Intelligence OS.
+    Each engine represents a reusable system responsible for
+    automation, intelligence, data processing, monitoring,
+    reporting and decision support.
+
+  categories:
+
+    core_engines:
+
+      objective: >
+        Core operating system engines responsible for running FIOS.
+
+      items:
+
+        generator_engine:
+
+          id: ENG-001
+
+          type: Core Engine
+
+          name: Generator Engine
+
+          description: Generate reusable project artifacts automatically.
+
+          purpose: Automate artifact generation.
+
+          milestone: PHASE-003
+
+          priority: Critical
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - generator
+
+            - automation
+
+          dependencies:
+
+            - PHASE-002
+
+          inputs:
+
+            - Blueprint
+
+            - Templates
+
+          outputs:
+
+            - Documentation
+
+            - Reports
+
+            - Dashboards
+
+            - Excel
+
+          future_extensions:
+
+            - AI Generator
+
+        validator_engine:
+
+          id: ENG-002
+
+          type: Core Engine
+
+          name: Validator Engine
+
+          description: Validate blueprint integrity and project quality.
+
+          purpose: Ensure consistency.
+
+          milestone: PHASE-004
+
+          priority: Critical
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - validation
+
+            - quality
+
+          dependencies:
+
+            - ENG-001
+
+          inputs:
+
+            - Blueprint
+
+          outputs:
+
+            - Validation Reports
+
+          future_extensions:
+
+            - AI Validation
+
+        monitoring_engine:
+
+          id: ENG-003
+
+          type: Core Engine
+
+          name: Monitoring Engine
+
+          description: Monitor execution, health and project metrics.
+
+          purpose: Measure project health.
+
+          milestone: PHASE-005
+
+          priority: High
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - monitoring
+
+            - metrics
+
+          dependencies:
+
+            - ENG-002
+
+          inputs:
+
+            - Validation Reports
+
+          outputs:
+
+            - Health Metrics
+
+          future_extensions:
+
+            - Predictive Monitoring
+
+        automation_engine:
+
+          id: ENG-004
+
+          type: Core Engine
+
+          name: Automation Engine
+
+          description: Automate repetitive workflows and scheduled tasks.
+
+          purpose: Reduce manual effort.
+
+          milestone: PHASE-006
+
+          priority: High
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - automation
+
+            - scheduler
+
+          dependencies:
+
+            - ENG-003
+
+          inputs:
+
+            - Monitoring Metrics
+
+          outputs:
+
+            - Automated Workflows
+
+          future_extensions:
+
+            - Self-Healing Automation
+
+        dashboard_engine:
+
+          id: ENG-005
+
+          type: Core Engine
+
+          name: FIOS Live Dashboard
+
+          description: Operate Financial Intelligence OS from one live dashboard.
+
+          purpose: Central operating dashboard.
+
+          milestone: PHASE-007
+
+          priority: High
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - dashboard
+
+            - control-center
+
+          dependencies:
+
+            - ENG-004
+
+          inputs:
+
+            - Automation
+
+          outputs:
+
+            - Live Dashboard
+
+          future_extensions:
+
+            - AI Copilot
+
+    data_engines:
+
+      objective: >
+        Collect, process and manage data.
+
+      items:
+
+        data_acquisition_engine:
+
+          id: ENG-006
+
+          type: Data Engine
+
+          name: Data Acquisition Engine
+
+          description: Collect financial and business data.
+
+          purpose: Acquire reliable data.
+
+          milestone: PHASE-008
+
+          priority: Critical
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - data
+
+            - acquisition
+
+          dependencies:
+
+            - ENG-005
+
+          inputs:
+
+            - External Sources
+
+          outputs:
+
+            - Raw Data
+
+          future_extensions:
+
+            - Streaming Data
+
+        data_validation_engine:
+
+          id: ENG-007
+
+          type: Data Engine
+
+          name: Data Validation Engine
+
+          description: Validate collected datasets.
+
+          purpose: Ensure data quality.
+
+          milestone: PHASE-008
+
+          priority: High
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - validation
+
+            - data
+
+          dependencies:
+
+            - ENG-006
+
+          inputs:
+
+            - Raw Data
+
+          outputs:
+
+            - Validated Data
+
+          future_extensions:
+
+            - AI Validation
+
+        data_transformation_engine:
+
+          id: ENG-008
+
+          type: Data Engine
+
+          name: Data Transformation Engine
+
+          description: Clean and transform datasets.
+
+          purpose: Prepare analytics-ready data.
+
+          milestone: PHASE-008
+
+          priority: High
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - transformation
+
+            - etl
+
+          dependencies:
+
+            - ENG-007
+
+          inputs:
+
+            - Validated Data
+
+          outputs:
+
+            - Processed Data
+
+          future_extensions:
+
+            - Real-Time Processing
+
+        data_storage_engine:
+
+          id: ENG-009
+
+          type: Data Engine
+
+          name: Data Storage Engine
+
+          description: Store structured and unstructured data.
+
+          purpose: Maintain persistent storage.
+
+          milestone: PHASE-008
+
+          priority: High
+
+          status: Planned
+
+          owner: Financial Intelligence OS
+
+          tags:
+
+            - storage
+
+            - database
+
+          dependencies:
+
+            - ENG-008
+
+          inputs:
+
+            - Processed Data
+
+          outputs:
+
+            - Data Warehouse
+
+          future_extensions:
+
+            - Distributed Storage
+
+    intelligence_engines:
+
+      objective: >
+        Deliver intelligent analysis and decision support.
+
+      items:
+
+        financial_intelligence:
+
+          id: ENG-010
+
+          name: Financial Intelligence
+
+          status: Planned
+
+        business_intelligence:
+
+          id: ENG-011
+
+          name: Business Intelligence
+
+          status: Planned
+
+        enterprise_intelligence:
+
+          id: ENG-012
+
+          name: Enterprise Intelligence
+
+          status: Planned
+
+        governance_intelligence:
+
+          id: ENG-013
+
+          name: Governance Intelligence
+
+          status: Planned
+
+        investment_intelligence:
+
+          id: ENG-014
+
+          name: Investment Intelligence
+
+          status: Planned
+
+        portfolio_intelligence:
+
+          id: ENG-015
+
+          name: Portfolio Intelligence
+
+          status: Planned
+
+        market_intelligence:
+
+          id: ENG-016
+
+          name: Market Intelligence
+
+          status: Planned
+
+        economic_intelligence:
+
+          id: ENG-017
+
+          name: Economic Intelligence
+
+          status: Planned
+
+        company_intelligence:
+
+          id: ENG-018
+
+          name: Company Intelligence
+
+          status: Planned
+
+        ai_decision_intelligence:
+
+          id: ENG-019
+
+          name: AI Decision Intelligence
+
+          status: Planned
+
+    product_engines:
+
+      objective: >
+        Deliver reusable products.
+
+      items:
+
+        reporting_engine:
+
+          id: ENG-020
+
+          name: Reporting Engine
+
+          status: Planned
+
+        excel_engine:
+
+          id: ENG-021
+
+          name: Excel Engine
+
+          status: Planned
+
+        dashboard_generator:
+
+          id: ENG-022
+
+          name: Dashboard Generator
+
+          status: Planned
+
+        documentation_engine:
+
+          id: ENG-023
+
+          name: Documentation Engine
+
+          status: Planned
+
+        api_engine:
+
+          id: ENG-024
+
+          name: API Engine
+
+          status: Planned
+
+        website_engine:
+
+          id: ENG-025
+
+          name: Website Engine
+
+          status: Planned
+
+        ai_assistant_engine:
+
+          id: ENG-026
+
+          name: AI Assistant Engine
+
+          status: Planned
+
+metadata:
+
+  blueprint: Engine Blueprint
+
+  version: 1.0
+
+  status: Active
+
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04

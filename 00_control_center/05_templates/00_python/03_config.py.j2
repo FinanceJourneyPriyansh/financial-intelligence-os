@@ -1,0 +1,24 @@
+"""
+{{ company.identity.name }}
+{{ component.name }} Configuration
+
+Purpose
+-------
+Configuration template for {{ component.name }}.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass
+class {{ component.class_name }}Config:
+    """
+    Configuration for {{ component.name }}.
+    """
+
+    enabled: bool = True
+    version: str = "{{ version.current.full_version }}"
+    environment: str = "development"
+    debug: bool = False

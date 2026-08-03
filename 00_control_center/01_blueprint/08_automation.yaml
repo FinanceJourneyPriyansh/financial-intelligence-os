@@ -1,90 +1,210 @@
 automation:
 
-  vision:
-
-    statement: >
-      Financial Intelligence OS automates repetitive, rule-based,
-      and data-driven processes to improve efficiency, accuracy,
-      scalability, and decision support.
+  objective: >
+    Define the automation capabilities of Financial Intelligence OS,
+    enabling continuous execution, scheduling, monitoring,
+    synchronization and self-managed workflows.
 
   categories:
 
-    data_automation:
-
-      description: Automate data collection and preparation.
-
-      workflows:
-
-        - Scheduled Data Collection
-        - Automated Data Validation
-        - Data Cleaning Pipeline
-        - Data Transformation Pipeline
-        - Incremental Data Updates
-
-    blueprint_automation:
-
-      description: Automate project blueprint management.
-
-      workflows:
-
-        - Blueprint Validation
-        - YAML Loading
-        - Metadata Synchronization
-        - Structure Verification
-        - Configuration Management
-
-    documentation_automation:
-
-      description: Generate project documentation automatically.
-
-      workflows:
-
-        - README Generation
-        - Markdown Generation
-        - Architecture Documentation
-        - API Documentation
-        - Release Notes Generation
-
-    reporting_automation:
-
-      description: Automate reporting and visualization.
-
-      workflows:
-
-        - Excel Report Generation
-        - Dashboard Updates
-        - KPI Reporting
-        - Financial Report Generation
-        - PDF Report Generation
-
     development_automation:
 
-      description: Automate software development tasks.
+      objective: >
+        Automate software development activities.
 
-      workflows:
+      items:
 
-        - Code Formatting
-        - Linting
-        - Testing
-        - Dependency Checks
-        - Build Automation
+        project_generation:
 
-    deployment_automation:
+          id: AUTO-001
 
-      description: Automate deployment and release processes.
+          name: Project Generation
 
-      workflows:
+          status: Planned
 
-        - Continuous Integration
-        - Continuous Deployment
-        - Version Management
-        - Package Publishing
-        - Website Deployment
+        documentation_generation:
+
+          id: AUTO-002
+
+          name: Documentation Generation
+
+          status: Planned
+
+        blueprint_validation:
+
+          id: AUTO-003
+
+          name: Blueprint Validation
+
+          status: Planned
+
+        testing:
+
+          id: AUTO-004
+
+          name: Automated Testing
+
+          status: Planned
+
+        deployment:
+
+          id: AUTO-005
+
+          name: Automated Deployment
+
+          status: Planned
+
+    data_automation:
+
+      objective: >
+        Automate data collection and maintenance.
+
+      items:
+
+        scheduled_data_collection:
+
+          id: AUTO-006
+
+          name: Scheduled Data Collection
+
+          status: Planned
+
+        data_validation:
+
+          id: AUTO-007
+
+          name: Data Validation
+
+          status: Planned
+
+        data_processing:
+
+          id: AUTO-008
+
+          name: Data Processing
+
+          status: Planned
+
+        data_backup:
+
+          id: AUTO-009
+
+          name: Data Backup
+
+          status: Planned
+
+        data_recovery:
+
+          id: AUTO-010
+
+          name: Data Recovery
+
+          status: Planned
+
+    monitoring_automation:
+
+      objective: >
+        Automate system monitoring and notifications.
+
+      items:
+
+        health_monitoring:
+
+          id: AUTO-011
+
+          name: Health Monitoring
+
+          status: Planned
+
+        progress_tracking:
+
+          id: AUTO-012
+
+          name: Progress Tracking
+
+          status: Planned
+
+        notifications:
+
+          id: AUTO-013
+
+          name: Notifications
+
+          status: Planned
+
+        logging:
+
+          id: AUTO-014
+
+          name: Activity Logging
+
+          status: Planned
+
+        reporting:
+
+          id: AUTO-015
+
+          name: Automated Reporting
+
+          status: Planned
+
+    intelligence_automation:
+
+      objective: >
+        Automate intelligence generation and decision support.
+
+      items:
+
+        financial_analysis:
+
+          id: AUTO-016
+
+          name: Financial Analysis Automation
+
+          status: Planned
+
+        business_analysis:
+
+          id: AUTO-017
+
+          name: Business Analysis Automation
+
+          status: Planned
+
+        forecasting:
+
+          id: AUTO-018
+
+          name: Forecasting Automation
+
+          status: Planned
+
+        recommendation:
+
+          id: AUTO-019
+
+          name: Recommendation Automation
+
+          status: Planned
+
+        decision_support:
+
+          id: AUTO-020
+
+          name: Decision Support Automation
+
+          status: Planned
 
 metadata:
 
+  blueprint: Automation Blueprint
+
   version: 1.0
 
-  maintained_by: Priyansh Soni
+  status: Active
 
-  last_updated: 2026-08-02
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04

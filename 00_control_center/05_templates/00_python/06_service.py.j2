@@ -1,0 +1,31 @@
+"""
+{{ company.identity.name }}
+{{ component.name }} Service
+
+Purpose
+-------
+Service layer for {{ component.name }}.
+
+The service layer contains the business logic used by
+the generated component.
+"""
+
+from __future__ import annotations
+
+
+class {{ component.service_class_name }}:
+    """
+    Service class for {{ component.name }}.
+    """
+
+    def __init__(self) -> None:
+
+        self.name = "{{ component.name }}"
+        self.status = "Ready"
+
+    def execute(self) -> None:
+        """
+        Execute the primary service operation.
+        """
+
+        print(f"Executing {self.name} service.")

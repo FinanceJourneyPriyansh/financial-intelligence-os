@@ -1,0 +1,179 @@
+users:
+
+  objective: >
+    Define the target users, stakeholders and beneficiaries of
+    Financial Intelligence OS. These user groups guide product
+    development, feature prioritization and future commercialization.
+
+  categories:
+
+    individual_users:
+
+      objective: >
+        Individual users using FIOS for learning, investing and productivity.
+
+      items:
+
+        students:
+
+          id: USER-001
+
+          name: Students
+
+          status: Planned
+
+        job_seekers:
+
+          id: USER-002
+
+          name: Job Seekers
+
+          status: Planned
+
+        freelancers:
+
+          id: USER-003
+
+          name: Freelancers
+
+          status: Planned
+
+        researchers:
+
+          id: USER-004
+
+          name: Researchers
+
+          status: Planned
+
+        retail_investors:
+
+          id: USER-005
+
+          name: Retail Investors
+
+          status: Planned
+
+        traders:
+
+          id: USER-006
+
+          name: Traders
+
+          status: Planned
+
+    professional_users:
+
+      objective: >
+        Professionals using FIOS for analysis and decision support.
+
+      items:
+
+        financial_analysts:
+
+          id: USER-007
+
+          name: Financial Analysts
+
+          status: Planned
+
+        business_analysts:
+
+          id: USER-008
+
+          name: Business Analysts
+
+          status: Planned
+
+        accountants:
+
+          id: USER-009
+
+          name: Accountants
+
+          status: Planned
+
+        consultants:
+
+          id: USER-010
+
+          name: Consultants
+
+          status: Planned
+
+        auditors:
+
+          id: USER-011
+
+          name: Auditors
+
+          status: Planned
+
+    business_users:
+
+      objective: >
+        Organizations and business decision makers.
+
+      items:
+
+        startup_founders:
+
+          id: USER-012
+
+          name: Startup Founders
+
+          status: Planned
+
+        business_owners:
+
+          id: USER-013
+
+          name: Business Owners
+
+          status: Planned
+
+        ceos:
+
+          id: USER-014
+
+          name: CEOs
+
+          status: Planned
+
+        executives:
+
+          id: USER-015
+
+          name: Executives
+
+          status: Planned
+
+        enterprises:
+
+          id: USER-016
+
+          name: Enterprises
+
+          status: Planned
+
+        government:
+
+          id: USER-017
+
+          name: Government Organizations
+
+          status: Planned
+
+metadata:
+
+  blueprint: Users Blueprint
+
+  version: 1.0
+
+  status: Active
+
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04

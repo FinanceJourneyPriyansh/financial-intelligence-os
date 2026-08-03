@@ -1,0 +1,217 @@
+datasources:
+
+  objective: >
+    Define all internal and external data sources used by
+    Financial Intelligence OS to acquire financial, economic,
+    business, market and enterprise information.
+
+  categories:
+
+    financial_market_data:
+
+      objective: >
+        Financial market and securities data providers.
+
+      items:
+
+        yahoo_finance:
+
+          id: DATA-001
+
+          name: Yahoo Finance
+
+          status: Planned
+
+        alpha_vantage:
+
+          id: DATA-002
+
+          name: Alpha Vantage
+
+          status: Planned
+
+        finnhub:
+
+          id: DATA-003
+
+          name: Finnhub
+
+          status: Planned
+
+        polygon:
+
+          id: DATA-004
+
+          name: Polygon.io
+
+          status: Planned
+
+    indian_market_data:
+
+      objective: >
+        Indian financial market data providers.
+
+      items:
+
+        nse:
+
+          id: DATA-005
+
+          name: National Stock Exchange (NSE)
+
+          status: Planned
+
+        bse:
+
+          id: DATA-006
+
+          name: Bombay Stock Exchange (BSE)
+
+          status: Planned
+
+        sebi:
+
+          id: DATA-007
+
+          name: Securities and Exchange Board of India (SEBI)
+
+          status: Planned
+
+        mca:
+
+          id: DATA-008
+
+          name: Ministry of Corporate Affairs (MCA)
+
+          status: Planned
+
+    economic_data:
+
+      objective: >
+        Economic and macroeconomic information.
+
+      items:
+
+        fred:
+
+          id: DATA-009
+
+          name: FRED
+
+          status: Planned
+
+        world_bank:
+
+          id: DATA-010
+
+          name: World Bank
+
+          status: Planned
+
+        imf:
+
+          id: DATA-011
+
+          name: International Monetary Fund (IMF)
+
+          status: Planned
+
+        oecd:
+
+          id: DATA-012
+
+          name: OECD
+
+          status: Planned
+
+    company_data:
+
+      objective: >
+        Company fundamentals and business information.
+
+      items:
+
+        sec_edgar:
+
+          id: DATA-013
+
+          name: SEC EDGAR
+
+          status: Planned
+
+        companies_house:
+
+          id: DATA-014
+
+          name: Companies House
+
+          status: Planned
+
+        annual_reports:
+
+          id: DATA-015
+
+          name: Annual Reports
+
+          status: Planned
+
+        investor_relations:
+
+          id: DATA-016
+
+          name: Investor Relations
+
+          status: Planned
+
+    news_and_events:
+
+      objective: >
+        News, announcements and event information.
+
+      items:
+
+        reuters:
+
+          id: DATA-017
+
+          name: Reuters
+
+          status: Planned
+
+        bloomberg:
+
+          id: DATA-018
+
+          name: Bloomberg
+
+          status: Planned
+
+        rss_feeds:
+
+          id: DATA-019
+
+          name: RSS Feeds
+
+          status: Planned
+
+        government_portals:
+
+          id: DATA-020
+
+          name: Government Portals
+
+          status: Planned
+
+metadata:
+
+  blueprint: Datasources Blueprint
+
+  version: 1.0
+
+  status: Active
+
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04

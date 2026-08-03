@@ -1,0 +1,26 @@
+"""
+{{ company.identity.name }}
+{{ component.name }} Models
+
+Purpose
+-------
+Data models used by {{ component.name }}.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from datetime import datetime
+
+
+@dataclass
+class {{ component.model_name }}:
+    """
+    Primary data model for {{ component.name }}.
+    """
+
+    name: str
+    description: str = ""
+    enabled: bool = True
+    status: str = "Pending"
+    created_at: datetime = field(default_factory=datetime.now)

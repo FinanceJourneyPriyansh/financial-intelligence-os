@@ -1,0 +1,225 @@
+skills:
+
+  objective: >
+    Define the knowledge, technical competencies and business skills
+    required to design, develop, operate and expand Financial
+    Intelligence OS.
+
+  categories:
+
+    programming_skills:
+
+      objective: >
+        Software development skills.
+
+      items:
+
+        python:
+
+          id: SKILL-001
+
+          name: Python Programming
+
+          status: Active
+
+        sql:
+
+          id: SKILL-002
+
+          name: SQL
+
+          status: Planned
+
+        api_development:
+
+          id: SKILL-003
+
+          name: API Development
+
+          status: Planned
+
+        object_oriented_programming:
+
+          id: SKILL-004
+
+          name: Object-Oriented Programming
+
+          status: Planned
+
+    data_skills:
+
+      objective: >
+        Data engineering and analytics skills.
+
+      items:
+
+        data_collection:
+
+          id: SKILL-005
+
+          name: Data Collection
+
+          status: Planned
+
+        data_cleaning:
+
+          id: SKILL-006
+
+          name: Data Cleaning
+
+          status: Planned
+
+        data_analysis:
+
+          id: SKILL-007
+
+          name: Data Analysis
+
+          status: Planned
+
+        data_visualization:
+
+          id: SKILL-008
+
+          name: Data Visualization
+
+          status: Planned
+
+    finance_skills:
+
+      objective: >
+        Financial analysis and modelling skills.
+
+      items:
+
+        financial_statement_analysis:
+
+          id: SKILL-009
+
+          name: Financial Statement Analysis
+
+          status: Planned
+
+        valuation:
+
+          id: SKILL-010
+
+          name: Business Valuation
+
+          status: Planned
+
+        financial_modeling:
+
+          id: SKILL-011
+
+          name: Financial Modeling
+
+          status: Planned
+
+        portfolio_management:
+
+          id: SKILL-012
+
+          name: Portfolio Management
+
+          status: Planned
+
+        investment_analysis:
+
+          id: SKILL-013
+
+          name: Investment Analysis
+
+          status: Planned
+
+    business_skills:
+
+      objective: >
+        Business and management skills.
+
+      items:
+
+        strategic_planning:
+
+          id: SKILL-014
+
+          name: Strategic Planning
+
+          status: Planned
+
+        business_analysis:
+
+          id: SKILL-015
+
+          name: Business Analysis
+
+          status: Planned
+
+        project_management:
+
+          id: SKILL-016
+
+          name: Project Management
+
+          status: Planned
+
+        decision_making:
+
+          id: SKILL-017
+
+          name: Decision Making
+
+          status: Planned
+
+    ai_skills:
+
+      objective: >
+        Artificial intelligence and automation skills.
+
+      items:
+
+        prompt_engineering:
+
+          id: SKILL-018
+
+          name: Prompt Engineering
+
+          status: Active
+
+        machine_learning:
+
+          id: SKILL-019
+
+          name: Machine Learning
+
+          status: Planned
+
+        ai_automation:
+
+          id: SKILL-020
+
+          name: AI Automation
+
+          status: Planned
+
+        llm_application_development:
+
+          id: SKILL-021
+
+          name: LLM Application Development
+
+          status: Planned
+
+metadata:
+
+  blueprint: Skills Blueprint
+
+  version: 1.0
+
+  status: Active
+
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04

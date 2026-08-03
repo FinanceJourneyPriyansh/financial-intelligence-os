@@ -1,0 +1,258 @@
+intelligence:
+
+  objective: >
+    Define every intelligence domain that Financial Intelligence OS
+    can build, analyze, monitor and automate. These domains form the
+    knowledge ecosystem of FIOS and support decision making across
+    multiple industries and business functions.
+
+  categories:
+
+    financial_intelligence:
+
+      objective: >
+        Financial analysis and investment intelligence.
+
+      items:
+
+        financial_analysis:
+
+          id: INT-001
+
+          name: Financial Analysis
+
+          status: Planned
+
+        valuation:
+
+          id: INT-002
+
+          name: Valuation Intelligence
+
+          status: Planned
+
+        portfolio_analysis:
+
+          id: INT-003
+
+          name: Portfolio Intelligence
+
+          status: Planned
+
+        investment_analysis:
+
+          id: INT-004
+
+          name: Investment Intelligence
+
+          status: Planned
+
+        financial_health:
+
+          id: INT-005
+
+          name: Financial Health Intelligence
+
+          status: Planned
+
+    business_intelligence:
+
+      objective: >
+        Business and enterprise intelligence.
+
+      items:
+
+        business_analysis:
+
+          id: INT-006
+
+          name: Business Intelligence
+
+          status: Planned
+
+        enterprise_analysis:
+
+          id: INT-007
+
+          name: Enterprise Intelligence
+
+          status: Planned
+
+        governance:
+
+          id: INT-008
+
+          name: Governance Intelligence
+
+          status: Planned
+
+        operational:
+
+          id: INT-009
+
+          name: Operational Intelligence
+
+          status: Planned
+
+        strategic:
+
+          id: INT-010
+
+          name: Strategic Intelligence
+
+          status: Planned
+
+    market_intelligence:
+
+      objective: >
+        Market and economic intelligence.
+
+      items:
+
+        market_analysis:
+
+          id: INT-011
+
+          name: Market Intelligence
+
+          status: Planned
+
+        economic_analysis:
+
+          id: INT-012
+
+          name: Economic Intelligence
+
+          status: Planned
+
+        industry_analysis:
+
+          id: INT-013
+
+          name: Industry Intelligence
+
+          status: Planned
+
+        company_analysis:
+
+          id: INT-014
+
+          name: Company Intelligence
+
+          status: Planned
+
+        event_analysis:
+
+          id: INT-015
+
+          name: Event Intelligence
+
+          status: Planned
+
+    ai_intelligence:
+
+      objective: >
+        Artificial intelligence driven insights.
+
+      items:
+
+        predictive:
+
+          id: INT-016
+
+          name: Predictive Intelligence
+
+          status: Planned
+
+        recommendation:
+
+          id: INT-017
+
+          name: Recommendation Intelligence
+
+          status: Planned
+
+        decision_support:
+
+          id: INT-018
+
+          name: AI Decision Intelligence
+
+          status: Planned
+
+        forecasting:
+
+          id: INT-019
+
+          name: Forecasting Intelligence
+
+          status: Planned
+
+        executive:
+
+          id: INT-020
+
+          name: Executive Intelligence
+
+          status: Planned
+
+    specialized_intelligence:
+
+      objective: >
+        Specialized intelligence domains.
+
+      items:
+
+        compliance:
+
+          id: INT-021
+
+          name: Compliance Intelligence
+
+          status: Planned
+
+        risk:
+
+          id: INT-022
+
+          name: Risk Intelligence
+
+          status: Planned
+
+        fraud:
+
+          id: INT-023
+
+          name: Fraud Intelligence
+
+          status: Planned
+
+        esg:
+
+          id: INT-024
+
+          name: ESG Intelligence
+
+          status: Planned
+
+        research:
+
+          id: INT-025
+
+          name: Research Intelligence
+
+          status: Planned
+
+metadata:
+
+  blueprint: Intelligence Blueprint
+
+  version: 1.0
+
+  status: Active
+
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04

@@ -1,0 +1,20 @@
+"""
+{{ company.identity.name }}
+{{ component.name }}
+
+Purpose
+-------
+{{ component.purpose }}
+
+Modules
+-------
+{% for module in component.modules %}
+- {{ module }}
+{% endfor %}
+"""
+
+from .engine import {{ component.class_name }}
+
+__all__ = [
+    "{{ component.class_name }}",
+]

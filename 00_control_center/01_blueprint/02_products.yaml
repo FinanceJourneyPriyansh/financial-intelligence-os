@@ -1,139 +1,279 @@
 products:
 
-  vision:
-
-    statement: >
-      Every completed phase should produce one or more reusable,
-      portfolio-ready, and commercially valuable products.
+  objective: >
+    Define every product that Financial Intelligence OS can
+    generate, operate, maintain and commercialize.
 
   categories:
 
-    dashboards:
+    documentation_products:
 
-      description: Interactive dashboards for financial and business intelligence.
+      objective: >
+        Products that generate project documentation.
 
-      products:
+      items:
 
-        - Stock Market Dashboard
+        readme:
 
-        - Portfolio Dashboard
+          id: PROD-001
 
-        - Financial KPI Dashboard
+          name: README Generator
 
-        - Company Analysis Dashboard
+          status: Planned
 
-        - Economic Dashboard
+        documentation:
 
-        - Risk Dashboard
+          id: PROD-002
 
-        - ESG Dashboard
+          name: Documentation System
 
-    automation:
+          status: Planned
 
-      description: Automated workflows and productivity tools.
+        architecture_documentation:
 
-      products:
+          id: PROD-003
 
-        - Financial Data Pipeline
+          name: Architecture Documentation
 
-        - Report Generator
+          status: Planned
 
-        - Excel Automation Suite
+        project_tree:
 
-        - Data Validation Engine
+          id: PROD-004
 
-        - Scheduled Data Collector
+          name: Project Tree Generator
 
-    intelligence:
+          status: Planned
 
-      description: Analytical and decision-support engines.
+    reporting_products:
 
-      products:
+      objective: >
+        Reporting and analytics products.
 
-        - Valuation Engine
+      items:
 
-        - Forecasting Engine
+        excel_reports:
 
-        - Risk Intelligence Engine
+          id: PROD-005
 
-        - Investment Intelligence Engine
+          name: Excel Reports
 
-        - Market Intelligence Engine
+          status: Planned
 
-        - Business Intelligence Engine
+        pdf_reports:
 
-        - Decision Support Engine
+          id: PROD-006
 
-    ai:
+          name: PDF Reports
 
-      description: AI-powered financial applications.
+          status: Planned
 
-      products:
+        html_reports:
 
-        - AI Financial Assistant
+          id: PROD-007
 
-        - AI Research Assistant
+          name: HTML Reports
 
-        - AI Report Summarizer
+          status: Planned
 
-        - AI Forecast Assistant
+        json_reports:
 
-        - AI Decision Advisor
+          id: PROD-008
 
-    developer_tools:
+          name: JSON Reports
 
-      description: Tools for developers and analysts.
+          status: Planned
 
-      products:
+    dashboard_products:
 
-        - FIOS CLI
+      objective: >
+        Interactive dashboards.
 
-        - Blueprint Generator
+      items:
 
-        - Project Generator
+        fios_dashboard:
 
-        - YAML Validator
+          id: PROD-009
 
-        - Documentation Generator
+          name: FIOS Live Dashboard
 
-        - API Generator
+          status: Planned
 
-    education:
+        financial_dashboard:
 
-      description: Learning resources and educational platforms.
+          id: PROD-010
 
-      products:
+          name: Financial Dashboard
 
-        - Finance Learning Hub
+          status: Planned
 
-        - Investment Simulator
+        business_dashboard:
 
-        - Financial Modeling Toolkit
+          id: PROD-011
 
-        - Interview Preparation Kit
+          name: Business Dashboard
 
-        - Learning Dashboard
+          status: Planned
 
-    enterprise:
+        portfolio_dashboard:
 
-      description: Enterprise-grade business solutions.
+          id: PROD-012
 
-      products:
+          name: Portfolio Dashboard
 
-        - Enterprise Financial Platform
+          status: Planned
 
-        - Executive Dashboard
+        enterprise_dashboard:
 
-        - Decision Intelligence Platform
+          id: PROD-013
 
-        - Corporate Reporting Suite
+          name: Enterprise Dashboard
 
-        - Organization Monitoring Platform
+          status: Planned
+
+    financial_products:
+
+      objective: >
+        Financial intelligence products.
+
+      items:
+
+        valuation_models:
+
+          id: PROD-014
+
+          name: Valuation Models
+
+          status: Planned
+
+        financial_models:
+
+          id: PROD-015
+
+          name: Financial Models
+
+          status: Planned
+
+        portfolio_analysis:
+
+          id: PROD-016
+
+          name: Portfolio Analysis
+
+          status: Planned
+
+        investment_reports:
+
+          id: PROD-017
+
+          name: Investment Reports
+
+          status: Planned
+
+        company_analysis:
+
+          id: PROD-018
+
+          name: Company Analysis
+
+          status: Planned
+
+    ai_products:
+
+      objective: >
+        AI-powered products.
+
+      items:
+
+        ai_assistant:
+
+          id: PROD-019
+
+          name: AI Assistant
+
+          status: Planned
+
+        decision_support:
+
+          id: PROD-020
+
+          name: Decision Support System
+
+          status: Planned
+
+        forecasting_engine:
+
+          id: PROD-021
+
+          name: Forecasting Engine
+
+          status: Planned
+
+        recommendation_engine:
+
+          id: PROD-022
+
+          name: Recommendation Engine
+
+          status: Planned
+
+    platform_products:
+
+      objective: >
+        Public platform products.
+
+      items:
+
+        web_platform:
+
+          id: PROD-023
+
+          name: Web Platform
+
+          status: Planned
+
+        desktop_application:
+
+          id: PROD-024
+
+          name: Desktop Application
+
+          status: Planned
+
+        mobile_application:
+
+          id: PROD-025
+
+          name: Mobile Application
+
+          status: Planned
+
+        api_platform:
+
+          id: PROD-026
+
+          name: API Platform
+
+          status: Planned
+
+        saas_platform:
+
+          id: PROD-027
+
+          name: SaaS Platform
+
+          status: Planned
 
 metadata:
 
+  blueprint: Product Blueprint
+
   version: 1.0
 
-  maintained_by: Priyansh Soni
+  status: Active
 
-  last_updated: 2026-08-02
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04

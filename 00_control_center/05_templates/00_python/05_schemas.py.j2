@@ -1,0 +1,23 @@
+"""
+{{ company.identity.name }}
+{{ component.name }} Schemas
+
+Purpose
+-------
+Validation schemas for {{ component.name }}.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass
+class {{ component.schema_name }}:
+    """
+    Validation schema for {{ component.name }}.
+    """
+
+    name: str
+    description: str = ""
+    enabled: bool = True

@@ -1,0 +1,272 @@
+technologies:
+
+  objective: >
+    Define the technologies, frameworks, programming languages,
+    databases, cloud platforms, development tools and supporting
+    software used throughout Financial Intelligence OS.
+
+  categories:
+
+    programming_languages:
+
+      objective: >
+        Primary programming languages.
+
+      items:
+
+        python:
+
+          id: TECH-001
+
+          name: Python
+
+          status: Active
+
+        sql:
+
+          id: TECH-002
+
+          name: SQL
+
+          status: Planned
+
+        javascript:
+
+          id: TECH-003
+
+          name: JavaScript
+
+          status: Planned
+
+        typescript:
+
+          id: TECH-004
+
+          name: TypeScript
+
+          status: Planned
+
+        powershell:
+
+          id: TECH-005
+
+          name: PowerShell
+
+          status: Active
+
+    data_engineering:
+
+      objective: >
+        Data engineering technologies.
+
+      items:
+
+        pandas:
+
+          id: TECH-006
+
+          name: Pandas
+
+          status: Planned
+
+        numpy:
+
+          id: TECH-007
+
+          name: NumPy
+
+          status: Planned
+
+        pyarrow:
+
+          id: TECH-008
+
+          name: PyArrow
+
+          status: Planned
+
+        sqlalchemy:
+
+          id: TECH-009
+
+          name: SQLAlchemy
+
+          status: Planned
+
+    databases:
+
+      objective: >
+        Database technologies.
+
+      items:
+
+        sqlite:
+
+          id: TECH-010
+
+          name: SQLite
+
+          status: Planned
+
+        postgresql:
+
+          id: TECH-011
+
+          name: PostgreSQL
+
+          status: Planned
+
+        mongodb:
+
+          id: TECH-012
+
+          name: MongoDB
+
+          status: Planned
+
+        redis:
+
+          id: TECH-013
+
+          name: Redis
+
+          status: Planned
+
+    visualization:
+
+      objective: >
+        Dashboard and visualization technologies.
+
+      items:
+
+        streamlit:
+
+          id: TECH-014
+
+          name: Streamlit
+
+          status: Planned
+
+        plotly:
+
+          id: TECH-015
+
+          name: Plotly
+
+          status: Planned
+
+        power_bi:
+
+          id: TECH-016
+
+          name: Power BI
+
+          status: Planned
+
+        matplotlib:
+
+          id: TECH-017
+
+          name: Matplotlib
+
+          status: Planned
+
+    automation:
+
+      objective: >
+        Automation and workflow technologies.
+
+      items:
+
+        github_actions:
+
+          id: TECH-018
+
+          name: GitHub Actions
+
+          status: Planned
+
+        cron:
+
+          id: TECH-019
+
+          name: Cron Scheduler
+
+          status: Planned
+
+        jinja2:
+
+          id: TECH-020
+
+          name: Jinja2
+
+          status: Planned
+
+        yaml:
+
+          id: TECH-021
+
+          name: YAML
+
+          status: Active
+
+    development_tools:
+
+      objective: >
+        Development and collaboration tools.
+
+      items:
+
+        git:
+
+          id: TECH-022
+
+          name: Git
+
+          status: Active
+
+        github:
+
+          id: TECH-023
+
+          name: GitHub
+
+          status: Active
+
+        vscode:
+
+          id: TECH-024
+
+          name: Visual Studio Code
+
+          status: Active
+
+        docker:
+
+          id: TECH-025
+
+          name: Docker
+
+          status: Planned
+
+        uv:
+
+          id: TECH-026
+
+          name: UV Package Manager
+
+          status: Planned
+
+metadata:
+
+  blueprint: Technology Blueprint
+
+  version: 1.0
+
+  status: Active
+
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04

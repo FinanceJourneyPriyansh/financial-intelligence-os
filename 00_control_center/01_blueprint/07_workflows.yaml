@@ -1,0 +1,210 @@
+workflows:
+
+  objective: >
+    Define the standard workflows that govern how Financial
+    Intelligence OS operates, automates tasks and delivers
+    products from idea to deployment.
+
+  categories:
+
+    development_workflows:
+
+      objective: >
+        Core software development workflows.
+
+      items:
+
+        project_initialization:
+
+          id: FLOW-001
+
+          name: Project Initialization
+
+          status: Planned
+
+        blueprint_creation:
+
+          id: FLOW-002
+
+          name: Blueprint Creation
+
+          status: Planned
+
+        project_generation:
+
+          id: FLOW-003
+
+          name: Project Generation
+
+          status: Planned
+
+        validation:
+
+          id: FLOW-004
+
+          name: Validation Workflow
+
+          status: Planned
+
+        documentation:
+
+          id: FLOW-005
+
+          name: Documentation Workflow
+
+          status: Planned
+
+    automation_workflows:
+
+      objective: >
+        Automated execution workflows.
+
+      items:
+
+        scheduled_execution:
+
+          id: FLOW-006
+
+          name: Scheduled Execution
+
+          status: Planned
+
+        monitoring:
+
+          id: FLOW-007
+
+          name: Monitoring Workflow
+
+          status: Planned
+
+        notification:
+
+          id: FLOW-008
+
+          name: Notification Workflow
+
+          status: Planned
+
+        backup:
+
+          id: FLOW-009
+
+          name: Backup Workflow
+
+          status: Planned
+
+        recovery:
+
+          id: FLOW-010
+
+          name: Recovery Workflow
+
+          status: Planned
+
+    data_workflows:
+
+      objective: >
+        Data acquisition and processing workflows.
+
+      items:
+
+        data_collection:
+
+          id: FLOW-011
+
+          name: Data Collection
+
+          status: Planned
+
+        data_validation:
+
+          id: FLOW-012
+
+          name: Data Validation
+
+          status: Planned
+
+        data_processing:
+
+          id: FLOW-013
+
+          name: Data Processing
+
+          status: Planned
+
+        data_storage:
+
+          id: FLOW-014
+
+          name: Data Storage
+
+          status: Planned
+
+        data_refresh:
+
+          id: FLOW-015
+
+          name: Data Refresh
+
+          status: Planned
+
+    intelligence_workflows:
+
+      objective: >
+        Intelligence generation workflows.
+
+      items:
+
+        financial_analysis:
+
+          id: FLOW-016
+
+          name: Financial Analysis
+
+          status: Planned
+
+        business_analysis:
+
+          id: FLOW-017
+
+          name: Business Analysis
+
+          status: Planned
+
+        reporting:
+
+          id: FLOW-018
+
+          name: Reporting Workflow
+
+          status: Planned
+
+        decision_support:
+
+          id: FLOW-019
+
+          name: Decision Support
+
+          status: Planned
+
+        product_delivery:
+
+          id: FLOW-020
+
+          name: Product Delivery
+
+          status: Planned
+
+metadata:
+
+  blueprint: Workflows Blueprint
+
+  version: 1.0
+
+  status: Active
+
+  owner: Priyansh Soni
+
+  maintained_by: Financial Intelligence OS
+
+  last_updated: 2026-08-04
