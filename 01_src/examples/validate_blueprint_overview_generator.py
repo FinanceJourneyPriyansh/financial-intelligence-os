@@ -1,0 +1,119 @@
+"""
+Financial Intelligence OS
+Blueprint Overview Generator Validation
+
+Purpose
+-------
+Validate the Blueprint Overview Generator by
+generating the Blueprint_Overview.md artifact.
+"""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+
+# Make platform_core importable
+sys.path.insert(
+    0,
+    str(ROOT / "01_src"),
+)
+
+from platform_core.generators.blueprint_overview_generator import (
+    BlueprintOverviewGenerator,
+)
+from platform_core.generators.yaml_loader import YAMLLoader
+
+
+def main() -> None:
+    """
+    Execute Blueprint Overview Generator validation.
+    """
+
+    core_directory = (
+        ROOT
+        / "00_control_center"
+        / "00_core"
+    )
+
+    blueprint_directory = (
+        ROOT
+        / "00_control_center"
+        / "01_blueprint"
+    )
+
+    template_directory = (
+        ROOT
+        / "00_control_center"
+        / "05_templates"
+        / "02_repository"
+    )
+
+    output_directory = (
+        ROOT
+        / "08_reports"
+    )
+
+    print("=" * 60)
+    print("Financial Intelligence OS")
+    print("Blueprint Overview Generator Validation")
+    print("=" * 60)
+    print()
+
+    print("Loading Blueprint...")
+
+    loader = YAMLLoader()
+
+    context = loader.load_blueprint(
+        core_directory,
+        blueprint_directory,
+    )
+
+    print(
+        f"Loaded {len(context)} YAML objects."
+    )
+
+    print()
+
+    print(
+        "Initializing Blueprint Overview Generator..."
+    )
+
+    generator = BlueprintOverviewGenerator(
+        output_directory=output_directory,
+        template_directory=template_directory,
+    )
+
+    print("Generating Blueprint_Overview.md...")
+    print()
+
+    output_file = generator.generate(
+        template_name="04_blueprint_overview.md.j2",
+        context=context,
+    )
+
+    print("Generation Successful.")
+    print()
+
+    print(f"Generated File : {output_file}")
+    print(f"Exists         : {output_file.exists()}")
+
+    if output_file.exists():
+
+        print(
+            f"File Size      : "
+            f"{output_file.stat().st_size:,} bytes"
+        )
+
+    print()
+    print("=" * 60)
+    print(
+        "Blueprint Overview Generator Validation Completed"
+    )
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()

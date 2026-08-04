@@ -4,45 +4,43 @@ Generator Platform
 
 Purpose
 -------
-The Generator Platform provides reusable generators
-that create project components from the Financial
-Intelligence OS blueprint and templates.
+Expose the public Generator Platform components
+used by the Financial Intelligence OS.
 
-Available Generators
---------------------
-- Folder Generator
-- YAML Generator
-- README Generator
-- Engine Generator
-- Domain Generator
-- Product Generator
-- Interface Generator
-- Project Generator
+The platform consists of:
 
-This package is the foundation of the FIOS
-code generation system.
+- Base Generator
+- Generator Manager
+- YAML Loader
+- Template Loader
+- Documentation Generators
 """
 
 from .base_generator import BaseGenerator
-from .folder_generator import FolderGenerator
-from .yaml_generator import YAMLGenerator
-from .readme_generator import ReadmeGenerator
-from .engine_generator import EngineGenerator
-from .domain_generator import DomainGenerator
-from .product_generator import ProductGenerator
-from .interface_generator import InterfaceGenerator
-from .project_generator import ProjectGenerator
+
 from .generator_manager import GeneratorManager
+
+from .yaml_loader import YAMLLoader
+from .template_loader import TemplateLoader
+
+from .readme_generator import ReadmeGenerator
+from .repository_structure_generator import RepositoryStructureGenerator
+from .architecture_generator import ArchitectureGenerator
+from .project_summary_generator import ProjectSummaryGenerator
+from .blueprint_overview_generator import BlueprintOverviewGenerator
+from .technology_stack_generator import TechnologyStackGenerator
+from .roadmap_generator import RoadmapGenerator
 
 __all__ = [
     "BaseGenerator",
-    "FolderGenerator",
-    "YAMLGenerator",
-    "ReadmeGenerator",
-    "EngineGenerator",
-    "DomainGenerator",
-    "ProductGenerator",
-    "InterfaceGenerator",
-    "ProjectGenerator",
     "GeneratorManager",
+    "YAMLLoader",
+    "TemplateLoader",
+    "ReadmeGenerator",
+    "RepositoryStructureGenerator",
+    "ArchitectureGenerator",
+    "ProjectSummaryGenerator",
+    "BlueprintOverviewGenerator",
+    "TechnologyStackGenerator",
+    "RoadmapGenerator",
 ]

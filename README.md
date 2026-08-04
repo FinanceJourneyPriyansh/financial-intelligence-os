@@ -31,7 +31,6 @@ financial-intelligence-os/
 ├── data/
 │   ├── raw/
 │   ├── processed/
-│   └── sample/
 │
 ├── notebooks/
 ├── reports/
