@@ -1,0 +1,74 @@
+# Financial Intelligence OS (FIOS)
+
+# Release Notes
+
+---
+
+## Release Information
+
+| Property | Value |
+|----------|-------|
+| Version | {{ builder.version }} |
+| Repository | {{ repository.name }} |
+| Release Tag | {{ repository.latest_tag }} |
+| Builder Health | {{ builder.health }}% |
+| Repository Status | {{ repository.repository_status }} |
+
+---
+
+# Milestone Summary
+
+Current Platform
+
+**{{ builder.current_platform }}**
+
+Completed Milestones
+
+**{{ builder.completed_milestones }} / {{ builder.total_milestones }}**
+
+Overall Progress
+
+**{{ builder.progress_percent }}%**
+
+---
+
+# Completed Platforms
+
+| Platform | Status |
+|----------|--------|
+| Foundation | {{ platforms.foundation }} |
+| Generator Platform | {{ platforms.generator }} |
+| Validation Platform | {{ platforms.validation }} |
+| Monitoring Platform | {{ platforms.monitoring }} |
+| Automation Platform | {{ platforms.automation }} |
+| Builder Integration | {{ platforms.integration }} |
+
+---
+
+# Development
+
+Previous Platform
+
+**{{ development.previous_phase }}**
+
+Current Platform
+
+**{{ development.current_phase }}**
+
+Next Action
+
+**{{ development.next_action }}**
+
+---
+
+# Release Workflow
+
+{% for step in release.workflow %}
+- {{ step }}
+{% endfor %}
+
+---
+
+Generated automatically by
+
+**{{ metadata.managed_by }}**

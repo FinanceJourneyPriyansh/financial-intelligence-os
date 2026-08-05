@@ -1,0 +1,81 @@
+# Financial Intelligence OS (FIOS)
+
+# Builder Audit Report
+
+---
+
+## Builder Information
+
+| Property | Value |
+|----------|-------|
+| Builder Version | {{ builder.version }} |
+| Current Platform | {{ builder.current_platform }} |
+| Builder Health | {{ builder.health }}% |
+| Repository Status | {{ repository.repository_status }} |
+| Working Tree | {{ repository.working_tree }} |
+
+---
+
+# Audit Summary
+
+| Check | Status |
+|--------|--------|
+| Repository Structure | PASS |
+| Documentation | PASS |
+| Validation | PASS |
+| Integration Tests | PASS |
+| Automation Platform | PASS |
+
+---
+
+# Builder Progress
+
+Completed Milestones
+
+**{{ builder.completed_milestones }} / {{ builder.total_milestones }}**
+
+Progress
+
+**{{ builder.progress_percent }}%**
+
+Current Platform
+
+**{{ builder.current_platform }}**
+
+---
+
+# Repository
+
+Repository
+
+**{{ repository.name }}**
+
+Branch
+
+**{{ repository.branch }}**
+
+Latest Tag
+
+**{{ repository.latest_tag }}**
+
+Working Tree
+
+**{{ repository.working_tree }}**
+
+---
+
+# Next Action
+
+**{{ development.next_action }}**
+
+---
+
+Generated automatically from
+
+```text
+00_control_center/02_configs/10_builder_state.yaml
+```
+
+Managed by
+
+**{{ metadata.managed_by }}**
