@@ -1,23 +1,50 @@
 """
-Financial Intelligence OS
-Main CLI
+============================================================
+Financial Intelligence OS (FIOS)
+Main Command Line Interface
+============================================================
+
+Purpose:
+    Primary command-line entry point for FIOS.
+
+Supported Commands:
+    - init
+    - scaffold
+    - doctor
+    - build
 """
 
-import argparse
-from pathlib import Path
+from __future__ import annotations
 
+import argparse
+import sys
+from pathlib import Path
 
 ROOT = Path(__file__).parent
 
+# Allow imports from 01_src
+sys.path.insert(0, str(ROOT / "01_src"))
 
-def init():
+from platform_core.integration.builder_integration_manager import (  # noqa: E402
+    BuilderIntegrationManager,
+)
+
+
+def init() -> None:
+    """
+    Initialize the Financial Intelligence OS.
+    """
+
     print("=" * 60)
     print("Initializing Financial Intelligence OS")
     print("=" * 60)
     print(f"Project Root : {ROOT}")
 
 
-def scaffold():
+def scaffold() -> None:
+    """
+    Create the FIOS project directory structure.
+    """
 
     folders = [
         "00_control_center",
@@ -42,7 +69,10 @@ def scaffold():
     print("\nProject Structure Ready.\n")
 
 
-def doctor():
+def doctor() -> None:
+    """
+    Verify the FIOS project structure.
+    """
 
     print("\nFIOS Doctor\n")
 
@@ -63,32 +93,74 @@ def doctor():
 
         if (ROOT / folder).exists():
             print(f"[PASS] {folder}")
-
         else:
             print(f"[FAIL] {folder}")
 
 
-parser = argparse.ArgumentParser(
-    prog="FIOS",
-    description="Financial Intelligence Operating System",
-)
+def build() -> None:
+    """
+    Execute the Builder Runtime.
+    """
 
-sub = parser.add_subparsers(dest="command")
+    print("=" * 60)
+    print("Financial Intelligence OS")
+    print("Builder Runtime")
+    print("=" * 60)
 
-sub.add_parser("init")
-sub.add_parser("scaffold")
-sub.add_parser("doctor")
+    state_path = (
+    ROOT
+    / "00_control_center"
+    / "02_configs"
+    / "10_builder_state.yaml"
+    )
 
-args = parser.parse_args()
+    manager = BuilderIntegrationManager(
+        builder_state_path=state_path,
+    )
 
-if args.command == "init":
-    init()
+    result = manager.execute()
 
-elif args.command == "scaffold":
-    scaffold()
+    if result.success:
+        print("\n[PASS] Builder Runtime completed successfully.")
 
-elif args.command == "doctor":
-    doctor()
+    else:
+        print("\n[FAIL] Builder Runtime failed.")
 
-else:
-    parser.print_help()
+
+def main() -> None:
+    """
+    Entry point for the FIOS CLI.
+    """
+
+    parser = argparse.ArgumentParser(
+        prog="FIOS",
+        description="Financial Intelligence Operating System",
+    )
+
+    sub = parser.add_subparsers(dest="command")
+
+    sub.add_parser("init")
+    sub.add_parser("scaffold")
+    sub.add_parser("doctor")
+    sub.add_parser("build")
+
+    args = parser.parse_args()
+
+    if args.command == "init":
+        init()
+
+    elif args.command == "scaffold":
+        scaffold()
+
+    elif args.command == "doctor":
+        doctor()
+
+    elif args.command == "build":
+        build()
+
+    else:
+        parser.print_help()
+
+
+if __name__ == "__main__":
+    main()

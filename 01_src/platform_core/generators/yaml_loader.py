@@ -19,7 +19,7 @@ import yaml
 
 class YAMLLoader:
     """
-    Load and save YAML configuration files.
+    Load and aggregate YAML configuration files.
     """
 
     def load(
@@ -27,7 +27,7 @@ class YAMLLoader:
         yaml_file: Path,
     ) -> dict[str, Any]:
         """
-        Load a YAML file into a Python dictionary.
+        Load a single YAML file.
         """
 
         if not yaml_file.exists():
@@ -65,12 +65,32 @@ class YAMLLoader:
 
             data = self.load(yaml_file)
 
-            if not isinstance(
-                data,
-                dict,
-            ):
-                continue
+            if isinstance(data, dict):
+                context.update(data)
 
-            context.update(data)
+        return context
+
+    def load_blueprint(
+        self,
+        core_directory: Path,
+        blueprint_directory: Path,
+    ) -> dict[str, Any]:
+        """
+        Load the complete Builder blueprint context.
+
+        This combines the Core and Blueprint
+        configuration directories into a single
+        context dictionary.
+        """
+
+        context: dict[str, Any] = {}
+
+        context.update(
+            self.load_directory(core_directory)
+        )
+
+        context.update(
+            self.load_directory(blueprint_directory)
+        )
 
         return context

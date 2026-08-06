@@ -29,6 +29,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ..state.builder_state_manager import BuilderStateManager
+from ..generators.generator_manager import GeneratorManager
+from ..validators.validation_manager import ValidationManager
+from ..monitoring.monitoring_manager import MonitoringManager
+from ..automation.manager.automation_manager import AutomationManager
 from .execution_controller import ExecutionController
 from .integration_context import IntegrationContext
 from .platform_connector import PlatformConnector
@@ -66,6 +70,14 @@ class BuilderIntegrationManager:
 
         self.controller: ExecutionController | None = None
 
+        self.generator_manager: GeneratorManager | None = None
+        
+        self.validation_manager: ValidationManager | None = None
+        
+        self.monitoring_manager: MonitoringManager | None = None
+        
+        self.automation_manager: AutomationManager | None = None
+
         LOGGER.info(
             "Builder Integration Manager initialized."
         )
@@ -82,6 +94,38 @@ class BuilderIntegrationManager:
         LOGGER.info("Initializing Builder Runtime...")
 
         builder_state = self.state_manager.load()
+
+        root_directory = Path.cwd()
+        
+        self.generator_manager = GeneratorManager(
+
+    output_directory=root_directory / "03_docs",
+
+    template_directory=(
+        root_directory
+        / "00_control_center"
+        / "05_templates"
+        / "02_repository"
+    ),
+
+    core_directory=(
+        root_directory
+        / "00_control_center"
+        / "00_core"
+    ),
+
+    blueprint_directory=(
+        root_directory
+        / "00_control_center"
+        / "01_blueprint"
+    ),
+)
+        
+        self.validation_manager = ValidationManager()
+        
+        self.monitoring_manager = MonitoringManager()
+        
+        self.automation_manager = AutomationManager()
 
         version = (
             builder_state
@@ -106,6 +150,22 @@ class BuilderIntegrationManager:
         self.controller = ExecutionController(
             self.context,
             self.workflow,
+        )
+
+        self.register_generator_manager(
+            self.generator_manager
+        )
+        
+        self.register_validation_manager(
+            self.validation_manager
+        )
+        
+        self.register_monitoring_manager(
+            self.monitoring_manager
+        )
+        
+        self.register_automation_manager(
+            self.automation_manager
         )
 
         LOGGER.info(
