@@ -1,11 +1,12 @@
 """
-Financial Intelligence OS
+Financial Intelligence OS (FIOS)
+
 YAML Loader
 
 Purpose
 -------
-Load YAML configuration files into Python dictionaries
-for use by the Financial Intelligence OS Generator Engine.
+Load and save YAML configuration files used by the
+Financial Intelligence OS Builder.
 """
 
 from __future__ import annotations
@@ -18,7 +19,7 @@ import yaml
 
 class YAMLLoader:
     """
-    Load YAML configuration files.
+    Load and save YAML configuration files.
     """
 
     def load(
@@ -49,9 +50,6 @@ class YAMLLoader:
     ) -> dict[str, Any]:
         """
         Load every YAML file in a directory.
-
-        Each YAML file contributes its top-level
-        objects directly into the shared context.
         """
 
         if not directory.exists():
@@ -74,32 +72,5 @@ class YAMLLoader:
                 continue
 
             context.update(data)
-
-        return context
-
-    def load_blueprint(
-        self,
-        core_directory: Path,
-        blueprint_directory: Path,
-    ) -> dict[str, Any]:
-        """
-        Load the complete Financial Intelligence OS
-        blueprint by combining Core and Blueprint
-        directories into a single context.
-        """
-
-        context: dict[str, Any] = {}
-
-        context.update(
-            self.load_directory(
-                core_directory
-            )
-        )
-
-        context.update(
-            self.load_directory(
-                blueprint_directory
-            )
-        )
 
         return context
