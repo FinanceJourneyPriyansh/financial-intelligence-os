@@ -8,12 +8,14 @@ Module:
     fios_live.scanners.base_scanner
 
 Purpose:
-    Provides shared functionality for all scanner services.
+    Provides common scanning functionality shared by every
+    FIOS Live scanner.
 
 Responsibilities:
-    - Shared exclusion rules
-    - Efficient repository traversal
-    - Common helper methods
+    - Repository traversal
+    - Scan root resolution
+    - Directory exclusion
+    - File exclusion
 
 Author:
     Priyansh Soni
@@ -28,72 +30,68 @@ import os
 from pathlib import Path
 from typing import Iterator
 
+from fios_live.config.scan_config import CONFIG
+
 
 class BaseScanner:
     """
     Base class for all FIOS Live scanners.
-
-    Provides common repository traversal and exclusion
-    handling shared across every scanner.
     """
 
-    EXCLUDED_DIRECTORIES = frozenset(
-        {
-            ".git",
-            ".venv",
-            "__pycache__",
-            ".pytest_cache",
-            ".mypy_cache",
-            ".ruff_cache",
-            ".idea",
-            ".vscode",
-            ".tox",
-            ".coverage",
-            "node_modules",
-        }
-    )
-
-    def is_excluded(self, path: Path) -> bool:
+    def walk(self, repository_root: Path) -> Iterator[Path]:
         """
-        Determine whether a path should be ignored.
+        Walk every configured FIOS scan root.
 
         Args:
-            path:
-                Path to evaluate.
-
-        Returns:
-            True if the path is inside an excluded directory.
-        """
-        return any(part in self.EXCLUDED_DIRECTORIES for part in path.parts)
-
-    def walk(self, root: Path) -> Iterator[Path]:
-        """
-        Walk the repository efficiently.
-
-        Excluded directories are removed before descending
-        into them, preventing unnecessary traversal.
-
-        Args:
-            root:
-                Repository root.
+            repository_root:
+                Repository root directory.
 
         Yields:
-            Every directory and file that should be scanned.
+            Paths belonging only to configured scan roots.
         """
-        for current_root, dirs, files in os.walk(root):
 
-            # Prevent descending into excluded directories.
-            dirs[:] = [
-                directory
-                for directory in dirs
-                if directory not in self.EXCLUDED_DIRECTORIES
-            ]
+        for scan_root in CONFIG.resolved_roots(repository_root):
 
-            current_path = Path(current_root)
+            for current_root, dirs, files in os.walk(scan_root):
 
-            # Yield the current directory.
-            yield current_path
+                #
+                # Remove excluded directories BEFORE descending.
+                #
+                dirs[:] = [
+                    directory
+                    for directory in dirs
+                    if directory not in CONFIG.excluded_directories
+                ]
 
-            # Yield files inside the current directory.
-            for filename in files:
-                yield current_path / filename
+                current = Path(current_root)
+
+                #
+                # Yield directory.
+                #
+                yield current
+
+                #
+                # Yield files.
+                #
+                for filename in files:
+
+                    file_path = current / filename
+
+                    if (
+                        file_path.suffix.lower()
+                        in CONFIG.excluded_extensions
+                    ):
+                        continue
+
+                    yield file_path
+
+    @staticmethod
+    def relative_to_repository(
+        path: Path,
+        repository_root: Path,
+    ) -> str:
+        """
+        Convert an absolute path into a repository-relative path.
+        """
+
+        return str(path.relative_to(repository_root))
