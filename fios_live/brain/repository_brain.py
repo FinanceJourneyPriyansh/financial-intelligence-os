@@ -11,12 +11,14 @@ from pathlib import Path
 
 from fios_live.brain.models.repository_state import RepositoryState
 from fios_live.brain.modules.architecture_analyzer import ArchitectureAnalyzer
+from fios_live.brain.modules.builder_ai import BuilderAI
 from fios_live.brain.modules.cleanup_engine import CleanupEngine
 from fios_live.brain.modules.code_analyzer import CodeAnalyzer
 from fios_live.brain.modules.dependency_analyzer import DependencyAnalyzer
 from fios_live.brain.modules.documentation_analyzer import DocumentationAnalyzer
 from fios_live.brain.modules.repository_health import RepositoryHealth
 from fios_live.brain.modules.repository_mapper import RepositoryMapper
+from fios_live.brain.modules.self_healing_engine import SelfHealingEngine
 
 
 class RepositoryBrain:
@@ -31,35 +33,31 @@ class RepositoryBrain:
 
         repository_root = repository_root.resolve()
 
-        mapper = RepositoryMapper()
-        architecture = ArchitectureAnalyzer()
-        dependencies = DependencyAnalyzer()
-        code = CodeAnalyzer()
-        documentation = DocumentationAnalyzer()
-        cleanup = CleanupEngine()
-        health = RepositoryHealth()
+        state = RepositoryMapper().map(repository_root)
 
-        state = mapper.map(repository_root)
+        state = ArchitectureAnalyzer().analyze(state)
 
-        state = architecture.analyze(state)
-
-        state = dependencies.analyze(
+        state = DependencyAnalyzer().analyze(
             repository_root,
             state,
         )
 
-        state = code.analyze(
+        state = CodeAnalyzer().analyze(
             repository_root,
             state,
         )
 
-        state = documentation.analyze(
+        state = DocumentationAnalyzer().analyze(
             repository_root,
             state,
         )
 
-        state = cleanup.analyze(state)
+        state = CleanupEngine().analyze(state)
 
-        state = health.evaluate(state)
+        state = RepositoryHealth().evaluate(state)
+
+        state = SelfHealingEngine().analyze(state)
+
+        state = BuilderAI().analyze(state)
 
         return state
