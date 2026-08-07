@@ -10,6 +10,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from fios_live.brain.repository_brain import RepositoryBrain
+from fios_live.brain.repository_report import RepositoryReport
 
 
 def main() -> None:
@@ -24,6 +25,11 @@ def main() -> None:
 
     state = brain.analyze(Path("."))
 
+    report = RepositoryReport().generate(
+        state,
+        Path("fios_live/reports"),
+    )
+
     print(f"Repository : {state.repository_name}")
     print(f"Root       : {state.root_path}")
     print()
@@ -33,24 +39,15 @@ def main() -> None:
     print(f"Python     : {state.python_files}")
     print(f"Packages   : {state.packages}")
     print(f"Modules    : {state.modules}")
-    print(f"Markdown   : {state.markdown_files}")
-    print(f"JSON       : {state.json_files}")
-    print(f"YAML       : {state.yaml_files}")
-    print(f"Tests      : {state.tests}")
     print()
 
-    print(f"Architecture Score : {state.architecture_score:.1f}%")
-    print(f"Repository Health  : {state.health_score:.1f}%")
+    print(f"Architecture : {state.architecture_score:.1f}%")
+    print(f"Health       : {state.health_score:.1f}%")
     print()
 
-    print("Recommendations")
-    print("-" * 60)
-
-    for recommendation in state.recommendations:
-        print(f"• {recommendation}")
+    print(f"[OK] Report Generated : {report}")
 
     print()
-
     print("=" * 60)
     print("REPOSITORY BRAIN COMPLETED")
     print("=" * 60)
