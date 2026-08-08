@@ -1,7 +1,6 @@
 ﻿from __future__ import annotations
 
 import sys
-import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -19,7 +18,6 @@ from fios_live.kernel.state.kernel_state import KernelState
 
 app = FastAPI(title="FIOS")
 
-boot = time.time()
 _state: KernelState | None = None
 
 
@@ -43,7 +41,7 @@ def get_state() -> KernelState:
 @app.get("/api/status")
 def status():
     state = get_state()
-    uptime_seconds = int(time.time() - boot)
+    uptime_seconds = state.uptime_seconds
 
     modules = [
         ["Kernel Core", "ONLINE" if state.running else "OFFLINE"],

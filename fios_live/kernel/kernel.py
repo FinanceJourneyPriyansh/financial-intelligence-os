@@ -5,10 +5,10 @@ Central Kernel
 
 from __future__ import annotations
 
+import importlib.util
 import threading
 import time
 from pathlib import Path
-import importlib.util
 
 import uvicorn
 
@@ -68,10 +68,12 @@ class Kernel:
         )
 
         self._web_server = uvicorn.Server(config)
-
         self._web_server.run()
 
     def start(self) -> None:
+        """
+        Boot FIOS and keep the Kernel continuously running.
+        """
 
         state = self._services.boot()
 
@@ -86,7 +88,6 @@ class Kernel:
         print("Repository :", state.repository_loaded)
         print("Brain      :", state.brain_online)
         print("Builder    :", state.builder_online)
-        print()
 
         web_thread = threading.Thread(
             target=self._start_web_server,
@@ -98,19 +99,22 @@ class Kernel:
 
         self.state.dashboard_online = True
 
+        print()
         print("Dashboard  :", self.state.dashboard_online)
         print("Web Server : http://127.0.0.1:8000")
         print()
 
         while True:
 
+            self.state.uptime_seconds = int(
+                (time.time() - self.state.boot_time.timestamp())
+            )
+
             while self._events.has_events():
 
                 event = self._events.next_event()
 
-                print(f"[EVENT] {event}")
+                if event is not None:
+                    print(f"[EVENT] {event}")
 
             time.sleep(1)
-
-
-
