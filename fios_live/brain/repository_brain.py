@@ -1,8 +1,6 @@
 """
-============================================================
 Financial Intelligence OS (FIOS)
 Repository Brain
-============================================================
 """
 
 from __future__ import annotations
@@ -19,6 +17,7 @@ from fios_live.brain.modules.documentation_analyzer import DocumentationAnalyzer
 from fios_live.brain.modules.repository_health import RepositoryHealth
 from fios_live.brain.modules.repository_mapper import RepositoryMapper
 from fios_live.brain.modules.self_healing_engine import SelfHealingEngine
+from fios_live.brain.repository_report import RepositoryReport
 
 
 class RepositoryBrain:
@@ -59,5 +58,10 @@ class RepositoryBrain:
         state = SelfHealingEngine().analyze(state)
 
         state = BuilderAI().analyze(state)
+
+        RepositoryReport().generate(
+            state,
+            repository_root / "fios_live" / "reports",
+        )
 
         return state
