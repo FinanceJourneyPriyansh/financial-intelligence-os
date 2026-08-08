@@ -49,7 +49,6 @@ def status():
         ["Kernel Core", "ONLINE" if state.running else "OFFLINE"],
         ["AI Engine", "ONLINE" if state.brain_online else "OFFLINE"],
         ["Builder Engine", "ONLINE" if state.builder_online else "OFFLINE"],
-        ["Auditor Engine", "ONLINE" if state.auditor_online else "OFFLINE"],
         ["Automation", "ONLINE" if state.automation_online else "OFFLINE"],
     ]
 

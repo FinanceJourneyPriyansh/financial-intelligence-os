@@ -68,7 +68,6 @@ class ServiceManager:
         result = self.builder.execute()
 
         self.state.builder_online = result.success
-        self.state.auditor_online = True
 
         self.state.automation_online = (
             self.builder.automation_manager is not None
@@ -77,4 +76,5 @@ class ServiceManager:
         self.state.last_event = "SYSTEM_BOOT"
 
         return self.state
+
 

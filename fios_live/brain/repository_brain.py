@@ -10,13 +10,11 @@ from pathlib import Path
 from fios_live.brain.models.repository_state import RepositoryState
 from fios_live.brain.modules.architecture_analyzer import ArchitectureAnalyzer
 from fios_live.brain.modules.builder_ai import BuilderAI
-from fios_live.brain.modules.cleanup_engine import CleanupEngine
 from fios_live.brain.modules.code_analyzer import CodeAnalyzer
 from fios_live.brain.modules.dependency_analyzer import DependencyAnalyzer
 from fios_live.brain.modules.documentation_analyzer import DocumentationAnalyzer
 from fios_live.brain.modules.repository_health import RepositoryHealth
 from fios_live.brain.modules.repository_mapper import RepositoryMapper
-from fios_live.brain.modules.self_healing_engine import SelfHealingEngine
 from fios_live.brain.repository_report import RepositoryReport
 
 
@@ -51,11 +49,7 @@ class RepositoryBrain:
             state,
         )
 
-        state = CleanupEngine().analyze(state)
-
         state = RepositoryHealth().evaluate(state)
-
-        state = SelfHealingEngine().analyze(state)
 
         state = BuilderAI().analyze(state)
 

@@ -1,4 +1,4 @@
-"""
+﻿"""
 ============================================================
 Financial Intelligence OS (FIOS)
 Scan Configuration
@@ -41,7 +41,7 @@ class ScanConfig:
         "01_src",
         "fios_live",
         "99_project",
-        "tests",
+        "04_tests",
     )
 
     # ---------------------------------------------------------

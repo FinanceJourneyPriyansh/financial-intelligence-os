@@ -86,7 +86,6 @@ class Kernel:
         print("Repository :", state.repository_loaded)
         print("Brain      :", state.brain_online)
         print("Builder    :", state.builder_online)
-        print("Auditor    :", state.auditor_online)
         print()
 
         web_thread = threading.Thread(

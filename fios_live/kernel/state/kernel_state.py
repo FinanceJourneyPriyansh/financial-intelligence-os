@@ -1,4 +1,4 @@
-"""
+﻿"""
 ============================================================
 Financial Intelligence OS (FIOS)
 Kernel State
@@ -27,7 +27,6 @@ class KernelState:
 
     builder_online: bool = False
 
-    auditor_online: bool = False
 
     dashboard_online: bool = False
 

@@ -2,9 +2,9 @@
 
 # FIOS Live Architecture
 
-Version: 1.0
+Version: 2.0
 
-Status: Architecture Frozen
+Status: Canonical Architecture
 
 ---
 
@@ -12,264 +12,62 @@ Status: Architecture Frozen
 
 FIOS Live is the operating layer of the Financial Intelligence OS.
 
-It provides a real-time digital twin of the entire FIOS platform.
+It provides the continuously running runtime connection between the
+FIOS Kernel, Repository Brain, Monitoring Platform, Builder Integration
+Platform, Automation, and Web Dashboard.
 
-Every service updates the runtime state.
+FIOS Live does not duplicate repository scanners, project-state models,
+audit engines, dashboard engines, or business logic.
 
-Every consumer reads the runtime state.
+The repository is analyzed through one canonical Repository Brain.
 
-No component duplicates repository scanning or business logic.
+The Kernel owns runtime coordination.
 
----
-
-# Architecture
-
-```
-                    FIOS LIVE
-
-                         │
-
-                 Runtime State
-
-                         │
-
-        ┌──────────────────────────────────┐
-        │          ProjectState            │
-        └──────────────────────────────────┘
-
-             ▲                     ▲
-             │                     │
-
-      Update State          Read State
-
-             │                     │
-
-────────────────────────────────────────────
-
-Services
-
-• Project Scanner
-• Folder Scanner
-• File Scanner
-• Python Scanner
-• Documentation Scanner
-• Git Scanner
-• Health Service
-
-────────────────────────────────────────────
-
-Consumers
-
-• Auditor
-• Dashboard
-• Builder
-• Runtime
-• Future AI Agents
-
-```
+The Web layer consumes Kernel state.
 
 ---
 
-# Folder Responsibilities
-
-## services/
-
-Reusable business services.
-
-Responsibilities
-
-- Scan repository
-- Scan source
-- Scan documentation
-- Scan Git
-- Calculate health
-
-Services never
-
-- print
-- generate reports
-- display dashboards
-
----
-
-## models/
-
-Shared runtime models.
-
-Responsibilities
-
-- Store project state
-- Store runtime state
-- Store health state
-
-Models contain data only.
-
----
-
-## runtime/
-
-Owns the Digital Twin.
-
-Responsibilities
-
-- Maintain ProjectState
-- Coordinate runtime state
-- Share state across FIOS Live
-
----
-
-## audit/
-
-Generates reports.
-
-Responsibilities
-
-- Markdown reports
-- JSON reports
-- Health reports
-
-Audit never scans directly.
-
-Audit consumes ProjectState.
-
----
-
-## dashboard/
-
-Displays live information.
-
-Dashboard never scans.
-
-Dashboard consumes ProjectState.
-
----
-
-## reports/
-
-Generated output.
-
-Examples
-
-- FIOS_System_Audit.md
-- FIOS_Project_Health.md
-- FIOS_Runtime_Status.md
-
----
-
-## widgets/
-
-Reusable dashboard components.
-
----
-
-## logs/
-
-Runtime logs.
-
----
-
-## assets/
-
-Static resources.
-
----
-
-# Data Flow
-
-```
-Repository
-
-↓
-
-Services
-
-↓
-
-ProjectState
-
-↓
-
-Audit
-
-↓
-
-Dashboard
-
-↓
-
-User
-```
-
----
-
-# Engineering Principles
-
-One module = One responsibility
-
-One service = One purpose
-
-One runtime state = Shared everywhere
-
-Never duplicate scanning logic
-
-Never duplicate repository information
-
-Build once
-
-Reuse everywhere
-
----
-
-# Development Order
-
-Phase A1
-
-Project State
-
-✅ Complete
-
-Phase A2
-
-Project Scanner
-
-Next
-
-Phase A3
-
-Folder Scanner
-
-Phase A4
-
-File Scanner
-
-Phase A5
-
-Python Scanner
-
-Phase A6
-
-Documentation Scanner
-
-Phase A7
-
-Git Scanner
-
-Phase A8
-
-Health Service
-
-Phase A9
-
-Auditor
-
-Phase A10
-
-Dashboard
-
----
-
-# Status
-
-Architecture Frozen
-
-Version 1.0
+# Canonical Architecture
+
+```text
+                         FIOS
+                          │
+                          ▼
+                    fios.py
+                          │
+                          ▼
+                    FIOS Kernel
+                          │
+                          ▼
+                   ServiceManager
+                          │
+          ┌───────────────┼────────────────┐
+          │               │                │
+          ▼               ▼                ▼
+   Repository Brain   Monitoring      Builder Integration
+          │           Platform            Platform
+          │                                │
+          │                                ▼
+          │                            Automation
+          │
+          ├── Repository Mapper
+          ├── Architecture Analyzer
+          ├── Dependency Analyzer
+          ├── Code Analyzer
+          ├── Documentation Analyzer
+          ├── Repository Health
+          └── Builder AI
+          │
+          ▼
+   Repository Runtime State
+          │
+          ├───────────────┐
+          │               │
+          ▼               ▼
+   Repository Report   Kernel State
+                          │
+                          ▼
+                     FIOS Web Layer
+                          │
+                          ▼
+                    Live Dashboard

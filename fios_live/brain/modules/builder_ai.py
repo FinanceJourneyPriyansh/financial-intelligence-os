@@ -1,8 +1,6 @@
 """
-============================================================
 Financial Intelligence OS (FIOS)
 Builder AI
-============================================================
 """
 
 from __future__ import annotations
@@ -12,7 +10,10 @@ from fios_live.brain.models.repository_state import RepositoryState
 
 class BuilderAI:
     """
-    Generates high-level improvement plans for the repository.
+    Converts Repository Brain findings into actionable recommendations.
+
+    BuilderAI is the single action-planning layer of the Repository Brain.
+    It does not scan the repository and does not modify files.
     """
 
     def analyze(
@@ -24,17 +25,17 @@ class BuilderAI:
 
         if state.empty_directories:
             actions.append(
-                f"Remove {len(state.empty_directories)} empty directories."
+                f"Remove or reuse {len(state.empty_directories)} empty directories."
             )
 
         if state.duplicate_files:
             actions.append(
-                f"Review {len(state.duplicate_files)} duplicate files."
+                f"Merge or review {len(state.duplicate_files)} duplicate files."
             )
 
         if state.dead_files:
             actions.append(
-                f"Archive {len(state.dead_files)} unused files."
+                f"Review or archive {len(state.dead_files)} unused files."
             )
 
         if state.architecture_score < 95:
@@ -44,7 +45,7 @@ class BuilderAI:
 
         if state.health_score < 95:
             actions.append(
-                "Increase repository health score."
+                "Improve repository health."
             )
 
         if not actions:
