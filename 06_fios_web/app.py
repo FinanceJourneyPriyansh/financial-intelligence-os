@@ -1,0 +1,80 @@
+﻿from __future__ import annotations
+
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "01_src"
+
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from fios_live.kernel.state.kernel_state import KernelState
+
+app = FastAPI(title="FIOS")
+
+boot = time.time()
+_state: KernelState | None = None
+
+
+def set_state(state: KernelState) -> None:
+    """
+    Connect the web layer to the existing FIOS Kernel state.
+    """
+    global _state
+    _state = state
+
+
+def get_state() -> KernelState:
+    """
+    Return the connected Kernel state.
+    """
+    if _state is None:
+        raise RuntimeError("FIOS web state has not been connected.")
+    return _state
+
+
+@app.get("/api/status")
+def status():
+    state = get_state()
+    uptime_seconds = int(time.time() - boot)
+
+    modules = [
+        ["Kernel Core", "ONLINE" if state.running else "OFFLINE"],
+        ["AI Engine", "ONLINE" if state.brain_online else "OFFLINE"],
+        ["Builder Engine", "ONLINE" if state.builder_online else "OFFLINE"],
+        ["Auditor Engine", "ONLINE" if state.auditor_online else "OFFLINE"],
+        ["Automation", "ONLINE" if state.automation_online else "OFFLINE"],
+    ]
+
+    return {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "uptime": (
+            f"{uptime_seconds // 3600:02d}:"
+            f"{uptime_seconds % 3600 // 60:02d}:"
+            f"{uptime_seconds % 60:02d}"
+        ),
+        "health": state.health_score,
+        "architecture": state.architecture_score,
+        "modules": modules,
+        "builder": state.builder_online,
+        "automation": state.automation_online,
+    }
+
+
+app.mount(
+    "/static",
+    StaticFiles(directory=Path(__file__).parent / "static"),
+    name="static",
+)
+
+
+@app.get("/")
+def home():
+    return FileResponse(Path(__file__).parent / "static" / "index.html")
