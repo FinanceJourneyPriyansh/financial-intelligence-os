@@ -13,7 +13,6 @@ from pathlib import Path
 from platform_core.integration.builder_integration_manager import (
     BuilderIntegrationManager,
 )
-from platform_core.monitoring.monitoring_manager import MonitoringManager
 
 from fios_live.brain.repository_brain import RepositoryBrain
 from fios_live.kernel.state.kernel_state import KernelState
@@ -26,7 +25,6 @@ class ServiceManager:
 
     def __init__(self) -> None:
         self.state = KernelState()
-        self.monitoring = MonitoringManager()
         self.builder: BuilderIntegrationManager | None = None
         self.brain: RepositoryBrain | None = None
 
@@ -48,8 +46,6 @@ class ServiceManager:
         self.state.architecture_score = brain_state.architecture_score
         self.state.health_score = brain_state.health_score
 
-        # Existing Monitoring Platform
-        self.monitoring.run()
 
         # Existing Builder Integration Platform
         builder_state_path = (
