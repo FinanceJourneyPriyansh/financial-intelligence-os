@@ -1,5 +1,6 @@
 """
 Financial Intelligence OS (FIOS)
+
 Monitoring Platform
 
 Repository Monitor
@@ -8,11 +9,12 @@ Monitors the repository structure and reports
 basic repository health metrics.
 
 Version:
-    v0.4.0-builder-m4
+v0.4.0-builder-m4
 """
 
 from __future__ import annotations
 
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -21,22 +23,59 @@ from typing import Any
 class RepositoryMonitor:
     """Monitor the repository structure."""
 
+    EXCLUDED_DIRECTORIES = {
+        ".git",
+        ".venv",
+        ".pytest_cache",
+        "__pycache__",
+        ".mypy_cache",
+        ".idea",
+        ".vscode",
+        "node_modules",
+    }
+
     def __init__(self) -> None:
-        # Repository root (01_src/platform_core/monitoring -> project root)
+        # Repository root
         self.repository_root = Path(__file__).resolve().parents[3]
+
+    def _iter_project_items(self):
+        """
+        Yield project files and folders.
+
+        Excluded directories are removed before traversal,
+        preventing unnecessary scanning.
+        """
+
+        for root, dirs, files in os.walk(self.repository_root):
+
+            # Stop traversal into excluded folders
+            dirs[:] = [
+                directory
+                for directory in dirs
+                if directory not in self.EXCLUDED_DIRECTORIES
+            ]
+
+            root_path = Path(root)
+
+            for directory in dirs:
+                yield root_path / directory
+
+            for file in files:
+                yield root_path / file
 
     def run(self) -> dict[str, Any]:
         """Collect repository metrics."""
 
-        folders = [
-            item for item in self.repository_root.rglob("*")
-            if item.is_dir()
-        ]
+        folders = []
+        files = []
 
-        files = [
-            item for item in self.repository_root.rglob("*")
-            if item.is_file()
-        ]
+        for item in self._iter_project_items():
+
+            if item.is_dir():
+                folders.append(item)
+
+            elif item.is_file():
+                files.append(item)
 
         required_directories = [
             "00_control_center",
@@ -45,8 +84,6 @@ class RepositoryMonitor:
             "03_docs",
             "04_tests",
             "05_dashboards",
-            "06_models",
-            "07_notebooks",
             "08_reports",
             "09_logs",
             "99_project",
