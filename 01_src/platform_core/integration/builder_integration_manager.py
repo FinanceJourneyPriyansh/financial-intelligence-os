@@ -181,8 +181,6 @@ class BuilderIntegrationManager:
         Execute the complete Builder Runtime.
         """
 
-        self.initialize()
-
         if self.controller is None:
             raise RuntimeError(
                 "ExecutionController not initialized."
