@@ -18,6 +18,12 @@ Version:
 
 from __future__ import annotations
 
+from pathlib import Path
+from typing import Any
+
+from ...generators.template_loader import TemplateLoader
+from ...state.builder_state_manager import BuilderStateManager
+
 import logging
 from dataclasses import dataclass, field
 from typing import Callable
@@ -203,6 +209,130 @@ class AutomationManager:
     # --------------------------------------------------
     # Utilities
     # --------------------------------------------------
+
+    def register_documentation_tasks(
+        self,
+        state_manager: BuilderStateManager,
+        repository_root: Path,
+    ) -> None:
+        """
+        Register Builder documentation automation tasks.
+
+        Documentation generation reuses the existing Builder State,
+        TemplateLoader, configured output paths, and canonical templates.
+        """
+
+        state = state_manager.state
+
+        documentation = state.get(
+            "documentation",
+            {},
+        )
+
+        automation = state.get(
+            "automation",
+            {},
+        )
+
+        template_directory = (
+            repository_root
+            / "00_control_center"
+            / "05_templates"
+            / "01_documentation"
+        )
+
+        loader = TemplateLoader(
+            template_directory,
+        )
+
+        def generate_document(
+            template_name: str,
+            state_key: str,
+        ) -> None:
+            """
+            Render one configured Builder document.
+            """
+
+            configuration = documentation.get(
+                state_key,
+                {},
+            )
+
+            output_path = configuration.get(
+                "path",
+            )
+
+            if not output_path:
+                raise ValueError(
+                    f"Documentation path is not configured: {state_key}"
+                )
+
+            content = loader.render(
+                template_name,
+                state,
+            )
+
+            output_file = (
+                repository_root
+                / output_path
+            )
+
+            output_file.parent.mkdir(
+                parents=True,
+                exist_ok=True,
+            )
+
+            output_file.write_text(
+                content,
+                encoding="utf-8",
+            )
+
+        tasks = [
+            (
+                "builder_status",
+                "00_builder_status.md.j2",
+                "auto_update_builder_status",
+            ),
+            (
+                "ai_continuation",
+                "01_ai_continuation.md.j2",
+                "auto_update_ai_continuation",
+            ),
+            (
+                "builder_readme",
+                "02_builder_readme.md.j2",
+                "auto_generate_builder_readme",
+            ),
+            (
+                "release_notes",
+                "03_release_notes.md.j2",
+                "auto_generate_release_notes",
+            ),
+            (
+                "audit_report",
+                "04_audit_report.md.j2",
+                "auto_generate_audit_report",
+            ),
+        ]
+
+        for task_name, template_name, automation_key in tasks:
+            self.register(
+                AutomationTask(
+                    name=f"documentation:{task_name}",
+                    action=lambda
+                    template_name=template_name,
+                    task_name=task_name: generate_document(
+                        template_name,
+                        task_name,
+                    ),
+                    enabled=bool(
+                        automation.get(
+                            automation_key,
+                            False,
+                        )
+                    ),
+                )
+            )
 
     def list_tasks(self) -> list[str]:
         """

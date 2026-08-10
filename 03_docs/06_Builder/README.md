@@ -41,11 +41,17 @@ The Builder follows these engineering principles:
 1. Blueprint
 2. Build
 3. Validate
-4. Integration Testing
-5. Audit
-6. Commit
-7. Tag
-8. Freeze
+4. Monitoring
+5. Reports
+6. Dashboard
+7. Builder Status
+8. AI Continuation
+9. Generate Documentation
+10. Control Center
+11. Audit
+12. Commit
+13. Tag
+14. Freeze
 
 ---
 

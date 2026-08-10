@@ -127,6 +127,11 @@ class BuilderIntegrationManager:
         
         self.automation_manager = AutomationManager()
 
+        self.automation_manager.register_documentation_tasks(
+    self.state_manager,
+    root_directory,
+)
+
         version = (
             builder_state
             .get("builder", {})
