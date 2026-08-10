@@ -22,7 +22,7 @@
 
 ## Generator Validator
 - Status : PASS
-- Message: All required generators are present.
+- Message: All canonical GeneratorManager generators are present: architecture, blueprint, project_summary, readme, repository, roadmap, technology
 
 ## Code Validator
 - Status : PASS

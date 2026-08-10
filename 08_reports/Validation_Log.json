@@ -35,7 +35,7 @@
         {
             "name": "Generator Validator",
             "passed": true,
-            "message": "All required generators are present."
+            "message": "All canonical GeneratorManager generators are present: architecture, blueprint, project_summary, readme, repository, roadmap, technology"
         },
         {
             "name": "Code Validator",

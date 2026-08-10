@@ -1,7 +1,7 @@
 # Builder Monitoring Report
 
 Generated:
-2026-08-09T14:37:35.851483
+2026-08-10T16:09:27.741758
 
 ---
 
@@ -13,4 +13,4 @@ Generated:
 
 ## Metrics
 
-{'repository': {'module': 'Repository', 'status': 'PASS', 'health': 100, 'metrics': {'repository_root': 'C:\\Github\\financial-intelligence-os', 'folder_count': 135, 'file_count': 448, 'missing_directories': []}, 'warnings': [], 'errors': [], 'timestamp': '2026-08-09T14:37:35.850033'}, 'generator': {'module': 'Generator', 'status': 'PASS', 'health': 100, 'metrics': {'path': 'C:\\Github\\financial-intelligence-os\\01_src\\platform_core\\generators', 'python_files': 19, 'readme_exists': True}, 'warnings': [], 'errors': [], 'timestamp': '2026-08-09T14:37:35.851210'}, 'validation': {'module': 'Validation', 'status': 'PASS', 'health': 100, 'metrics': {'path': 'C:\\Github\\financial-intelligence-os\\01_src\\platform_core\\validators', 'python_files': 12, 'readme_exists': False}, 'warnings': [], 'errors': [], 'timestamp': '2026-08-09T14:37:35.851450'}, 'summary': {'modules_monitored': 3, 'successful_modules': 3, 'failed_modules': 0}}
+{'repository': {'module': 'Repository', 'status': 'PASS', 'health': 100, 'metrics': {'repository_root': 'C:\\Github\\financial-intelligence-os', 'folder_count': 75, 'file_count': 297, 'missing_directories': []}, 'warnings': [], 'errors': [], 'timestamp': '2026-08-10T16:09:27.740645'}, 'generator': {'module': 'Generator', 'status': 'PASS', 'health': 100, 'metrics': {'path': 'C:\\Github\\financial-intelligence-os\\01_src\\platform_core\\generators', 'python_files': 12, 'readme_exists': True}, 'warnings': [], 'errors': [], 'timestamp': '2026-08-10T16:09:27.741198'}, 'validation': {'module': 'Validation', 'status': 'PASS', 'health': 100, 'metrics': {'path': 'C:\\Github\\financial-intelligence-os\\01_src\\platform_core\\validators', 'python_files': 12, 'readme_exists': False}, 'warnings': [], 'errors': [], 'timestamp': '2026-08-10T16:09:27.741448'}, 'summary': {'modules_monitored': 3, 'successful_modules': 3, 'failed_modules': 0}}

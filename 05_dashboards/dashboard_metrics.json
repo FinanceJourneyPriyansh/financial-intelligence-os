@@ -13,13 +13,13 @@
             "health": 100,
             "metrics": {
                 "repository_root": "C:\\Github\\financial-intelligence-os",
-                "folder_count": 135,
-                "file_count": 448,
+                "folder_count": 75,
+                "file_count": 297,
                 "missing_directories": []
             },
             "warnings": [],
             "errors": [],
-            "timestamp": "2026-08-09T14:37:35.850033"
+            "timestamp": "2026-08-10T16:09:27.740645"
         },
         "generator": {
             "module": "Generator",
@@ -27,12 +27,12 @@
             "health": 100,
             "metrics": {
                 "path": "C:\\Github\\financial-intelligence-os\\01_src\\platform_core\\generators",
-                "python_files": 19,
+                "python_files": 12,
                 "readme_exists": true
             },
             "warnings": [],
             "errors": [],
-            "timestamp": "2026-08-09T14:37:35.851210"
+            "timestamp": "2026-08-10T16:09:27.741198"
         },
         "validation": {
             "module": "Validation",
@@ -45,7 +45,7 @@
             },
             "warnings": [],
             "errors": [],
-            "timestamp": "2026-08-09T14:37:35.851450"
+            "timestamp": "2026-08-10T16:09:27.741448"
         },
         "summary": {
             "modules_monitored": 3,
