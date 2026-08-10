@@ -26,8 +26,6 @@ class FolderValidator:
         "03_docs",
         "04_tests",
         "05_dashboards",
-        "06_models",
-        "07_notebooks",
         "08_reports",
         "09_logs",
     ]
