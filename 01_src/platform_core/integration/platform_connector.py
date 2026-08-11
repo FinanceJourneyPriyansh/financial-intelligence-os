@@ -92,8 +92,6 @@ class PlatformConnector:
                 f"Platform '{name}' is not registered."
             )
 
-        self.context.start_stage(name)
-
         if name == "generator":
 
             return manager.generate_all()

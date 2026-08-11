@@ -101,9 +101,15 @@ class ExecutionController:
 
             self.state = ExecutionState.COMPLETED
 
-            LOGGER.info("Builder Runtime completed successfully.")
+            LOGGER.info(
+                "Builder Runtime completed successfully."
+            )
 
-        except Exception:
+        except Exception as error:
+
+            self.context.errors.append(
+                str(error)
+            )
 
             self.state = ExecutionState.FAILED
 
@@ -112,7 +118,6 @@ class ExecutionController:
             )
 
             raise
-
     def stop(self) -> None:
         """
         Stop Builder execution.
