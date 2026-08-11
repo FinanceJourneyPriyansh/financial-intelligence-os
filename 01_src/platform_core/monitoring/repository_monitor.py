@@ -18,53 +18,104 @@ import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+from fios_live.config.scan_config import CONFIG
 
 
 class RepositoryMonitor:
     """Monitor the repository structure."""
 
-    EXCLUDED_DIRECTORIES = {
-        ".git",
-        ".venv",
-        ".pytest_cache",
-        "__pycache__",
-        ".mypy_cache",
-        ".idea",
-        ".vscode",
-        "node_modules",
-    }
-
     def __init__(self) -> None:
         # Repository root
         self.repository_root = Path(__file__).resolve().parents[3]
+
+        # Previous lightweight repository fingerprint.
+        #
+        # This is intentionally kept in memory so the existing
+        # persistent RepositoryMonitor instance can compare
+        # consecutive monitoring cycles without introducing
+        # another state subsystem.
+        self._previous_fingerprint: tuple[tuple[str, int, int], ...] | None = None
 
     def _iter_project_items(self):
         """
         Yield project files and folders.
 
-        Excluded directories are removed before traversal,
-        preventing unnecessary scanning.
+        Uses the shared FIOS ScanConfig so repository monitoring
+        follows the same scanning boundaries as the Repository Brain.
         """
 
-        for root, dirs, files in os.walk(self.repository_root):
+        for scan_root in CONFIG.resolved_roots(self.repository_root):
 
-            # Stop traversal into excluded folders
-            dirs[:] = [
-                directory
-                for directory in dirs
-                if directory not in self.EXCLUDED_DIRECTORIES
-            ]
+            for root, dirs, files in os.walk(scan_root):
 
-            root_path = Path(root)
+                root_path = Path(root)
 
-            for directory in dirs:
-                yield root_path / directory
+                dirs[:] = [
+                    directory
+                    for directory in dirs
+                    if directory not in CONFIG.excluded_directories
+                    and str(
+                        (root_path / directory).relative_to(
+                            self.repository_root
+                        )
+                    ).replace("\\", "/")
+                    not in CONFIG.excluded_paths
+                ]
 
-            for file in files:
-                yield root_path / file
+                for directory in dirs:
+                    yield root_path / directory
+
+                for file in files:
+
+                    path = root_path / file
+
+                    if path.suffix.lower() in CONFIG.excluded_extensions:
+                        continue
+
+                    yield path
+
+    def _build_fingerprint(
+        self,
+        files: list[Path],
+    ) -> tuple[tuple[str, int, int], ...]:
+        """
+        Build a lightweight repository fingerprint.
+
+        The fingerprint uses:
+        - relative file path
+        - file size
+        - modification timestamp in nanoseconds
+
+        File contents are intentionally not hashed. This keeps
+        change detection lightweight while still detecting normal
+        file creation, deletion, and modification events.
+        """
+
+        fingerprint: list[tuple[str, int, int]] = []
+
+        for file in files:
+
+            try:
+                stat = file.stat()
+
+                fingerprint.append(
+                    (
+                        str(file.relative_to(self.repository_root)),
+                        stat.st_size,
+                        stat.st_mtime_ns,
+                    )
+                )
+
+            except (OSError, ValueError):
+                # File may disappear during the scan.
+                continue
+
+        fingerprint.sort()
+
+        return tuple(fingerprint)
 
     def run(self) -> dict[str, Any]:
-        """Collect repository metrics."""
+        """Collect repository metrics and detect repository changes."""
 
         folders = []
         files = []
@@ -76,6 +127,17 @@ class RepositoryMonitor:
 
             elif item.is_file():
                 files.append(item)
+
+        current_fingerprint = self._build_fingerprint(files)
+
+        first_scan = self._previous_fingerprint is None
+
+        changed = (
+            first_scan
+            or current_fingerprint != self._previous_fingerprint
+        )
+
+        self._previous_fingerprint = current_fingerprint
 
         required_directories = [
             "00_control_center",
@@ -106,6 +168,8 @@ class RepositoryMonitor:
                 "folder_count": len(folders),
                 "file_count": len(files),
                 "missing_directories": missing_directories,
+                "changed": changed,
+                "first_scan": first_scan,
             },
             "warnings": missing_directories,
             "errors": [],

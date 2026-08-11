@@ -12,12 +12,12 @@ The Builder provides the tooling, standards, workflows, templates, automation, a
 
 | Property | Value |
 |----------|-------|
-| Builder Version | v0.5.0-builder-m5 |
+| Builder Version | v0.6.0-builder-m6 |
 | Builder Status | ACTIVE |
 | Builder Health | 100% |
 | Current Platform | Builder Integration |
 | Current Milestone | 6 |
-| Progress | 5 / 6 (83%) |
+| Progress | 6 / 6 (100%) |
 
 ---
 
@@ -104,7 +104,7 @@ Previous Platform
 
 Next Action
 
-**Begin Milestone 6**
+**Repository Intelligence Audit**
 
 ---
 

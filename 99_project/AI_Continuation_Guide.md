@@ -18,7 +18,7 @@ Manual edits are discouraged because this document is generated from the Builder
 
 Builder Version
 
-**v0.5.0-builder-m5**
+**v0.6.0-builder-m6**
 
 Builder Health
 
@@ -38,11 +38,11 @@ Current Milestone
 
 Completed Milestones
 
-**5 / 6**
+**6 / 6**
 
 Overall Progress
 
-**83%**
+**100%**
 
 ---
 
@@ -95,7 +95,7 @@ Previous Phase
 
 Next Action
 
-**Begin Milestone 6**
+**Repository Intelligence Audit**
 
 ---
 

@@ -83,6 +83,18 @@ class ScanConfig:
         )
     )
 
+    # ---------------------------------------------------------
+    # Generated directories excluded from repository monitoring
+    # ---------------------------------------------------------
+
+    excluded_paths: frozenset[str] = field(
+        default_factory=lambda: frozenset(
+            {
+                "fios_live/reports",
+            }
+        )
+    )
+
     def resolved_roots(self, repository_root: Path) -> list[Path]:
         """
         Resolve configured scan roots.

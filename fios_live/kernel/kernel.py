@@ -117,4 +117,6 @@ class Kernel:
                 if event is not None:
                     print(f"[EVENT] {event}")
 
+            self._services.run_autonomous_cycle()
+
             time.sleep(1)

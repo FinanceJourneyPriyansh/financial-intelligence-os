@@ -62,6 +62,7 @@ def status():
         "modules": modules,
         "builder": state.builder_online,
         "automation": state.automation_online,
+        "last_event": state.last_event,
     }
 
 
