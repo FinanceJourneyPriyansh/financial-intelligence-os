@@ -624,7 +624,7 @@ BRAND
 position:absolute;
 
 
-bottom:-120px;
+bottom:-60px;
 
 
 text-align:center;
@@ -678,10 +678,9 @@ color:#00dfff;
 
 .online {
 
-
 margin-top:25px;
-
-
+position:relative;
+top:-30px;
 font-size:22px;
 
 

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import sys
 from datetime import datetime, timezone
@@ -19,6 +19,20 @@ from fios_live.kernel.state.kernel_state import KernelState
 app = FastAPI(title="FIOS")
 
 _state: KernelState | None = None
+@app.middleware("http")
+async def no_cache_static(request, call_next):
+    """
+    Prevent browsers from serving stale FIOS static assets.
+    """
+    response = await call_next(request)
+
+    if True:
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+
+    return response
+
 
 
 def set_state(state: KernelState) -> None:
