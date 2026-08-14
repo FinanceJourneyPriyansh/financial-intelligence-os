@@ -104,3 +104,9 @@ pip-wheel-metadata/
 
 .AppleDouble
 .LSOverride
+# =====================================================
+# FIOS Generated Runtime Artifacts
+# =====================================================
+05_dashboards/dashboard_metrics.json
+08_reports/Builder_Monitoring_Report.md
+FIOS_System_Audit.txt
