@@ -38,43 +38,43 @@
 
         <h2>SYSTEM MODULES</h2>
 
-        <div class="module">
+        <div class="module" data-truth-runtime="true" data-truth-module="true" data-runtime-module="true">
             <div class="module-icon brain-icon">AI</div>
             <div class="module-info">
-                <span>AI ENGINE</span>
-                <b>ONLINE</b>
+                <span data-truth-name="true">AI ENGINE</span>
+                <b id="test-ai-status" data-truth-runtime-status="true">N/A</b>
             </div>
         </div>
 
-        <div class="module">
+        <div class="module" data-truth-runtime="true" data-truth-module="true" data-runtime-module="true">
             <div class="module-icon chart-icon">▥</div>
             <div class="module-info">
-                <span>FINANCIAL MATRIX</span>
-                <b>ONLINE</b>
+                <span data-truth-name="true">FINANCIAL MATRIX</span>
+                <b>N/A</b>
             </div>
         </div>
 
-        <div class="module">
+        <div class="module" data-truth-runtime="true" data-truth-module="true" data-runtime-module="true">
             <div class="module-icon shield-icon">◆</div>
             <div class="module-info">
-                <span>RISK ENGINE</span>
-                <b>ONLINE</b>
+                <span data-truth-name="true">RISK ENGINE</span>
+                <b>N/A</b>
             </div>
         </div>
 
-        <div class="module">
+        <div class="module" data-truth-runtime="true" data-truth-module="true" data-runtime-module="true">
             <div class="module-icon builder-icon">◇</div>
             <div class="module-info">
-                <span>BUILDER CORE</span>
-                <b>ONLINE</b>
+                <span data-truth-name="true">BUILDER CORE</span>
+                <b id="test-builder-status" data-truth-runtime-status="true">N/A</b>
             </div>
         </div>
 
-        <div class="module">
+        <div class="module" data-truth-runtime="true" data-truth-module="true" data-runtime-module="true">
             <div class="module-icon automation-icon">⚙</div>
             <div class="module-info">
-                <span>AUTOMATION</span>
-                <b>ACTIVE</b>
+                <span data-truth-name="true">AUTOMATION</span>
+                <b id="test-automation-status" data-truth-runtime-status="true">N/A</b>
             </div>
         </div>
 
@@ -159,38 +159,32 @@
         <h2>SYSTEM HEALTH</h2>
 
         <div class="health">
-            <span>KERNEL</span>
-            <b>ONLINE</b>
-        </div>
+            <span>KERNEL</span><b id="health-kernel">N/A</b></div>
 
         <div class="health">
-            <span>AI CORE</span>
-            <b>ONLINE</b>
-        </div>
+            <span>AI CORE</span><b id="health-ai">N/A</b></div>
 
         <div class="health">
-            <span>DATA STREAM</span>
-            <b>ACTIVE</b>
-        </div>
+            <span>DATA STREAM</span><b id="health-data">N/A</b></div>
 
         <div class="health">
             <span>UPTIME</span>
-            <b id="uptime">00:00:00</b>
+            <b id="uptime">N/A</b>
         </div>
 
         <div class="health">
             <span>LOAD</span>
-            <b id="load">0%</b>
+            <b id="load">N/A</b>
         </div>
 
         <div class="health">
             <span>ARCHITECTURE</span>
-            <b id="architecture">0%</b>
+            <b id="architecture">N/A</b>
         </div>
 
         <div class="health last-event">
             <span>LAST EVENT</span>
-            <b id="last-event">SYSTEM_BOOT</b>
+            <b id="last-event">N/A</b>
         </div>
 
     </aside>
@@ -222,7 +216,8 @@
 
 </div>
 
-<script src="/static/app.js"></script>
 
+
+<script src="/static/test/app.js?truth=1"></script>
 </body>
 </html>

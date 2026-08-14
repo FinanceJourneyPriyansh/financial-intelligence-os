@@ -59,6 +59,7 @@ class Kernel:
         spec.loader.exec_module(module)
 
         module.set_state(self.state)
+        module.set_services(self._services)
 
         config = uvicorn.Config(
             module.app,
