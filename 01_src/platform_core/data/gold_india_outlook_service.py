@@ -1,11 +1,17 @@
 ﻿"""
 FIOS Gold India Outlook Service
 
-Day 5 Phase 2:
-Translate global gold and USD/INR conditions into an
-India-focused scenario outlook across multiple horizons.
+Reusable scenario/outlook capability.
 
-This is scenario analysis, not a guaranteed price forecast.
+Confidence is horizon-aware:
+- 1D: current market conditions matter strongly
+- 1W: momentum + macro conditions
+- 1M: macro + demand conditions
+- 1Q: structural + macro conditions
+- 1Y: structural evidence dominates
+
+A short-term price move must NOT automatically create
+high confidence in a long-term outlook.
 """
 
 from __future__ import annotations
@@ -43,10 +49,10 @@ class GoldIndiaOutlook:
 
 class GoldIndiaOutlookService:
     """
-    Generate structured India-focused Gold scenarios.
+    Reusable scenario engine for India-facing asset outlook.
 
-    Horizons:
-        1D, 1W, 1M, 1Q, 1Y
+    The current implementation is Gold-focused, while the
+    scenario/confidence mechanism remains reusable.
     """
 
     HORIZONS = (
@@ -67,25 +73,47 @@ class GoldIndiaOutlookService:
         )
 
     @staticmethod
-    def _confidence(
+    def _horizon_confidence(
+        horizon_type: str,
         gold_change: float | None,
         usdinr_change: float | None,
     ) -> str:
+        """
+        Prevent short-term observations from being treated
+        as strong long-term predictive evidence.
+        """
 
         if gold_change is None:
             return "LOW"
 
         magnitude = abs(gold_change)
 
-        if magnitude >= 2.0:
-            if usdinr_change is not None:
+        if horizon_type == "immediate":
+            if magnitude >= 2.0 and usdinr_change is not None:
                 return "HIGH"
 
-            return "MEDIUM"
+            if magnitude >= 1.0:
+                return "MEDIUM"
 
-        if magnitude >= 1.0:
-            return "MEDIUM"
+            return "LOW"
 
+        if horizon_type == "short_term":
+            if magnitude >= 2.0:
+                return "MEDIUM"
+
+            if magnitude >= 1.0:
+                return "MEDIUM"
+
+            return "LOW"
+
+        if horizon_type == "medium_term":
+            return "MEDIUM" if magnitude >= 1.0 else "LOW"
+
+        if horizon_type == "quarter":
+            return "LOW"
+
+        # A single recent market move cannot establish
+        # high confidence for a one-year outlook.
         return "LOW"
 
     @staticmethod
@@ -111,19 +139,16 @@ class GoldIndiaOutlookService:
 
         return "ALIGNED_DOWNSIDE"
 
+    @staticmethod
     def _signal_map(
-        self,
         context: GoldMarketContext,
     ) -> dict[str, float]:
 
         result: dict[str, float] = {}
 
         for signal in context.signals:
-
             if signal.change_pct is not None:
-                result[signal.instrument] = (
-                    signal.change_pct
-                )
+                result[signal.instrument] = signal.change_pct
 
         return result
 
@@ -148,16 +173,18 @@ class GoldIndiaOutlookService:
             usdinr_change,
         )
 
-        confidence = self._confidence(
-            gold_change,
-            usdinr_change,
-        )
-
         scenarios: list[OutlookScenario] = []
 
         for horizon, horizon_type in self.HORIZONS:
 
+            confidence = self._horizon_confidence(
+                horizon_type,
+                gold_change,
+                usdinr_change,
+            )
+
             if horizon_type == "immediate":
+
                 base_drivers = (
                     "Current global gold momentum",
                     "Current USD/INR transmission",
@@ -174,6 +201,7 @@ class GoldIndiaOutlookService:
                 )
 
             elif horizon_type == "short_term":
+
                 base_drivers = (
                     "Global gold momentum",
                     "US dollar direction",
@@ -192,6 +220,7 @@ class GoldIndiaOutlookService:
                 )
 
             elif horizon_type == "medium_term":
+
                 base_drivers = (
                     "Interest-rate expectations",
                     "Dollar trend",
@@ -200,8 +229,8 @@ class GoldIndiaOutlookService:
                 )
 
                 assumptions = (
-                    "Global monetary expectations remain the "
-                    "dominant macro driver",
+                    "Global monetary expectations remain "
+                    "the dominant macro driver",
                     "Central-bank demand remains supportive",
                 )
 
@@ -211,6 +240,7 @@ class GoldIndiaOutlookService:
                 )
 
             elif horizon_type == "quarter":
+
                 base_drivers = (
                     "Global monetary policy",
                     "Central-bank purchases",
@@ -232,6 +262,7 @@ class GoldIndiaOutlookService:
                 )
 
             else:
+
                 base_drivers = (
                     "Global monetary regime",
                     "Central-bank gold demand",
@@ -316,29 +347,30 @@ class GoldIndiaOutlookService:
         summary = (
             f"India transmission is {transmission}. "
             f"Current gold momentum is "
-            f"{gold_change:+.2f}% "
+            f"{gold_change:+.2f}%."
             if gold_change is not None
-            else "Current gold momentum is unavailable. "
+            else "Current gold momentum is unavailable."
         )
 
         summary += (
-            "The outlook uses scenario conditions rather than "
-            "claiming an exact future price."
+            " Outlook confidence is adjusted by horizon; "
+            "short-term observations do not automatically "
+            "support long-term confidence."
+        )
+
+        usdinr = next(
+            (
+                signal.value
+                for signal in context.signals
+                if signal.instrument == "INR=X"
+            ),
+            None,
         )
 
         return GoldIndiaOutlook(
             generated_at=datetime.now(timezone.utc),
             gold_price=context.gold.value,
-            usdinr=(
-                next(
-                    (
-                        signal.value
-                        for signal in context.signals
-                        if signal.instrument == "INR=X"
-                    ),
-                    None,
-                )
-            ),
+            usdinr=usdinr,
             current_gold_change_pct=gold_change,
             india_transmission=transmission,
             scenarios=tuple(scenarios),

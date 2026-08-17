@@ -1,4 +1,4 @@
-﻿"""Tests for FIOS Gold India Outlook."""
+﻿"""Tests for horizon-aware Gold India Outlook."""
 
 from datetime import datetime, timezone
 
@@ -49,31 +49,27 @@ def make_context():
     )
 
 
-def test_gold_india_outlook_returns_valid_result():
+def test_outlook_returns_valid_result():
 
     outlook = GoldIndiaOutlookService().build_outlook(
         context=make_context()
     )
 
-    assert isinstance(
-        outlook,
-        GoldIndiaOutlook,
-    )
-
+    assert isinstance(outlook, GoldIndiaOutlook)
     assert outlook.gold_price == 4476.5
     assert outlook.usdinr == 95.59
     assert outlook.current_gold_change_pct == 2.19
 
 
-def test_all_required_horizons_exist():
+def test_all_horizons_exist():
 
     outlook = GoldIndiaOutlookService().build_outlook(
         context=make_context()
     )
 
     horizons = {
-        scenario.horizon
-        for scenario in outlook.scenarios
+        item.horizon
+        for item in outlook.scenarios
     }
 
     assert horizons == {
@@ -91,23 +87,23 @@ def test_each_horizon_has_three_scenarios():
         context=make_context()
     )
 
-    for horizon in {
+    for horizon in (
         "1D",
         "1W",
         "1M",
         "1Q",
         "1Y",
-    }:
+    ):
 
         scenarios = [
-            scenario
-            for scenario in outlook.scenarios
-            if scenario.horizon == horizon
+            item
+            for item in outlook.scenarios
+            if item.horizon == horizon
         ]
 
         assert {
-            scenario.scenario
-            for scenario in scenarios
+            item.scenario
+            for item in scenarios
         } == {
             "BASE",
             "UPSIDE",
@@ -126,6 +122,25 @@ def test_india_transmission_is_detected():
     )
 
 
+def test_short_term_confidence_is_not_reused_long_term():
+
+    outlook = GoldIndiaOutlookService().build_outlook(
+        context=make_context()
+    )
+
+    base = {
+        item.horizon: item
+        for item in outlook.scenarios
+        if item.scenario == "BASE"
+    }
+
+    assert base["1D"].confidence == "HIGH"
+    assert base["1W"].confidence == "MEDIUM"
+    assert base["1M"].confidence == "MEDIUM"
+    assert base["1Q"].confidence == "LOW"
+    assert base["1Y"].confidence == "LOW"
+
+
 def test_scenarios_have_assumptions_and_invalidation():
 
     outlook = GoldIndiaOutlookService().build_outlook(
@@ -134,8 +149,30 @@ def test_scenarios_have_assumptions_and_invalidation():
 
     for scenario in outlook.scenarios:
 
-        assert len(scenario.drivers) > 0
-        assert len(scenario.assumptions) > 0
-        assert len(scenario.invalidation) > 0
+        assert scenario.drivers
+        assert scenario.assumptions
+        assert scenario.invalidation
         assert scenario.direction
         assert scenario.confidence
+
+
+def test_missing_gold_change_reduces_confidence():
+
+    context = make_context()
+
+    context = GoldMarketContext(
+        gold=context.gold,
+        signals=context.signals,
+        gold_change_pct=None,
+        candidate_drivers=context.candidate_drivers,
+    )
+
+    outlook = GoldIndiaOutlookService().build_outlook(
+        context=context
+    )
+
+    assert all(
+        item.confidence == "LOW"
+        for item in outlook.scenarios
+        if item.scenario == "BASE"
+    )
