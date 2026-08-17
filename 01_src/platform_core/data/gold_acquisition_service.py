@@ -25,6 +25,8 @@ class GoldObservation:
     timestamp: datetime
     price: float
     volume: int
+    previous_price: float | None = None
+    change_pct: float | None = None
 
 
 class GoldAcquisitionService:
@@ -63,10 +65,35 @@ class GoldAcquisitionService:
         if timestamp.tzinfo is None:
             timestamp = timestamp.replace(tzinfo=timezone.utc)
 
+        price = float(row["Close"])
+
+        previous_price = None
+
+        if len(history.dropna(subset=["Close"])) >= 2:
+            previous_row = (
+                history
+                .dropna(subset=["Close"])
+                .iloc[-2]
+            )
+            previous_price = float(
+                previous_row["Close"]
+            )
+
+        change_pct = None
+
+        if previous_price not in (None, 0):
+            change_pct = (
+                (price - previous_price)
+                / previous_price
+                * 100.0
+            )
+
         return GoldObservation(
             instrument=self.SYMBOL,
             source=self.SOURCE,
             timestamp=timestamp,
-            price=float(row["Close"]),
+            price=price,
+            previous_price=previous_price,
+            change_pct=change_pct,
             volume=int(row["Volume"]),
         )

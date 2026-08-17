@@ -111,8 +111,27 @@ class GoldMarketContextService:
             change_pct=change_pct,
         )
 
-    def fetch_context(self) -> GoldMarketContext:
-        gold = self._fetch_signal(self.SYMBOLS["gold"])
+    def fetch_context(self, primary_gold=None) -> GoldMarketContext:
+        if primary_gold is None:
+            gold = self._fetch_signal(
+                self.SYMBOLS["gold"]
+            )
+        else:
+            timestamp = primary_gold.timestamp
+
+            if timestamp.tzinfo is None:
+                timestamp = timestamp.replace(
+                    tzinfo=timezone.utc
+                )
+
+            gold = MarketSignal(
+                instrument=primary_gold.instrument,
+                source=primary_gold.source,
+                timestamp=timestamp,
+                value=float(primary_gold.price),
+                previous_value=primary_gold.previous_price,
+                change_pct=primary_gold.change_pct,
+            )
 
         signals: list[MarketSignal] = []
 
@@ -166,3 +185,4 @@ class GoldMarketContextService:
             gold_change_pct=gold.change_pct,
             candidate_drivers=tuple(candidate_drivers),
         )
+
