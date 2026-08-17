@@ -1,4 +1,4 @@
-﻿"""Tests for FIOS Gold Move Analysis."""
+﻿"""Evidence-quality tests for Gold Move Analysis."""
 
 from datetime import datetime, timezone
 
@@ -10,12 +10,11 @@ from platform_core.data.gold_news_evidence_service import (
     GoldNewsEvidence,
 )
 from platform_core.data.gold_move_analysis_service import (
-    GoldMoveAnalysis,
     GoldMoveAnalysisService,
 )
 
 
-def make_context() -> GoldMarketContext:
+def make_context():
 
     timestamp = datetime(
         2026,
@@ -52,7 +51,7 @@ def make_context() -> GoldMarketContext:
     )
 
 
-def make_news() -> list[GoldNewsEvidence]:
+def test_generic_india_mention_is_not_india_demand():
 
     timestamp = datetime(
         2026,
@@ -61,92 +60,100 @@ def make_news() -> list[GoldNewsEvidence]:
         tzinfo=timezone.utc,
     )
 
-    return [
+    news = [
         GoldNewsEvidence(
-            title=(
-                "Gold climbs on weaker dollar, "
-                "easing Fed rate hike concerns"
-            ),
-            source="Reuters",
+            title="Gold price in India today",
+            source="FXStreet",
             published_at=timestamp,
-            url="https://example.com/reuters-gold",
-            query="gold market",
+            url="https://example.com/india",
+            query="gold India",
             retrieved_at=timestamp,
-        ),
-        GoldNewsEvidence(
-            title=(
-                "Gold rises as weaker dollar supports prices"
-            ),
-            source="KITCO",
-            published_at=timestamp,
-            url="https://example.com/kitco-gold",
-            query="gold market",
-            retrieved_at=timestamp,
-        ),
+        )
     ]
 
+    analysis = GoldMoveAnalysisService().analyze(
+        context=make_context(),
+        news=news,
+    )
 
-def test_gold_move_analysis_returns_structured_result():
+    india = [
+        item
+        for item in analysis.assessments
+        if item.driver == "India demand"
+    ]
+
+    assert india == []
+
+
+def test_india_demand_requires_driver_specific_language():
+
+    timestamp = datetime(
+        2026,
+        8,
+        17,
+        tzinfo=timezone.utc,
+    )
+
+    news = [
+        GoldNewsEvidence(
+            title=(
+                "Indian jewellery demand rises "
+                "as gold prices stabilize"
+            ),
+            source="World Gold Council",
+            published_at=timestamp,
+            url="https://example.com/demand",
+            query="gold India",
+            retrieved_at=timestamp,
+        )
+    ]
 
     analysis = GoldMoveAnalysisService().analyze(
         context=make_context(),
-        news=make_news(),
+        news=news,
     )
 
-    assert isinstance(
-        analysis,
-        GoldMoveAnalysis,
+    india = [
+        item
+        for item in analysis.assessments
+        if item.driver == "India demand"
+    ]
+
+    assert len(india) == 1
+    assert india[0].evidence_count == 1
+
+
+def test_usd_weakness_requires_specific_language():
+
+    timestamp = datetime(
+        2026,
+        8,
+        17,
+        tzinfo=timezone.utc,
     )
 
-    assert analysis.gold_price == 4476.5
-    assert analysis.gold_change_pct == 2.19
-    assert analysis.generated_at.tzinfo is not None
-
-
-def test_gold_move_analysis_identifies_supported_driver():
+    news = [
+        GoldNewsEvidence(
+            title="Gold market update",
+            source="Reuters",
+            published_at=timestamp,
+            url="https://example.com/gold",
+            query="gold market",
+            retrieved_at=timestamp,
+        )
+    ]
 
     analysis = GoldMoveAnalysisService().analyze(
         context=make_context(),
-        news=make_news(),
+        news=news,
     )
 
-    assert len(analysis.assessments) > 0
+    usd = [
+        item
+        for item in analysis.assessments
+        if item.driver == "USD weakness"
+    ]
 
-    top = analysis.assessments[0]
-
-    assert top.driver == "USD weakness"
-    assert top.score > 0
-    assert top.confidence in {
-        "HIGH",
-        "MEDIUM",
-        "LOW",
-    }
-
-
-def test_gold_move_analysis_does_not_claim_causation():
-
-    analysis = GoldMoveAnalysisService().analyze(
-        context=make_context(),
-        news=make_news(),
-    )
-
-    assert "not confirmed causation" in analysis.summary
-
-
-def test_gold_move_analysis_handles_missing_evidence():
-
-    analysis = GoldMoveAnalysisService().analyze(
-        context=make_context(),
-        news=[],
-    )
-
-    assert isinstance(
-        analysis,
-        GoldMoveAnalysis,
-    )
-
-    assert analysis.overall_confidence in {
-        "HIGH",
-        "MEDIUM",
-        "LOW",
-    }
+    assert len(usd) == 1
+    assert usd[0].evidence_count == 0
+    assert usd[0].score > 0

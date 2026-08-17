@@ -1,25 +1,23 @@
 ﻿"""
 FIOS Gold Move Analysis Service
 
-Day 4 Phase 2:
-Combine market context and news evidence into a structured,
-evidence-aware explanation of a gold movement.
+Evidence-aware gold movement analysis.
 
 Important:
-This engine reports supported signals and evidence.
-It does NOT claim confirmed causation from correlation alone.
+Mention != evidence.
+Correlation != causation.
+A driver receives evidence only when the article language
+contains a driver-specific signal.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-import re
 
 from platform_core.data.gold_market_context_service import (
     GoldMarketContext,
     GoldMarketContextService,
-    MarketSignal,
 )
 from platform_core.data.gold_news_evidence_service import (
     GoldNewsEvidence,
@@ -48,10 +46,6 @@ class GoldMoveAnalysis:
 
 
 class GoldMoveAnalysisService:
-    """
-    Analyze Gold market movement using observed market signals
-    and recent news evidence.
-    """
 
     NEWS_SOURCE_WEIGHTS = {
         "Reuters": 1.00,
@@ -71,43 +65,60 @@ class GoldMoveAnalysisService:
             "dollar declines",
             "dollar dropped",
         ),
+
         "Fed expectations": (
-            "fed",
-            "rate hike",
-            "rate cuts",
-            "interest rate",
-            "rate expectations",
-            "fed-hike",
             "fed rate",
+            "fed rates",
+            "fed policy",
+            "rate hike",
+            "rate hikes",
+            "rate cut",
+            "rate cuts",
+            "rate expectations",
+            "interest-rate expectations",
+            "interest rate expectations",
         ),
+
         "Inflation": (
             "inflation",
             "consumer prices",
             "cpi",
             "price pressure",
+            "inflation expectations",
         ),
+
         "Geopolitical risk": (
-            "war",
-            "geopolitical",
-            "conflict",
-            "iran",
-            "tension",
-            "safe-haven",
+            "geopolitical risk",
+            "geopolitical tensions",
+            "geopolitical uncertainty",
+            "safe-haven demand",
+            "safe haven demand",
+            "war risk",
+            "conflict risk",
         ),
+
         "Central-bank demand": (
-            "central bank",
+            "central bank buying",
+            "central banks buying",
             "official sector buying",
             "sovereign buying",
-            "central-bank",
+            "central-bank demand",
+            "central bank demand",
         ),
+
         "India demand": (
-            "india",
-            "indian",
-            "jeweller",
-            "jewelry",
-            "jewellery",
-            "import",
-            "physical demand",
+            "indian gold demand",
+            "india gold demand",
+            "indian jewellery demand",
+            "indian jewelry demand",
+            "india jewellery demand",
+            "india jewelry demand",
+            "indian consumer demand",
+            "india consumer demand",
+            "indian physical demand",
+            "india physical demand",
+            "indian bullion demand",
+            "india bullion demand",
         ),
     }
 
@@ -119,6 +130,7 @@ class GoldMoveAnalysisService:
         self.context_service = (
             context_service or GoldMarketContextService()
         )
+
         self.news_service = (
             news_service or GoldNewsEvidenceService()
         )
@@ -128,6 +140,7 @@ class GoldMoveAnalysisService:
         text: str,
         keywords: tuple[str, ...],
     ) -> bool:
+
         normalized = text.lower()
 
         return any(
@@ -137,6 +150,7 @@ class GoldMoveAnalysisService:
 
     @staticmethod
     def _confidence(score: float) -> str:
+
         if score >= 0.75:
             return "HIGH"
 
@@ -158,10 +172,8 @@ class GoldMoveAnalysisService:
 
         for item in news:
 
-            text = item.title
-
             if not self._contains_any(
-                text,
+                item.title,
                 keywords,
             ):
                 continue
@@ -171,8 +183,6 @@ class GoldMoveAnalysisService:
                 0.50,
             )
 
-            # Each independent article contributes evidence,
-            # with diminishing weight after the first few.
             contribution = source_weight
 
             if count >= 1:
@@ -277,7 +287,6 @@ class GoldMoveAnalysisService:
                 )
             )
 
-            # Normalize news contribution.
             normalized_news = min(
                 news_score / 1.5,
                 1.0,
@@ -289,6 +298,7 @@ class GoldMoveAnalysisService:
                 1.0,
             )
 
+            # No evidence means no driver assessment.
             if combined_score <= 0:
                 continue
 
@@ -296,21 +306,16 @@ class GoldMoveAnalysisService:
                 combined_score
             )
 
-            evidence_text = []
+            supporting = []
 
             if evidence_count:
-                evidence_text.append(
-                    f"{evidence_count} relevant news item(s)"
+                supporting.append(
+                    f"{evidence_count} driver-specific "
+                    "news item(s)"
                 )
 
-            evidence_text.extend(
+            supporting.extend(
                 market_signals
-            )
-
-            explanation = (
-                f"{driver} has {confidence.lower()} "
-                f"evidence based on "
-                f"market context and available news."
             )
 
             assessments.append(
@@ -320,9 +325,14 @@ class GoldMoveAnalysisService:
                     confidence=confidence,
                     evidence_count=evidence_count,
                     supporting_signals=tuple(
-                        evidence_text
+                        supporting
                     ),
-                    explanation=explanation,
+                    explanation=(
+                        f"{driver} has "
+                        f"{confidence.lower()} evidence "
+                        "based on driver-specific news "
+                        "and observed market context."
+                    ),
                 )
             )
 
@@ -332,24 +342,32 @@ class GoldMoveAnalysisService:
         )
 
         if assessments:
+
             top = assessments[0]
 
             overall_confidence = top.confidence
 
+            change_text = (
+                f"{context.gold_change_pct:+.2f}%"
+                if context.gold_change_pct is not None
+                else "an unquantified move"
+            )
+
             summary = (
-                f"Gold is {context.gold_change_pct:+.2f}% "
-                f"with the strongest observed evidence "
-                f"pointing toward {top.driver}. "
-                f"This is an evidence-based assessment, "
-                f"not confirmed causation."
+                f"Gold is {change_text} with the "
+                f"strongest observed evidence pointing "
+                f"toward {top.driver}. "
+                "This is an evidence-based assessment, "
+                "not confirmed causation."
             )
 
         else:
+
             overall_confidence = "LOW"
 
             summary = (
                 "Gold movement detected, but available "
-                "market and news evidence is insufficient "
+                "driver-specific evidence is insufficient "
                 "to identify a strong driver."
             )
 
