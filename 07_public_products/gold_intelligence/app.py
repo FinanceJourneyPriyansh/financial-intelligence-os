@@ -79,6 +79,130 @@ def home() -> str:
 
     price_18k = product.india_18k_10g
 
+    # ------------------------------------------------------------
+    # FIOS DECISION SCORECARD
+    # Uses existing FIOS signals only.
+    # No new forecasting model is introduced here.
+    # ------------------------------------------------------------
+
+    base_scenarios = [
+        item
+        for item in product.scenarios
+        if item.scenario == "BASE"
+    ]
+
+    base_directions = [
+        str(item.direction).upper()
+        for item in base_scenarios
+    ]
+
+    transmission = str(
+        product.india_transmission
+    ).upper()
+
+    bullish_base_count = sum(
+        "BULLISH" in direction
+        for direction in base_directions
+    )
+
+    bearish_base_count = sum(
+        "BEARISH" in direction
+        for direction in base_directions
+    )
+
+    supportive_transmission = (
+        "UPSIDE" in transmission
+        or "SUPPORT" in transmission
+        or "FAVORABLE" in transmission
+        or "FAVOURABLE" in transmission
+    )
+
+    adverse_transmission = (
+        "DOWNSIDE" in transmission
+        or "PRESSURE" in transmission
+        or "BEARISH" in transmission
+        or "NEGATIVE" in transmission
+    )
+
+    if (
+        supportive_transmission
+        and bullish_base_count > bearish_base_count
+    ):
+        decision_label = "FAVOURABLE"
+        decision_class = "favourable"
+        decision_reason = (
+            "Existing FIOS signals show supportive India "
+            "transmission and a bullish base-case bias."
+        )
+
+    elif (
+        adverse_transmission
+        or bearish_base_count > bullish_base_count
+    ):
+        decision_label = "CAUTION"
+        decision_class = "caution"
+        decision_reason = (
+            "Existing FIOS signals show downside or bearish "
+            "pressure in the current transmission/base-case view."
+        )
+
+    else:
+        decision_label = "NEUTRAL"
+        decision_class = "neutral"
+        decision_reason = (
+            "Existing FIOS signals do not establish a sufficiently "
+            "clear directional advantage."
+        )
+
+    decision_confidence = str(
+        product.overall_confidence
+    ).upper()
+
+    decision_scorecard = (
+        '<div class="decision-scorecard '
+        + decision_class
+        + '">'
+        '<div class="decision-score-top">'
+        '<div>'
+        '<span class="action-kicker">FIOS DECISION SCORECARD</span>'
+        '<h3>'
+        + decision_label
+        + '</h3>'
+        '</div>'
+        '<div class="decision-confidence">'
+        '<small>CONFIDENCE</small>'
+        '<strong>'
+        + decision_confidence
+        + '</strong>'
+        '</div>'
+        '</div>'
+        '<p>'
+        + decision_reason
+        + '</p>'
+        '<div class="decision-signals">'
+        '<div>'
+        '<small>INDIA TRANSMISSION</small>'
+        '<strong>'
+        + transmission.replace("_", " ")
+        + '</strong>'
+        '</div>'
+        '<div>'
+        '<small>BASE-CASE SIGNALS</small>'
+        '<strong>'
+        + str(bullish_base_count)
+        + ' bullish / '
+        + str(bearish_base_count)
+        + ' bearish'
+        + '</strong>'
+        '</div>'
+        '</div>'
+        '<small>'
+        'Decision is derived from existing FIOS intelligence signals '
+        'and is not personalized investment advice.'
+        '</small>'
+        '</div>'
+    )
+
     drivers = "".join(
         f"""
         <div class="driver">
@@ -923,16 +1047,7 @@ def home() -> str:
 
                 <div class="decision-card">
 
-                    <strong>
-                        FIOS decision context
-                    </strong>
-
-                    <p>
-                        Current India transmission:
-                        <strong>
-                            {product.india_transmission}
-                        </strong>.
-                    </p>
+                    {decision_scorecard}
 
                     <p>
                         Use the scenario simulator and invoice
