@@ -892,6 +892,20 @@ def home() -> str:
                         </strong>
                     </span>
 
+                    <span>
+                        India rate retrieved
+                        <strong>
+                            {format_ist(product.india_rate_timestamp)}
+                        </strong>
+                    </span>
+
+                    <span>
+                        Source
+                        <strong>
+                            {product.india_rate_source}
+                        </strong>
+                    </span>
+
                 </div>
 
             </section>
@@ -1389,7 +1403,8 @@ def home() -> str:
                 </div>
 
                 <span>
-                    Product refresh: 60 seconds
+                    Product refresh: 60 seconds &middot;
+                    Source-backed timestamps shown above
                 </span>
 
             </footer>
