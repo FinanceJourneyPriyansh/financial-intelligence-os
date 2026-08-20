@@ -122,6 +122,103 @@ def home() -> str:
     )
 
     # ------------------------------------------------------------
+    # FIOS INDIA PREMIUM / DISCOUNT
+    # Compares the global gold + FX implied India value
+    # against the published India 24K reference rate.
+    # This is a market transmission diagnostic, not a forecast.
+    # ------------------------------------------------------------
+
+    global_implied_india_24k = (
+        product.price
+        * product.usd_inr
+        * 10.0
+        / 31.1034768
+        if product.price is not None
+        and product.usd_inr is not None
+        else None
+    )
+
+    india_reference_premium = (
+        product.india_24k_10g - global_implied_india_24k
+        if global_implied_india_24k is not None
+        and product.india_24k_10g is not None
+        else None
+    )
+
+    india_reference_premium_pct = (
+        india_reference_premium
+        / global_implied_india_24k
+        * 100.0
+        if global_implied_india_24k
+        else None
+    )
+
+    india_premium_card = (
+        '<div class="action-card">'
+        '<div class="action-kicker">'
+        'INDIA PREMIUM / DISCOUNT'
+        '</div>'
+        '<h3>Global-to-India transmission</h3>'
+        '<div class="action-result">'
+        '<div class="inventory-result-grid">'
+
+        '<div>'
+        '<small>GLOBAL IMPLIED INDIA VALUE</small>'
+        '<strong>'
+        + (
+            "&#8377;" + f"{global_implied_india_24k:,.0f}"
+            if global_implied_india_24k is not None
+            else "Unavailable"
+        )
+        + '</strong>'
+        '<small>24K / 10g</small>'
+        '</div>'
+
+        '<div>'
+        '<small>PUBLISHED INDIA REFERENCE</small>'
+        '<strong>'
+        + (
+            "&#8377;" + f"{product.india_24k_10g:,.0f}"
+            if product.india_24k_10g is not None
+            else "Unavailable"
+        )
+        + '</strong>'
+        '<small>24K / 10g</small>'
+        '</div>'
+
+        '<div>'
+        '<small>PREMIUM / DISCOUNT</small>'
+        '<strong>'
+        + (
+            (
+                "+" if india_reference_premium >= 0 else ""
+            )
+            + f"&#8377;{india_reference_premium:,.0f}"
+            + (
+                f" ({india_reference_premium_pct:+.2f}%)"
+                if india_reference_premium_pct is not None
+                else ""
+            )
+            if india_reference_premium is not None
+            else "Unavailable"
+        )
+        + '</strong>'
+        '</div>'
+
+        '</div>'
+        '</div>'
+
+        '<small>'
+        'The premium or discount is the difference between the '
+        'published Indian 24K reference and the value implied by '
+        'global gold and USD/INR. It is a transmission diagnostic, '
+        'not a prediction or dealer quote.'
+        '</small>'
+
+        '</div>'
+    )
+
+    # ------------------------------------------------------------
     # FIOS DECISION SCORECARD
     # Uses existing FIOS signals only.
     # No new forecasting model is introduced here.
@@ -1087,6 +1184,8 @@ def home() -> str:
 
                     {inventory_exposure_card}
 
+                    {india_premium_card}
+
                 </div>
 
                 <div class="section-title">
@@ -1565,6 +1664,14 @@ def home() -> str:
                     }}
                 ) +
                 " / 10g<br>" +
+                "Published India 24K reference: INR " +
+                "{product.india_24k_10g}" +
+                " / 10g<br>" +
+                "Transmission difference: INR " +
+                "{india_reference_premium}" +
+                " (" +
+                "{india_reference_premium_pct:.2f}%" +
+                ")<br>" +
                 "Gold: $" +
                 gold.toLocaleString(
                     "en-US",
