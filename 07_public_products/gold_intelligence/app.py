@@ -122,6 +122,8 @@ def home() -> str:
     )
 
     # ------------------------------------------------------------
+
+    # ------------------------------------------------------------
     # FIOS INDIA PREMIUM / DISCOUNT
     # Compares the global gold + FX implied India value
     # against the published India 24K reference rate.
@@ -342,6 +344,86 @@ def home() -> str:
         '</div>'
     )
 
+    # FIOS B3 ACTION BRIDGE
+    # Converts the existing decision scorecard into an operational
+    # posture using existing FIOS signals only.
+    # No new forecasting model is introduced.
+    # ------------------------------------------------------------
+
+    if decision_label == "FAVOURABLE":
+        action_posture = "MAINTAIN / PROCEED WITH DISCIPLINE"
+        action_reason = (
+            "Bullish base-case signals currently outweigh bearish "
+            "signals, while India transmission remains supportive."
+        )
+    elif decision_label == "CAUTION":
+        action_posture = "PROTECT / REDUCE NEW EXPOSURE"
+        action_reason = (
+            "Existing FIOS signals show downside pressure or a "
+            "bearish balance. Protect existing exposure and avoid "
+            "unnecessary new commitments."
+        )
+    else:
+        action_posture = "WAIT / GATHER MORE EVIDENCE"
+        action_reason = (
+            "Existing FIOS signals do not establish a sufficiently "
+            "clear directional advantage for an aggressive action."
+        )
+
+    base_invalidations = []
+    for item in base_scenarios:
+        for invalidation in item.invalidation:
+            if invalidation not in base_invalidations:
+                base_invalidations.append(invalidation)
+
+    watch_items = "".join(
+        f"<li>{item}</li>"
+        for item in base_invalidations[:4]
+    )
+
+    action_bridge = (
+        '<div class="action-bridge">'
+        '<div class="action-bridge-top">'
+        '<div>'
+        '<span class="action-kicker">ACTION POSTURE</span>'
+        '<h3>'
+        + action_posture
+        + '</h3>'
+        '</div>'
+        '<div class="decision-confidence">'
+        '<small>CONFIDENCE</small>'
+        '<strong>'
+        + decision_confidence
+        + '</strong>'
+        '</div>'
+        '</div>'
+        '<p>'
+        + action_reason
+        + '</p>'
+        '<div class="action-bridge-section">'
+        '<small>WHY</small>'
+        '<p>'
+        + decision_reason
+        + '</p>'
+        '</div>'
+        '<div class="action-bridge-section">'
+        '<small>WATCH / INVALIDATION</small>'
+        '<ul>'
+        + (
+            watch_items
+            if watch_items
+            else "<li>No current BASE invalidation signals available.</li>"
+        )
+        + '</ul>'
+        '</div>'
+        '<small>'
+        'Operational posture is derived from existing FIOS '
+        'intelligence signals and is not personalized investment advice.'
+        '</small>'
+        '</div>'
+    )
+
+
     drivers = "".join(
         f"""
         <div class="driver">
@@ -560,6 +642,47 @@ def home() -> str:
 }}
 
 .action-card small,
+    .action-bridge {{
+        margin-top: 18px;
+        padding: 18px;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 14px;
+    }}
+
+    .action-bridge-top {{
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: flex-start;
+    }}
+
+    .action-bridge h3 {{
+        margin: 6px 0 0;
+    }}
+
+    .action-bridge-section {{
+        margin-top: 14px;
+    }}
+
+    .action-bridge-section > small {{
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 700;
+    }}
+
+    .action-bridge-section p {{
+        margin: 0;
+    }}
+
+    .action-bridge ul {{
+        margin: 6px 0 0;
+        padding-left: 20px;
+    }}
+
+    .action-bridge li {{
+        margin: 4px 0;
+    }}
+
 .decision-card small {{
     display: block;
     margin-top: 14px;
@@ -1195,6 +1318,8 @@ def home() -> str:
                 <div class="decision-card">
 
                     {decision_scorecard}
+
+                    {action_bridge}
 
                     <p>
                         Use the scenario simulator and invoice
