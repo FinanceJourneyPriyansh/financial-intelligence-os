@@ -77,12 +77,10 @@ class MarketIntelligencePipeline(
         observation = self.acquisition.fetch_latest()
 
         market_context = self.context.fetch_context(
-            primary_gold=observation
+            primary_observation=observation
         )
 
-        news = self.evidence.fetch_recent(
-            queries=("gold market", "gold India")
-        )
+        news = self.evidence.fetch_recent()
 
         analysis = self.analysis.analyze(
             context=market_context,

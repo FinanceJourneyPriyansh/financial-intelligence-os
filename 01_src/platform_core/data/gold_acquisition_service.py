@@ -12,21 +12,11 @@ kernel, or existing internal runtime.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from platform_core.data.market_observation import MarketObservation
 from datetime import datetime, timezone
 
 import yfinance as yf
 
-
-@dataclass(frozen=True)
-class GoldObservation:
-    instrument: str
-    source: str
-    timestamp: datetime
-    price: float
-    volume: int
-    previous_price: float | None = None
-    change_pct: float | None = None
 
 
 class GoldAcquisitionService:
@@ -35,7 +25,7 @@ class GoldAcquisitionService:
     SYMBOL = "GC=F"
     SOURCE = "yahoo_finance"
 
-    def fetch_latest(self) -> GoldObservation:
+    def fetch_latest(self) -> MarketObservation:
         """Fetch the latest valid gold observation."""
 
         history = yf.Ticker(self.SYMBOL).history(
@@ -88,7 +78,7 @@ class GoldAcquisitionService:
                 * 100.0
             )
 
-        return GoldObservation(
+        return MarketObservation(
             instrument=self.SYMBOL,
             source=self.SOURCE,
             timestamp=timestamp,
