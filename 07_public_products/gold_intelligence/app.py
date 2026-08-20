@@ -80,6 +80,48 @@ def home() -> str:
     price_18k = product.india_18k_10g
 
     # ------------------------------------------------------------
+    # FIOS INVENTORY EXPOSURE
+    # Reuses the live India 24K reference rate.
+    # Measures exposure; does not forecast price.
+    # ------------------------------------------------------------
+
+    inventory_exposure_card = (
+        '<div class="action-card">'
+        '<div class="action-kicker">'
+        'INVENTORY EXPOSURE CALCULATOR'
+        '</div>'
+        '<h3>Measure your gold price exposure</h3>'
+        '<div class="action-form">'
+        '<label>'
+        'Gold held (grams)'
+        '<input '
+        'id="inventory-weight" '
+        'type="number" '
+        'min="0" '
+        'step="0.01" '
+        'value="500">'
+        '</label>'
+        '<button '
+        'type="button" '
+        'onclick="calculateInventoryExposure()">'
+        'Calculate exposure'
+        '</button>'
+        '</div>'
+        '<div '
+        'id="inventory-result" '
+        'class="action-result">'
+        'Enter your gold holding to estimate current value '
+        'and scenario exposure.'
+        '</div>'
+        '<small>'
+        'Uses the current FIOS 24K India reference rate. '
+        'Scenario figures show exposure to price movement, '
+        'not a prediction of future gold prices.'
+        '</small>'
+        '</div>'
+    )
+
+    # ------------------------------------------------------------
     # FIOS DECISION SCORECARD
     # Uses existing FIOS signals only.
     # No new forecasting model is introduced here.
@@ -922,8 +964,8 @@ def home() -> str:
                                     id="hallmark-fee"
                                     type="number"
                                     min="0"
-                                    step="1"
-                                    value="0"
+                                    step="0.01"
+                                    value="53.10"
                                     autocomplete="off"
                                 >
                             </label>
@@ -1040,6 +1082,12 @@ def home() -> str:
 
 
             <section class="action-layer">
+
+                <div class="action-grid">
+
+                    {inventory_exposure_card}
+
+                </div>
 
                 <div class="section-title">
                     WHAT SHOULD I DO NOW?
@@ -1214,19 +1262,6 @@ def home() -> str:
 
 
 
-        const hallmarkField =
-            document.getElementById("hallmark-fee");
-
-        if (hallmarkField) {{
-            hallmarkField.value = "0";
-        }}
-
-        window.addEventListener("pageshow", function() {{
-            if (hallmarkField) {{
-                hallmarkField.value = "0";
-            }}
-        }});
-
 
         syncPurityToKarat(
             "jewellery-karat",
@@ -1380,6 +1415,79 @@ def home() -> str:
         }}
 
 
+
+        function calculateInventoryExposure() {{
+
+            const weight =
+                Number(
+                    document.getElementById(
+                        "inventory-weight"
+                    ).value
+                );
+
+            const rate24k =
+                Number(
+                    "{price_24k}"
+                );
+
+            const result =
+                document.getElementById(
+                    "inventory-result"
+                );
+
+            if (
+                !Number.isFinite(weight) ||
+                weight <= 0 ||
+                !Number.isFinite(rate24k) ||
+                rate24k <= 0
+            ) {{
+                result.innerHTML =
+                    "Enter a valid gold holding.";
+                return;
+            }}
+
+            const currentValue =
+                (weight / 10) * rate24k;
+
+            const downsideImpact =
+                currentValue * -0.03;
+
+            const upsideImpact =
+                currentValue * 0.03;
+
+            const money = value =>
+                "&#8377;" +
+                Math.round(
+                    value
+                ).toLocaleString("en-IN");
+
+            result.innerHTML = `
+                <div class="inventory-result-grid">
+
+                    <div>
+                        <small>CURRENT VALUE</small>
+                        <strong>${{money(currentValue)}}</strong>
+                    </div>
+
+                    <div>
+                        <small>IF GOLD FALLS 3%</small>
+                        <strong>${{money(downsideImpact)}}</strong>
+                    </div>
+
+                    <div>
+                        <small>IF GOLD RISES 3%</small>
+                        <strong>+${{money(upsideImpact)}}</strong>
+                    </div>
+
+                </div>
+
+                <p>
+                    Exposure is proportional to your gold holding.
+                    A 3% gold move changes the estimated holding
+                    value by approximately 3%.
+                </p>
+            `;
+        }}
 
         function calculateScenario() {{
 
