@@ -86,7 +86,7 @@ def home() -> str:
     # ------------------------------------------------------------
 
     inventory_exposure_card = (
-        '<div class="action-card">'
+        '<div class="action-card" id="inventory-exposure">'
         '<div class="action-kicker">'
         'INVENTORY EXPOSURE CALCULATOR'
         '</div>'
@@ -406,6 +406,24 @@ def home() -> str:
         + decision_reason
         + '</p>'
         '</div>'
+        '<div class="action-bridge-actions">'
+        + (
+            '<a class="action-bridge-button" href="#scenario-simulator">'
+            'RUN SCENARIO SIMULATOR'
+            '</a>'
+            if decision_label == "FAVOURABLE"
+            else
+            '<a class="action-bridge-button" href="#inventory-exposure">'
+            'CHECK INVENTORY EXPOSURE'
+            '</a>'
+            if decision_label == "CAUTION"
+            else
+            '<a class="action-bridge-button" href="#evidence-section">'
+            'REVIEW LATEST EVIDENCE'
+            '</a>'
+        )
+        + '</div>'
+
         '<div class="action-bridge-section">'
         '<small>WATCH / INVALIDATION</small>'
         '<ul>'
@@ -658,6 +676,19 @@ def home() -> str:
 
     .action-bridge h3 {{
         margin: 6px 0 0;
+    }}
+
+    .action-bridge-actions {{
+        margin-top: 16px;
+    }}
+
+    .action-bridge-button {{
+        display: inline-block;
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        cursor: pointer;
     }}
 
     .action-bridge-section {{
@@ -1121,7 +1152,7 @@ def home() -> str:
 
                 <div class="action-grid">
 
-                    <div class="action-card">
+                    <div class="action-card" id="jewellery-estimator">
                         <div class="action-kicker">
                             JEWELLERY INVOICE ESTIMATOR
                         </div>
@@ -1215,7 +1246,7 @@ def home() -> str:
                     </div>
 
 
-                    <div class="action-card">
+                    <div class="action-card" id="scenario-simulator">
 
                         <div class="action-kicker">
                             GOLD SCENARIO SIMULATOR
@@ -1338,7 +1369,7 @@ def home() -> str:
 
 
 
-            <section>
+            <section id="evidence-section">
 
                 <div class="section-title">
                     LATEST EVIDENCE
