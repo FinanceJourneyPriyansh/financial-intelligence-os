@@ -8,6 +8,10 @@ import requests
 from platform_core.data.gold_quote_observation import (
     GoldQuoteObservation,
 )
+from platform_core.data.gold_provider_capability import (
+    GoldDataCapability,
+    GoldProviderMetadata,
+)
 
 
 class GoldAPIProvider:
@@ -140,4 +144,34 @@ class GoldAPIProvider:
                 )
             ),
             is_realtime=True,
+        )
+
+
+    def metadata(
+        self,
+        observation: GoldQuoteObservation,
+    ) -> GoldProviderMetadata:
+        retrieved_at = datetime.now(timezone.utc)
+
+        timestamp = observation.timestamp
+
+        if timestamp.tzinfo is None:
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
+        else:
+            timestamp = timestamp.astimezone(timezone.utc)
+
+        age = max(
+            0.0,
+            (retrieved_at - timestamp).total_seconds(),
+        )
+
+        return GoldProviderMetadata(
+            provider=self.name,
+            capability=GoldDataCapability.REALTIME,
+            quote_timestamp=timestamp,
+            retrieved_at=retrieved_at,
+            data_age_seconds=age,
+            is_realtime=observation.is_realtime,
+            market_role="global_realtime_gold",
+            instrument=observation.instrument,
         )

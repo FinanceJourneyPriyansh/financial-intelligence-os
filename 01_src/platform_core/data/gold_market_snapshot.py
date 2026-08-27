@@ -4,6 +4,10 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
+from platform_core.data.gold_provider_capability import (
+    GoldDataCapability,
+)
+
 
 class MarketStatus(str, Enum):
     OPEN = "OPEN"
@@ -31,6 +35,11 @@ class GoldMarketSnapshot:
 
     source: str
     instrument: str
+
+    capability: GoldDataCapability
+    is_realtime: bool
+    market_role: str
+    fallback_used: bool
 
     data_age_seconds: float
     official_close: bool

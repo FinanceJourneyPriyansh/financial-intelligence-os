@@ -60,6 +60,12 @@ class GoldMarketSnapshotService:
         result = self.provider_manager.fetch_latest()
         observation = result.observation
 
+        provider_metadata = (
+            self.provider_manager.primary.metadata(observation)
+            if not result.fallback_used
+            else self.provider_manager.fallback.metadata(observation)
+        )
+
         quote_timestamp = observation.timestamp
 
         if quote_timestamp.tzinfo is None:
@@ -113,6 +119,10 @@ class GoldMarketSnapshotService:
             retrieved_at=retrieved_at,
             source=result.provider,
             instrument=observation.instrument,
+            capability=provider_metadata.capability,
+            is_realtime=provider_metadata.is_realtime,
+            market_role=provider_metadata.market_role,
+            fallback_used=result.fallback_used,
             data_age_seconds=data_age_seconds,
             official_close=official_close,
         )

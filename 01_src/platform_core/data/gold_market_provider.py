@@ -1,10 +1,15 @@
 ﻿from __future__ import annotations
+from datetime import datetime, timezone
 
 from dataclasses import dataclass
 from typing import Protocol
 
 from platform_core.data.gold_quote_observation import (
     GoldQuoteObservation,
+)
+from platform_core.data.gold_provider_capability import (
+    GoldDataCapability,
+    GoldProviderMetadata,
 )
 
 
@@ -60,6 +65,36 @@ class YahooGoldProvider:
         )
 
 
+    def metadata(
+        self,
+        observation: GoldQuoteObservation,
+    ) -> GoldProviderMetadata:
+        retrieved_at = datetime.now(timezone.utc)
+
+        timestamp = observation.timestamp
+
+        if timestamp.tzinfo is None:
+            timestamp = timestamp.replace(tzinfo=timezone.utc)
+        else:
+            timestamp = timestamp.astimezone(timezone.utc)
+
+        age = max(
+            0.0,
+            (retrieved_at - timestamp).total_seconds(),
+        )
+
+        return GoldProviderMetadata(
+            provider=self.name,
+            capability=GoldDataCapability.DAILY,
+            quote_timestamp=timestamp,
+            retrieved_at=retrieved_at,
+            data_age_seconds=age,
+            is_realtime=observation.is_realtime,
+            market_role="global_gold_reference",
+            instrument=observation.instrument,
+        )
+
+
 class MockGoldProvider:
     """Deterministic Gold provider for development continuity."""
 
@@ -90,7 +125,6 @@ class MockGoldProvider:
                 * 100.0
             )
 
-        from datetime import datetime, timezone
 
         return GoldQuoteObservation(
             instrument="GC=F",
@@ -104,6 +138,24 @@ class MockGoldProvider:
             currency="USD",
             unit="troy_ounce",
             is_realtime=False,
+        )
+
+
+    def metadata(
+        self,
+        observation: GoldQuoteObservation,
+    ) -> GoldProviderMetadata:
+        retrieved_at = datetime.now(timezone.utc)
+
+        return GoldProviderMetadata(
+            provider=self.name,
+            capability=GoldDataCapability.MOCK,
+            quote_timestamp=observation.timestamp,
+            retrieved_at=retrieved_at,
+            data_age_seconds=0.0,
+            is_realtime=False,
+            market_role="development_fallback",
+            instrument=observation.instrument,
         )
 
 
