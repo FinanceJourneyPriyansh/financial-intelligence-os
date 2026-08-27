@@ -60,10 +60,19 @@ class IBJAGoldProvider:
                 "IBJA Gold rates could not be parsed."
             )
 
+        quote_timestamp = self._extract_latest_label_timestamp(
+            response.text
+        )
+
+        if quote_timestamp is None:
+            raise RuntimeError(
+                "IBJA Gold benchmark date could not be parsed."
+            )
+
         return GoldQuoteObservation(
             instrument="IBJA-GOLD-999",
             source=self.name,
-            timestamp=datetime.now(timezone.utc),
+            timestamp=quote_timestamp,
             ltp=values["999"],
             previous_close=None,
             change_abs=None,
@@ -74,6 +83,60 @@ class IBJAGoldProvider:
             is_realtime=False,
             purity_rates=values,
         )
+
+    @staticmethod
+    def _extract_latest_label_timestamp(
+        text: str,
+    ) -> datetime | None:
+        """Extract the latest published IBJA benchmark date."""
+
+        element_match = re.search(
+            r'<input[^>]*\bid=["\']HdnGold["\'][^>]*>',
+            text,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        if element_match is None:
+            return None
+
+        element = element_match.group(0)
+
+        value_match = re.search(
+            r'\bvalue\s*=\s*(["\'])(.*?)\1',
+            element,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        if value_match is None:
+            return None
+
+        raw = html.unescape(value_match.group(2))
+
+        try:
+            payload = json.loads(raw)
+        except (TypeError, ValueError, json.JSONDecodeError):
+            return None
+
+        if not isinstance(payload, dict):
+            return None
+
+        labels = payload.get("labels")
+
+        if not isinstance(labels, list) or not labels:
+            return None
+
+        latest_label = labels[-1]
+
+        if not isinstance(latest_label, str):
+            return None
+
+        try:
+            return datetime.strptime(
+                latest_label,
+                "%d/%m/%Y",
+            ).replace(tzinfo=timezone.utc)
+        except ValueError:
+            return None
 
     @staticmethod
     def _extract_current_gold_rates(
