@@ -1,18 +1,19 @@
 ﻿from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from typing import Protocol
 
-from platform_core.data.market_observation import MarketObservation
+from platform_core.data.gold_quote_observation import (
+    GoldQuoteObservation,
+)
 
 
 class GoldMarketProvider(Protocol):
-    """Contract for a Gold market data provider."""
+    """Provider contract returning the canonical Gold quote contract."""
 
     name: str
 
-    def fetch_latest(self) -> MarketObservation:
+    def fetch_latest(self) -> GoldQuoteObservation:
         ...
 
 
@@ -20,13 +21,13 @@ class GoldMarketProvider(Protocol):
 class ProviderResult:
     """Normalized provider execution result."""
 
-    observation: MarketObservation
+    observation: GoldQuoteObservation
     provider: str
     fallback_used: bool
 
 
 class YahooGoldProvider:
-    """Yahoo Finance Gold provider using the existing acquisition logic."""
+    """Yahoo Finance adapter normalized to GoldQuoteObservation."""
 
     name = "yahoo_finance"
 
@@ -37,17 +38,30 @@ class YahooGoldProvider:
 
         self._service = GoldAcquisitionService()
 
-    def fetch_latest(self) -> MarketObservation:
-        return self._service.fetch_latest()
+    def fetch_latest(self) -> GoldQuoteObservation:
+        observation = self._service.fetch_latest()
+
+        return GoldQuoteObservation(
+            instrument=observation.instrument,
+            source=self.name,
+            timestamp=observation.timestamp,
+            ltp=observation.price,
+            previous_close=observation.previous_price,
+            change_pct=observation.change_pct,
+            change_abs=(
+                observation.price - observation.previous_price
+                if observation.previous_price not in (None, 0)
+                else None
+            ),
+            volume=float(observation.volume),
+            currency="USD",
+            unit="troy_ounce",
+            is_realtime=False,
+        )
 
 
 class MockGoldProvider:
-    """
-    Deterministic fallback provider.
-
-    This exists for development/test continuity when external market
-    providers are unavailable. It is explicitly marked as mock data.
-    """
+    """Deterministic Gold provider for development continuity."""
 
     name = "mock_gold"
 
@@ -59,38 +73,46 @@ class MockGoldProvider:
         self.price = price
         self.previous_price = previous_price
 
-    def fetch_latest(self) -> MarketObservation:
+    def fetch_latest(self) -> GoldQuoteObservation:
         if self.price <= 0:
             raise RuntimeError(
                 "MockGoldProvider requires a positive price."
             )
 
+        change_abs = None
         change_pct = None
 
         if self.previous_price not in (None, 0):
+            change_abs = self.price - self.previous_price
             change_pct = (
-                (self.price - self.previous_price)
+                change_abs
                 / self.previous_price
                 * 100.0
             )
 
-        return MarketObservation(
+        from datetime import datetime, timezone
+
+        return GoldQuoteObservation(
             instrument="GC=F",
             source=self.name,
             timestamp=datetime.now(timezone.utc),
-            price=self.price,
-            previous_price=self.previous_price,
+            ltp=self.price,
+            previous_close=self.previous_price,
+            change_abs=change_abs,
             change_pct=change_pct,
-            volume=0,
+            volume=0.0,
+            currency="USD",
+            unit="troy_ounce",
+            is_realtime=False,
         )
 
 
 class GoldMarketProviderManager:
     """
-    Execute the configured primary Gold provider with an optional fallback.
+    Central Gold provider failover.
 
-    Provider selection is centralized here so the rest of FIOS does not
-    need to know which external source supplied the observation.
+    Primary provider is attempted first. If it fails, the configured
+    fallback provider is used. All providers return the same contract.
     """
 
     def __init__(

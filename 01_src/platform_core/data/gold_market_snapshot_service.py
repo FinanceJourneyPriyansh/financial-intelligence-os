@@ -76,8 +76,8 @@ class GoldMarketSnapshotService:
             (retrieved_at - quote_timestamp).total_seconds(),
         )
 
-        previous_close = observation.previous_price
-        ltp = observation.price
+        previous_close = observation.previous_close
+        ltp = observation.ltp
 
         change_abs = None
         change_pct = observation.change_pct

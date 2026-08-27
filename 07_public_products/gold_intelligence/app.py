@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+from contextlib import asynccontextmanager
 from datetime import timezone
 from zoneinfo import ZoneInfo
 
@@ -10,10 +11,37 @@ from fastapi.staticfiles import StaticFiles
 from platform_core.data.gold_public_product_service import (
     GoldPublicProductService,
 )
+from platform_core.data.gold_continuous_engine import (
+    GoldContinuousEngine,
+)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Own the lifecycle of the FIOS Gold continuous engine.
+
+    Startup starts exactly one engine.
+    Shutdown stops it cleanly.
+    """
+
+    engine = GoldContinuousEngine(
+        interval_seconds=1.0,
+    )
+
+    app.state.gold_engine = engine
+
+    await engine.start()
+
+    try:
+        yield
+    finally:
+        await engine.stop()
+
 
 app = FastAPI(
     title="Gold Intelligence",
     description="Public Gold Intelligence product powered by FIOS.",
+    lifespan=lifespan,
 )
 
 app.mount(
@@ -1878,6 +1906,45 @@ def home() -> str:
 </body>
     </html>
     """
+
+
+@app.get("/api/gold/snapshot")
+def gold_snapshot() -> dict:
+    """Return the latest continuously acquired Gold market snapshot."""
+
+    engine = getattr(app.state, "gold_engine", None)
+
+    if engine is None:
+        return {
+            "status": "unavailable",
+            "message": "Gold continuous engine is not initialized.",
+        }
+
+    snapshot = engine.latest_snapshot
+
+    if snapshot is None:
+        return {
+            "status": "warming_up",
+            "message": "Gold market snapshot is not available yet.",
+        }
+
+    return {
+        "status": "ok",
+        "market_status": snapshot.market_status.value,
+        "open": snapshot.open,
+        "high": snapshot.high,
+        "low": snapshot.low,
+        "ltp": snapshot.ltp,
+        "previous_close": snapshot.previous_close,
+        "change_abs": snapshot.change_abs,
+        "change_pct": snapshot.change_pct,
+        "quote_timestamp": snapshot.quote_timestamp.isoformat(),
+        "retrieved_at": snapshot.retrieved_at.isoformat(),
+        "source": snapshot.source,
+        "instrument": snapshot.instrument,
+        "data_age_seconds": snapshot.data_age_seconds,
+        "official_close": snapshot.official_close,
+    }
 
 
 @app.get("/health")
