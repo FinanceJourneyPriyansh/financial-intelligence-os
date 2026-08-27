@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 from datetime import datetime, timezone
 
 from dataclasses import dataclass
@@ -285,52 +285,4 @@ class GoldMarketProviderManager:
 
         raise RuntimeError(
             "No ranked Gold provider result was available."
-        )
-
-
-        candidates = self._available_providers()
-
-        metadata_candidates: list[tuple[GoldMarketProvider, GoldProviderMetadata]] = []
-
-        for provider in candidates:
-            try:
-                observation = provider.fetch_latest()
-                metadata = provider.metadata(observation)
-                metadata_candidates.append((provider, metadata))
-            except Exception:
-                continue
-
-        if not metadata_candidates:
-            raise RuntimeError(
-                "All configured Gold providers failed."
-            )
-
-        ranked_metadata = self.selection_policy.rank(
-            [metadata for _, metadata in metadata_candidates]
-        )
-
-        provider_by_name = {
-            provider.name: provider
-            for provider, _ in metadata_candidates
-        }
-
-        for metadata in ranked_metadata:
-            provider = provider_by_name[metadata.provider]
-
-            try:
-                observation = provider.fetch_latest()
-
-                return ProviderResult(
-                    observation=observation,
-                    provider=provider.name,
-                    fallback_used=(
-                        provider.name != self.primary.name
-                    ),
-                )
-
-            except Exception:
-                continue
-
-        raise RuntimeError(
-            "All ranked Gold providers failed during final fetch."
         )
