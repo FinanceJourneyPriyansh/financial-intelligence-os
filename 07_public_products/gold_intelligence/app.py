@@ -1942,6 +1942,10 @@ def gold_snapshot() -> dict:
         "retrieved_at": snapshot.retrieved_at.isoformat(),
         "source": snapshot.source,
         "instrument": snapshot.instrument,
+        "capability": snapshot.capability.value,
+        "is_realtime": snapshot.is_realtime,
+        "market_role": snapshot.market_role,
+        "fallback_used": snapshot.fallback_used,
         "data_age_seconds": snapshot.data_age_seconds,
         "official_close": snapshot.official_close,
     }
