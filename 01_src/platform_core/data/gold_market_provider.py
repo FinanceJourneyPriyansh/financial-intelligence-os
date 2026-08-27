@@ -11,6 +11,9 @@ from platform_core.data.gold_provider_capability import (
     GoldDataCapability,
     GoldProviderMetadata,
 )
+from platform_core.data.gold_provider_selection_policy import (
+    GoldProviderSelectionPolicy,
+)
 
 
 class GoldMarketProvider(Protocol):
@@ -174,6 +177,7 @@ class GoldMarketProviderManager:
     ) -> None:
         self.primary = primary or YahooGoldProvider()
         self.fallback = fallback
+        self.selection_policy = GoldProviderSelectionPolicy()
 
     def fetch_latest(self) -> ProviderResult:
         try:
