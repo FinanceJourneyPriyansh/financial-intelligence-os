@@ -188,43 +188,126 @@ class GoldMarketProviderManager:
             previous_price=None,
         )
 
-    def fetch_latest(self) -> ProviderResult:
-        # Prefer an explicitly configured realtime provider.
+    def _available_providers(self) -> list[GoldMarketProvider]:
+        """Return configured providers that can currently be attempted."""
+
+        providers: list[GoldMarketProvider] = []
+
         if self.goldapi.available():
+            providers.append(self.goldapi)
+
+        providers.append(self.primary)
+        providers.append(self.fallback)
+
+        return providers
+
+    def fetch_latest(self) -> ProviderResult:
+        """Fetch Gold data using capability-ranked available providers.
+
+        Each provider is fetched at most once. The successful observation and
+        its metadata are retained together, ranked, and the winning result is
+        returned without a second network request.
+        """
+
+        candidates = self._available_providers()
+
+        successful: list[
+            tuple[GoldMarketProvider, GoldQuoteObservation, GoldProviderMetadata]
+        ] = []
+
+        for provider in candidates:
             try:
-                observation = self.goldapi.fetch_latest()
+                observation = provider.fetch_latest()
+                metadata = provider.metadata(observation)
+
+                successful.append(
+                    (
+                        provider,
+                        observation,
+                        metadata,
+                    )
+                )
+            except Exception:
+                continue
+
+        if not successful:
+            raise RuntimeError(
+                "All configured Gold providers failed."
+            )
+
+        ranked_metadata = self.selection_policy.rank(
+            [metadata for _, _, metadata in successful]
+        )
+
+        successful_by_provider = {
+            provider.name: (
+                provider,
+                observation,
+            )
+            for provider, observation, _ in successful
+        }
+
+        for metadata in ranked_metadata:
+            provider, observation = successful_by_provider[
+                metadata.provider
+            ]
+
+            return ProviderResult(
+                observation=observation,
+                provider=provider.name,
+                fallback_used=(
+                    provider.name != self.primary.name
+                ),
+            )
+
+        raise RuntimeError(
+            "No ranked Gold provider result was available."
+        )
+
+
+        candidates = self._available_providers()
+
+        metadata_candidates: list[tuple[GoldMarketProvider, GoldProviderMetadata]] = []
+
+        for provider in candidates:
+            try:
+                observation = provider.fetch_latest()
+                metadata = provider.metadata(observation)
+                metadata_candidates.append((provider, metadata))
+            except Exception:
+                continue
+
+        if not metadata_candidates:
+            raise RuntimeError(
+                "All configured Gold providers failed."
+            )
+
+        ranked_metadata = self.selection_policy.rank(
+            [metadata for _, metadata in metadata_candidates]
+        )
+
+        provider_by_name = {
+            provider.name: provider
+            for provider, _ in metadata_candidates
+        }
+
+        for metadata in ranked_metadata:
+            provider = provider_by_name[metadata.provider]
+
+            try:
+                observation = provider.fetch_latest()
 
                 return ProviderResult(
                     observation=observation,
-                    provider=self.goldapi.name,
-                    fallback_used=False,
+                    provider=provider.name,
+                    fallback_used=(
+                        provider.name != self.primary.name
+                    ),
                 )
 
             except Exception:
-                pass
+                continue
 
-        # Current operational reference provider.
-        try:
-            observation = self.primary.fetch_latest()
-
-            return ProviderResult(
-                observation=observation,
-                provider=self.primary.name,
-                fallback_used=False,
-            )
-
-        except Exception as primary_error:
-            if self.fallback is None:
-                raise RuntimeError(
-                    f"Primary Gold provider "
-                    f"{self.primary.name!r} failed and no fallback "
-                    "provider is configured."
-                ) from primary_error
-
-            observation = self.fallback.fetch_latest()
-
-            return ProviderResult(
-                observation=observation,
-                provider=self.fallback.name,
-                fallback_used=True,
-            )
+        raise RuntimeError(
+            "All ranked Gold providers failed during final fetch."
+        )
