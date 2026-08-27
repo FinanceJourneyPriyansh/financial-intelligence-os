@@ -14,6 +14,9 @@ from platform_core.data.gold_provider_capability import (
 from platform_core.data.gold_provider_selection_policy import (
     GoldProviderSelectionPolicy,
 )
+from platform_core.data.goldapi_provider import (
+    GoldAPIProvider,
+)
 
 
 class GoldMarketProvider(Protocol):
@@ -175,11 +178,32 @@ class GoldMarketProviderManager:
         primary: GoldMarketProvider | None = None,
         fallback: GoldMarketProvider | None = None,
     ) -> None:
-        self.primary = primary or YahooGoldProvider()
-        self.fallback = fallback
         self.selection_policy = GoldProviderSelectionPolicy()
 
+        self.goldapi = GoldAPIProvider()
+
+        self.primary = primary or YahooGoldProvider()
+        self.fallback = fallback or MockGoldProvider(
+            price=0.0,
+            previous_price=None,
+        )
+
     def fetch_latest(self) -> ProviderResult:
+        # Prefer an explicitly configured realtime provider.
+        if self.goldapi.available():
+            try:
+                observation = self.goldapi.fetch_latest()
+
+                return ProviderResult(
+                    observation=observation,
+                    provider=self.goldapi.name,
+                    fallback_used=False,
+                )
+
+            except Exception:
+                pass
+
+        # Current operational reference provider.
         try:
             observation = self.primary.fetch_latest()
 
