@@ -11,6 +11,10 @@ from platform_core.data.gold_provider_capability import (
     GoldDataCapability,
     GoldProviderMetadata,
 )
+from platform_core.data.gold_benchmark_providers import (
+    IBJAGoldProvider,
+    WGCGoldProvider,
+)
 from platform_core.data.gold_provider_selection_policy import (
     GoldProviderSelectionPolicy,
 )
@@ -181,6 +185,8 @@ class GoldMarketProviderManager:
         self.selection_policy = GoldProviderSelectionPolicy()
 
         self.goldapi = GoldAPIProvider()
+        self.ibja = IBJAGoldProvider()
+        self.wgc = WGCGoldProvider()
 
         self.primary = primary or YahooGoldProvider()
         self.fallback = fallback or MockGoldProvider(
@@ -196,10 +202,27 @@ class GoldMarketProviderManager:
         if self.goldapi.available():
             providers.append(self.goldapi)
 
+        if self.ibja.available():
+            providers.append(self.ibja)
+
+        if self.wgc.available():
+            providers.append(self.wgc)
+
         providers.append(self.primary)
         providers.append(self.fallback)
 
-        return providers
+        # Preserve provider order while removing duplicate instances/names.
+        unique: list[GoldMarketProvider] = []
+        seen: set[str] = set()
+
+        for provider in providers:
+            if provider.name in seen:
+                continue
+
+            seen.add(provider.name)
+            unique.append(provider)
+
+        return unique
 
     def fetch_latest(self) -> ProviderResult:
         """Fetch Gold data using capability-ranked available providers.

@@ -12,6 +12,9 @@ from platform_core.data.gold_market_snapshot import (
 from platform_core.data.gold_market_status_service import (
     GoldMarketStatusService,
 )
+from platform_core.data.gold_benchmark_providers import (
+    IBJAGoldProvider,
+)
 
 
 class GoldMarketSnapshotService:
@@ -59,6 +62,21 @@ class GoldMarketSnapshotService:
 
         result = self.provider_manager.fetch_latest()
         observation = result.observation
+
+        # Enrich the canonical Gold snapshot with the latest
+        # India benchmark purity rates without replacing the
+        # selected market ticker provider.
+        purity_rates = observation.purity_rates
+
+        if purity_rates is None:
+            try:
+                benchmark = IBJAGoldProvider()
+                benchmark_observation = benchmark.fetch_latest()
+                purity_rates = benchmark_observation.purity_rates
+            except Exception:
+                # Benchmark availability must never break the
+                # primary Gold market snapshot.
+                purity_rates = None
 
         provider_metadata = (
             self.provider_manager.primary.metadata(observation)
@@ -125,4 +143,5 @@ class GoldMarketSnapshotService:
             fallback_used=result.fallback_used,
             data_age_seconds=data_age_seconds,
             official_close=official_close,
+            purity_rates=purity_rates,
         )

@@ -43,3 +43,6 @@ class GoldMarketSnapshot:
 
     data_age_seconds: float
     official_close: bool
+
+    # Gold purity rates: 999, 995, 916, 750, 585.
+    purity_rates: dict[str, float] | None = None

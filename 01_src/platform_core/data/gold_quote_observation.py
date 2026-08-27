@@ -31,3 +31,7 @@ class GoldQuoteObservation:
     unit: str = "troy_ounce"
 
     is_realtime: bool = False
+
+    # India Gold purity rates.
+    # Values use the same currency/unit as the observation.
+    purity_rates: dict[str, float] | None = None
