@@ -46,3 +46,9 @@ class GoldMarketSnapshot:
 
     # Gold purity rates: 999, 995, 916, 750, 585.
     purity_rates: dict[str, float] | None = None
+
+    # Optional India benchmark provenance.
+    benchmark_source: str | None = None
+    benchmark_instrument: str | None = None
+    benchmark_quote_timestamp: datetime | None = None
+    benchmark_market_role: str | None = None

@@ -68,15 +68,41 @@ class GoldMarketSnapshotService:
         # selected market ticker provider.
         purity_rates = observation.purity_rates
 
+        benchmark_source = None
+        benchmark_instrument = None
+        benchmark_quote_timestamp = None
+        benchmark_market_role = None
+
         if purity_rates is None:
             try:
                 benchmark = IBJAGoldProvider()
                 benchmark_observation = benchmark.fetch_latest()
+
                 purity_rates = benchmark_observation.purity_rates
+                benchmark_source = benchmark_observation.source
+                benchmark_instrument = (
+                    benchmark_observation.instrument
+                )
+                benchmark_quote_timestamp = (
+                    benchmark_observation.timestamp
+                )
+
+                benchmark_metadata = benchmark.metadata(
+                    benchmark_observation
+                )
+                benchmark_market_role = (
+                    benchmark_metadata.market_role
+                )
+
             except Exception:
                 # Benchmark availability must never break the
                 # primary Gold market snapshot.
                 purity_rates = None
+
+        if purity_rates is not None and benchmark_source is None:
+            benchmark_source = observation.source
+            benchmark_instrument = observation.instrument
+            benchmark_quote_timestamp = observation.timestamp
 
         provider_metadata = (
             self.provider_manager.primary.metadata(observation)
@@ -144,4 +170,8 @@ class GoldMarketSnapshotService:
             data_age_seconds=data_age_seconds,
             official_close=official_close,
             purity_rates=purity_rates,
+            benchmark_source=benchmark_source,
+            benchmark_instrument=benchmark_instrument,
+            benchmark_quote_timestamp=benchmark_quote_timestamp,
+            benchmark_market_role=benchmark_market_role,
         )
