@@ -1063,48 +1063,6 @@ def home() -> str:
             </section>
 
 
-            <section class="commodity-comparison" id="commodity-comparison">
-
-                <div class="section-title">
-                    GOLD VS SILVER VS DIAMONDS
-                </div>
-
-                <p class="calculation-note">
-                    Compare current movement across the three FIOS reference assets.
-                    Gold and Silver are market prices; Diamond is an IDEX reference index.
-                </p>
-
-                <div class="quote-grid">
-                    {
-                        "".join(
-                            f"""
-                            <div>
-                                <small>{item.asset.upper()}</small>
-                                <strong>{item.value:,.2f}</strong>
-                                <span>
-                                    {
-                                        f"{item.change_pct:+.2f}%"
-                                        if item.change_pct is not None
-                                        else "N/A"
-                                    }
-                                    &middot; {item.direction}
-                                </span>
-                                <small>
-                                    {item.value_type.replace("_", " ")}
-                                    &middot; {item.source}
-                                </small>
-                                <small>
-                                    {format_ist(item.timestamp)}
-                                </small>
-                            </div>
-                            """
-                            for item in product.commodity_comparison
-                        )
-                    }
-                </div>
-
-            </section>
-
             <section class="carats">
 
                 <div class="section-title">

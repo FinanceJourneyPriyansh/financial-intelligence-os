@@ -24,15 +24,6 @@ from platform_core.data.gold_india_outlook_service import (
 from platform_core.data.market_intelligence_pipeline_service import (
     MarketIntelligencePipeline,
 )
-from platform_core.data.silver_acquisition_service import (
-    SilverAcquisitionService,
-)
-from platform_core.data.diamond_reference_service import (
-    DiamondReferenceService,
-)
-from platform_core.data.commodity_comparison_service import (
-    CommodityComparisonService,
-)
 
 
 @dataclass(frozen=True)
@@ -66,7 +57,6 @@ class GoldPublicIntelligence:
     driver_assessments: tuple
     scenarios: tuple
     evidence: tuple
-    commodity_comparison: tuple
 
 
 class GoldPublicProductService:
@@ -87,9 +77,6 @@ class GoldPublicProductService:
             outlook=GoldIndiaOutlookService(),
         )
 
-        self.silver = SilverAcquisitionService()
-        self.diamond = DiamondReferenceService()
-        self.comparison = CommodityComparisonService()
 
     def _fetch_india_gold_rates(self) -> dict:
         """
@@ -301,15 +288,6 @@ class GoldPublicProductService:
 
         india_rates = self._fetch_india_gold_rates()
 
-        silver = self.silver.fetch_latest()
-        diamond = self.diamond.fetch_latest()
-
-        commodity_comparison = self.comparison.compare(
-            result.observation,
-            silver,
-            diamond,
-        )
-
         return GoldPublicIntelligence(
             generated_at=generated_at,
             quote_timestamp=result.observation.timestamp,
@@ -333,5 +311,4 @@ class GoldPublicProductService:
             driver_assessments=result.analysis.assessments,
             scenarios=result.outlook.scenarios,
             evidence=tuple(result.evidence),
-            commodity_comparison=commodity_comparison,
         )
