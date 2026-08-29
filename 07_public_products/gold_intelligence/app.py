@@ -1948,6 +1948,17 @@ def gold_snapshot() -> dict:
         "fallback_used": snapshot.fallback_used,
         "data_age_seconds": snapshot.data_age_seconds,
         "official_close": snapshot.official_close,
+
+        # India benchmark provenance
+        "benchmark_source": snapshot.benchmark_source,
+        "benchmark_instrument": snapshot.benchmark_instrument,
+        "benchmark_quote_timestamp": (
+            snapshot.benchmark_quote_timestamp.isoformat()
+            if snapshot.benchmark_quote_timestamp
+            else None
+        ),
+        "benchmark_market_role": snapshot.benchmark_market_role,
+        "purity_rates": snapshot.purity_rates,
     }
 
 
