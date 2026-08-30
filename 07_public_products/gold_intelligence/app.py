@@ -1000,14 +1000,15 @@ def home() -> str:
                     <span class="eyebrow">
                         <span class="gold-mark">Au</span>
                         GOLD &middot; 24K
+                        <span id="gold-data-mode">DAILY REFERENCE</span>
                     </span>
 
-                    <div class="price gold-market-price">
+                    <div id="gold-live-price" class="price gold-market-price">
                         ${product.price:,.2f}
                         <small>/ troy oz</small>
                     </div>
 
-                    <div class="change">
+                    <div id="gold-live-change" class="change">
                         {change}
                         <span>daily move</span>
                     </div>
@@ -1020,7 +1021,7 @@ def home() -> str:
                         INDIA VALUE
                     </span>
 
-                    <div class="rupee-price">
+                    <div id="gold-india-24k" class="rupee-price">
                         {format_money(price_24k)}
                     </div>
 
@@ -1081,7 +1082,7 @@ def home() -> str:
 
                 </div>
 
-                <p class="freshness-note">
+                <p id="gold-freshness" class="freshness-note">
                     System clock is live. Market freshness reflects
                     the timestamp supplied by the acquisition source;
                     this product does not claim tick-level streaming
@@ -1101,13 +1102,13 @@ def home() -> str:
 
                     <div class="carat featured">
                         <small>24K</small>
-                        <strong>{format_money(price_24k)}</strong>
+                        <strong id="gold-benchmark-999">{format_money(price_24k)}</strong>
                         <span>per 10g</span>
                     </div>
 
                     <div class="carat">
                         <small>22K</small>
-                        <strong>{format_money(price_22k)}</strong>
+                        <strong id="gold-benchmark-916">{format_money(price_22k)}</strong>
                         <span>per 10g</span>
                     </div>
 
@@ -1486,6 +1487,117 @@ def home() -> str:
         );
 
         
+
+
+        async function updateGoldSnapshot() {{
+            try {{
+                const response = await fetch("/api/gold/snapshot", {{
+                    cache: "no-store"
+                }});
+
+                const data = await response.json();
+
+                if (data.status !== "ok") {{
+                    return;
+                }}
+
+                const price = document.getElementById("gold-live-price");
+                const change = document.getElementById("gold-live-change");
+                const india24 = document.getElementById("gold-india-24k");
+                const benchmark999 =
+                    document.getElementById("gold-benchmark-999");
+                const benchmark916 =
+                    document.getElementById("gold-benchmark-916");
+
+                if (price && data.ltp != null) {{
+                    price.innerHTML =
+                        "$" +
+                        Number(data.ltp).toLocaleString(
+                            "en-US",
+                            {{ minimumFractionDigits: 2 }}
+                        ) +
+                        ' <small>/ troy oz</small>';
+                }}
+
+                const mode = document.getElementById("gold-data-mode");
+                const freshness =
+                    document.getElementById("gold-freshness");
+
+                if (mode) {{
+                    mode.textContent =
+                        data.is_realtime
+                            ? "REAL-TIME"
+                            : data.capability + " REFERENCE";
+                }}
+
+                if (freshness) {{
+                    const quote = data.quote_timestamp
+                        ? new Date(data.quote_timestamp)
+                        : null;
+
+                    const age = data.data_age_seconds != null
+                        ? Math.round(Number(data.data_age_seconds))
+                        : null;
+
+                    freshness.textContent =
+                        "Source: " + data.source +
+                        " · " +
+                        (data.is_realtime
+                            ? "real-time"
+                            : data.capability.toLowerCase() + " reference") +
+                        " · quote: " +
+                        (quote
+                            ? quote.toLocaleString("en-IN", {{
+                                timeZone: "Asia/Kolkata"
+                            }})
+                            : "?") +
+                        " · age: " +
+                        (age != null ? age + "s" : "?");
+                }}
+
+                if (change && data.change_pct != null) {{
+                    const pct = Number(data.change_pct);
+                    change.textContent =
+                        (pct >= 0 ? "+" : "") +
+                        pct.toFixed(2) +
+                        "%";
+
+                    const label = document.createElement("span");
+                    label.textContent = " daily move";
+                    change.appendChild(label);
+                }}
+
+                const rates = data.purity_rates || {{}};
+
+                if (india24 && rates["999"] != null) {{
+                    india24.textContent =
+                        "₹" +
+                        Number(rates["999"]).toLocaleString("en-IN");
+                }}
+
+                if (benchmark999 && rates["999"] != null) {{
+                    benchmark999.textContent =
+                        "₹" +
+                        Number(rates["999"]).toLocaleString("en-IN");
+                }}
+
+                if (benchmark916 && rates["916"] != null) {{
+                    benchmark916.textContent =
+                        "₹" +
+                        Number(rates["916"]).toLocaleString("en-IN");
+                }}
+            }} catch (error) {{
+                console.log("Gold snapshot update error", error);
+            }}
+        }}
+
+        updateGoldSnapshot();
+
+        setInterval(
+            updateGoldSnapshot,
+            1000
+        );
+
 
         function getStandardPurity(karat) {{
 
