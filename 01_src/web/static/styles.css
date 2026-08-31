@@ -1,0 +1,21 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: #080c14; color: #d0e0f0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; }
+.header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #00f0ff; padding-bottom: 15px; margin-bottom: 25px; }
+.logo-group h1 { font-size: 1.8rem; color: #ffffff; letter-spacing: 2px; }
+.badge { background: #00f0ff; color: #000; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+.operator-tag { font-size: 0.85rem; color: #88a0b0; margin-top: 5px; }
+.system-time { text-align: right; font-family: monospace; }
+.time-display { font-size: 1.3rem; font-weight: bold; color: #00f0ff; }
+.date-display, .utc-display { font-size: 0.8rem; color: #7090a0; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.card { background: #0e1626; border: 1px solid #1e2c40; border-radius: 8px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #1a2638; padding-bottom: 8px; }
+.telemetry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.metric { background: #0a101d; padding: 10px; border-radius: 6px; border-left: 3px solid #00f0ff; }
+.metric label { display: block; font-size: 0.75rem; color: #608095; }
+.metric span { font-size: 1.1rem; font-weight: bold; color: #ffffff; font-family: monospace; }
+.status-badge { padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+.online { background: rgba(0, 240, 255, 0.2); color: #00f0ff; border: 1px solid #00f0ff; }
+.checking { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid #ffaa00; }
+.offline { background: rgba(255, 50, 50, 0.2); color: #ff3232; border: 1px solid #ff3232; }
+.subsystem-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 10px; background: #0a101d; border-radius: 6px; }

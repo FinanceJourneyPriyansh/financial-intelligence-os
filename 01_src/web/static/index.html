@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.I.O.S OPERATING SYSTEM</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-group">
+            <h1>F.I.O.S <span class="badge">v2.0 LIVE</span></h1>
+            <p class="operator-tag">OPERATOR: <strong>PRIYANSH SONI</strong> | MISSION: <strong>FINANCIAL TELEMETRY & AI RISK ENGINE</strong></p>
+        </div>
+        <div class="system-time">
+            <div id="live-clock" class="time-display">--:--:-- IST</div>
+            <div id="live-date" class="date-display">--:--:-- UTC</div>
+            <div id="utc-clock" class="utc-display">--:--:--</div>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <section class="card telemetry-card">
+            <div class="card-header">
+                <h3>SYSTEM TELEMETRY</h3>
+                <span class="status-indicator live">REALTIME</span>
+            </div>
+            <div class="telemetry-grid">
+                <div class="metric"><label>Kernel Uptime</label><span id="kernel-uptime">0s</span></div>
+                <div class="metric"><label>CPU Load</label><span id="cpu-load">0%</span></div>
+                <div class="metric"><label>Memory RAM</label><span id="memory-ram">0 MB</span></div>
+                <div class="metric"><label>Stream Latency</label><span id="stream-latency">0 ms</span></div>
+            </div>
+        </section>
+
+        <section class="card center-hero">
+            <div class="hero-circle">
+                <h2>FIOS</h2>
+                <span id="fios-status">SYSTEM ACTIVE</span>
+            </div>
+        </section>
+
+        <section class="card subsystems-card">
+            <div class="card-header">
+                <h3>AUTONOMOUS SUBSYSTEMS</h3>
+                <span class="status-indicator probed">PROBED</span>
+            </div>
+            <div class="subsystem-list">
+                <div class="subsystem-item">
+                    <div>
+                        <strong>FIOS Core Web Server</strong>
+                        <small>Port 8090</small>
+                    </div>
+                    <span class="status-badge online">ONLINE</span>
+                </div>
+                <div class="subsystem-item">
+                    <div>
+                        <strong>Gold Intelligence Service</strong>
+                        <small>Port 8091</small>
+                    </div>
+                    <span id="gold-status-badge" class="status-badge checking">CHECKING</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

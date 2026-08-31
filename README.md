@@ -1,10 +1,10 @@
-# 📊 Financial Intelligence OS (FIOS)
+﻿# ðŸ“Š Financial Intelligence OS (FIOS)
 
 > A modular Financial Intelligence Operating System built with Python to collect, validate, analyze, value, visualize, and automate financial and economic intelligence through specialized engines.
 
 ---
 
-# 🎯 Vision
+# ðŸŽ¯ Vision
 
 Financial Intelligence OS (FIOS) is designed as a scalable financial platform rather than a collection of scripts. Every major capability is implemented as an independent engine that works together to provide professional-grade financial intelligence.
 
@@ -21,46 +21,23 @@ The long-term objective is to create a centralized ecosystem capable of:
 
 ---
 
-# 🏗 Engine Architecture
+# ðŸ— Engine Architecture
 
-```
+`	ext
 financial-intelligence-os/
-│
-├── dashboards/
-│
-├── data/
-│   ├── raw/
-│   ├── processed/
-│
-├── notebooks/
-├── reports/
-│
-├── src/
-│   ├── analytics/
-│   ├── automation/
-│   ├── data/
-│   ├── database/
-│   ├── excel/
-│   ├── macro/
-│   ├── models/
-│   ├── portfolio/
-│   ├── risk/
-│   ├── utils/
-│   ├── valuation/
-│   └── visualization/
-│
-├── tests/
-│
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
+├── 01_src/         # Core application engines, fios_live, and web services (Ports 8090/8091)
+├── 02_data/        # Local engine persistence and market caches
+├── 03_docs/        # System documentation and API references
+├── 04_tests/       # Complete PyTest test suite
+├── main.py         # Multi-server orchestrator script
+└── pyproject.toml  # Project dependencies and environment config
+
 
 ---
 
-# ⚙ Engine Overview
+# âš™ Engine Overview
 
-## 📡 Data Engine
+## ðŸ“¡ Data Engine
 
 Responsible for collecting data from external providers.
 
@@ -91,7 +68,7 @@ Responsibilities
 
 ---
 
-## 📊 Analytics Engine
+## ðŸ“Š Analytics Engine
 
 Transforms raw data into meaningful financial insights.
 
@@ -106,7 +83,7 @@ Capabilities
 
 ---
 
-## 💰 Valuation Engine
+## ðŸ’° Valuation Engine
 
 Provides multiple valuation methodologies.
 
@@ -121,7 +98,7 @@ Models
 
 ---
 
-## 📈 Portfolio Engine
+## ðŸ“ˆ Portfolio Engine
 
 Portfolio monitoring and investment analysis.
 
@@ -136,7 +113,7 @@ Features
 
 ---
 
-## ⚠ Risk Engine
+## âš  Risk Engine
 
 Measures investment risk and portfolio stability.
 
@@ -153,7 +130,7 @@ Capabilities
 
 ---
 
-## 🌍 Macro Engine
+## ðŸŒ Macro Engine
 
 Tracks economic indicators from multiple institutions.
 
@@ -170,7 +147,7 @@ Coverage
 
 ---
 
-## 📑 Excel Engine
+## ðŸ“‘ Excel Engine
 
 Dedicated engine for Microsoft Excel 2019 integration.
 
@@ -185,7 +162,7 @@ Capabilities
 
 ---
 
-## 📊 Dashboard Engine
+## ðŸ“Š Dashboard Engine
 
 Visualization layer for the operating system.
 
@@ -200,7 +177,7 @@ Features
 
 ---
 
-## 🤖 AI Engine
+## ðŸ¤– AI Engine
 
 Artificial Intelligence support for financial workflows.
 
@@ -215,7 +192,7 @@ Capabilities
 
 ---
 
-## ⚙ Automation Engine
+## âš™ Automation Engine
 
 Automates repetitive financial processes.
 
@@ -229,7 +206,7 @@ Functions
 
 ---
 
-# 🌍 Supported Data Sources
+# ðŸŒ Supported Data Sources
 
 ## Financial Markets
 
@@ -258,7 +235,7 @@ Functions
 
 ---
 
-# 🛠 Technology Stack
+# ðŸ›  Technology Stack
 
 ### Programming
 
@@ -302,7 +279,7 @@ Functions
 
 ---
 
-# 🚀 Development Roadmap
+# ðŸš€ Development Roadmap
 
 ## Foundation
 
@@ -350,7 +327,7 @@ Functions
 
 ---
 
-# 💻 Installation
+# ðŸ’» Installation
 
 ```bash
 git clone <repository-url>
@@ -366,7 +343,7 @@ pip install -r requirements.txt
 
 ---
 
-# ▶ Running
+# â–¶ Running
 
 ```bash
 python src/test.py
@@ -374,13 +351,13 @@ python src/test.py
 
 ---
 
-# 📄 License
+# ðŸ“„ License
 
 This engine is released under the MIT License.
 
 ---
 
-# 👨‍💻 Author
+# ðŸ‘¨â€ðŸ’» Author
 
 **FinanceJourneyPriyansh**
 

@@ -1,4 +1,4 @@
-"""
+﻿"""
 Financial Intelligence OS (FIOS)
 
 Milestone 6
@@ -25,7 +25,7 @@ def test_builder_runtime_initialization() -> None:
 
     builder = BuilderIntegrationManager(
         builder_state_path=Path(
-            "00_control_center/02_configs/10_builder_state.yaml"
+            "01_src/fios_live/config/10_builder_state.yaml"
         )
     )
 

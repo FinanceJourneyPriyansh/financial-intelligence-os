@@ -87,3 +87,8 @@ class GoldAcquisitionService:
             change_pct=change_pct,
             volume=int(row["Volume"]),
         )
+
+
+# Backward-compatible alias for legacy test suite
+GoldObservation = MarketObservation
+

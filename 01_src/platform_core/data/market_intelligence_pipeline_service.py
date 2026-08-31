@@ -76,9 +76,7 @@ class MarketIntelligencePipeline(
 
         observation = self.acquisition.fetch_latest()
 
-        market_context = self.context.fetch_context(
-            primary_observation=observation
-        )
+        market_context = self.context.fetch_context(observation)
 
         news = self.evidence.fetch_recent()
 
@@ -98,3 +96,4 @@ class MarketIntelligencePipeline(
             analysis=analysis,
             outlook=outlook,
         )
+
