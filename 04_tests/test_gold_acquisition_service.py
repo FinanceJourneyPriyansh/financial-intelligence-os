@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from platform_core.data.gold_acquisition_service import (
+from gold_intelligence.services.gold_acquisition_service import (
     GoldAcquisitionService,
     GoldObservation,
 )
@@ -17,3 +17,4 @@ def test_gold_acquisition_returns_valid_observation():
     assert isinstance(observation.timestamp, datetime)
     assert observation.price > 0
     assert observation.volume >= 0
+

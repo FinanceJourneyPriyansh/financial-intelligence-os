@@ -2,11 +2,11 @@
 
 from datetime import datetime, timezone
 
-from platform_core.data.gold_market_context_service import (
+from gold_intelligence.services.gold_market_context_service import (
     GoldMarketContext,
     MarketSignal,
 )
-from platform_core.data.gold_india_outlook_service import (
+from gold_intelligence.services.gold_india_outlook_service import (
     GoldIndiaOutlook,
     GoldIndiaOutlookService,
 )
@@ -176,3 +176,4 @@ def test_missing_gold_change_reduces_confidence():
         for item in outlook.scenarios
         if item.scenario == "BASE"
     )
+

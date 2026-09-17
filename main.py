@@ -18,12 +18,12 @@ def launch_fios():
     # Module paths updated to import relative to PYTHONPATH (01_src)
     s1 = subprocess.Popen([
         sys.executable, "-m", "uvicorn", 
-        "web.app:app", "--port", "8090"
+        "01_src.web_fios.app:app", "--port", "8090"
     ], env=env)
 
     s2 = subprocess.Popen([
         sys.executable, "-m", "uvicorn", 
-        "web.gold_intelligence.app:app", "--port", "8091"
+        "gold_intelligence.app:app", "--port", "8091"
     ], env=env)
 
     try:
@@ -36,3 +36,6 @@ def launch_fios():
 
 if __name__ == "__main__":
     launch_fios()
+
+
+

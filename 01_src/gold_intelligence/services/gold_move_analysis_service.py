@@ -15,11 +15,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
-from platform_core.data.gold_market_context_service import (
+from gold_intelligence.services.gold_market_context_service import (
     GoldMarketContext,
     GoldMarketContextService,
 )
-from platform_core.data.gold_news_evidence_service import (
+from gold_intelligence.services.gold_news_evidence_service import (
     GoldNewsEvidence,
     GoldNewsEvidenceService,
 )
@@ -379,3 +379,4 @@ class GoldMoveAnalysisService:
             overall_confidence=overall_confidence,
             summary=summary,
         )
+

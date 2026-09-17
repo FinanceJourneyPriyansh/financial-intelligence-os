@@ -1,6 +1,6 @@
 ﻿"""Tests for FIOS Gold Market Context."""
 
-from platform_core.data.gold_market_context_service import (
+from gold_intelligence.services.gold_market_context_service import (
     GoldMarketContext,
     GoldMarketContextService,
 )
@@ -38,3 +38,4 @@ def test_candidate_drivers_are_explicitly_labeled():
     for driver in context.candidate_drivers:
         assert isinstance(driver, str)
         assert len(driver) > 0
+

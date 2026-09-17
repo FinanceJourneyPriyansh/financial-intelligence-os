@@ -1,6 +1,6 @@
 ﻿from __future__ import annotations
 
-from platform_core.data.gold_provider_capability import (
+from gold_intelligence.services.gold_provider_capability import (
     GoldDataCapability,
     GoldProviderMetadata,
 )
@@ -51,3 +51,4 @@ class GoldProviderSelectionPolicy:
             )
 
         return self.rank(providers)[0]
+

@@ -1,10 +1,10 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
-from platform_core.data.gold_provider_capability import (
+from gold_intelligence.services.gold_provider_capability import (
     GoldDataCapability,
 )
 
@@ -52,3 +52,4 @@ class GoldMarketSnapshot:
     benchmark_instrument: str | None = None
     benchmark_quote_timestamp: datetime | None = None
     benchmark_market_role: str | None = None
+

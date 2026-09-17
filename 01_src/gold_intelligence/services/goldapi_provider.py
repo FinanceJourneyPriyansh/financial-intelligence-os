@@ -5,10 +5,10 @@ from datetime import datetime, timezone
 
 import requests
 
-from platform_core.data.gold_quote_observation import (
+from gold_intelligence.services.gold_quote_observation import (
     GoldQuoteObservation,
 )
-from platform_core.data.gold_provider_capability import (
+from gold_intelligence.services.gold_provider_capability import (
     GoldDataCapability,
     GoldProviderMetadata,
 )
@@ -175,3 +175,4 @@ class GoldAPIProvider:
             market_role="global_realtime_gold",
             instrument=observation.instrument,
         )
+

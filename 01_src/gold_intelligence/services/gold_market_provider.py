@@ -1,24 +1,24 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 from datetime import datetime, timezone
 
 from dataclasses import dataclass
 from typing import Protocol
 
-from platform_core.data.gold_quote_observation import (
+from gold_intelligence.services.gold_quote_observation import (
     GoldQuoteObservation,
 )
-from platform_core.data.gold_provider_capability import (
+from gold_intelligence.services.gold_provider_capability import (
     GoldDataCapability,
     GoldProviderMetadata,
 )
-from platform_core.data.gold_benchmark_providers import (
+from gold_intelligence.services.gold_benchmark_providers import (
     IBJAGoldProvider,
     WGCGoldProvider,
 )
-from platform_core.data.gold_provider_selection_policy import (
+from gold_intelligence.services.gold_provider_selection_policy import (
     GoldProviderSelectionPolicy,
 )
-from platform_core.data.goldapi_provider import (
+from gold_intelligence.services.goldapi_provider import (
     GoldAPIProvider,
 )
 
@@ -47,7 +47,7 @@ class YahooGoldProvider:
     name = "yahoo_finance"
 
     def __init__(self) -> None:
-        from platform_core.data.gold_acquisition_service import (
+        from gold_intelligence.services.gold_acquisition_service import (
             GoldAcquisitionService,
         )
 
@@ -286,3 +286,4 @@ class GoldMarketProviderManager:
         raise RuntimeError(
             "No ranked Gold provider result was available."
         )
+

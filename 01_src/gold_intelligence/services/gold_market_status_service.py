@@ -1,10 +1,10 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from datetime import date, datetime, time
 from enum import Enum
 from zoneinfo import ZoneInfo
 
-from platform_core.data.gold_market_snapshot import MarketStatus
+from gold_intelligence.services.gold_market_snapshot import MarketStatus
 
 
 class GoldMarketStatusService:
@@ -48,3 +48,4 @@ class GoldMarketStatusService:
             return MarketStatus.OPEN
 
         return MarketStatus.CLOSED
+

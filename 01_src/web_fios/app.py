@@ -3,6 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 import os, time, psutil
+from datetime import datetime
 
 app = FastAPI(title="FIOS Core Web Server")
 START_TIME = time.time()
@@ -30,14 +31,19 @@ async def health_check():
 
 @app.get("/api/telemetry")
 async def get_telemetry():
+    now = datetime.now()
     uptime = int(time.time() - START_TIME)
     cpu = psutil.cpu_percent(interval=None)
     ram = int(psutil.virtual_memory().used / (1024 * 1024))
     return {
+        "datetime": now.strftime("%Y-%m-%d %H:%M:%S"),
+        "time": now.strftime("%H:%M:%S"),
+        "date": now.strftime("%Y-%m-%d"),
         "uptime": f"{uptime}s",
         "cpu": f"{cpu}%",
         "ram": f"{ram} MB",
-        "latency": "1 ms"
+        "latency": "1 ms",
+        "automation_status": "Active"
     }
 
 @app.get('/favicon.ico', include_in_schema=False)

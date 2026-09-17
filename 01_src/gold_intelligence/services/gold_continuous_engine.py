@@ -4,10 +4,10 @@ import asyncio
 import logging
 from datetime import datetime, timezone
 
-from platform_core.data.gold_market_snapshot import (
+from gold_intelligence.services.gold_market_snapshot import (
     GoldMarketSnapshot,
 )
-from platform_core.data.gold_market_snapshot_service import (
+from gold_intelligence.services.gold_market_snapshot_service import (
     GoldMarketSnapshotService,
 )
 
@@ -136,3 +136,4 @@ class GoldContinuousEngine:
             await task
         except asyncio.CancelledError:
             pass
+

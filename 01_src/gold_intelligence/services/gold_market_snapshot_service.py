@@ -2,17 +2,17 @@
 
 from datetime import datetime, timezone
 
-from platform_core.data.gold_market_provider import (
+from gold_intelligence.services.gold_market_provider import (
     GoldMarketProviderManager,
 )
-from platform_core.data.gold_market_snapshot import (
+from gold_intelligence.services.gold_market_snapshot import (
     GoldMarketSnapshot,
     MarketStatus,
 )
-from platform_core.data.gold_market_status_service import (
+from gold_intelligence.services.gold_market_status_service import (
     GoldMarketStatusService,
 )
-from platform_core.data.gold_benchmark_providers import (
+from gold_intelligence.services.gold_benchmark_providers import (
     IBJAGoldProvider,
 )
 
@@ -175,3 +175,4 @@ class GoldMarketSnapshotService:
             benchmark_quote_timestamp=benchmark_quote_timestamp,
             benchmark_market_role=benchmark_market_role,
         )
+

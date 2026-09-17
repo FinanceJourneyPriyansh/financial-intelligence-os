@@ -2,14 +2,14 @@
 
 from datetime import datetime, timezone
 
-from platform_core.data.gold_market_context_service import (
+from gold_intelligence.services.gold_market_context_service import (
     GoldMarketContext,
     MarketSignal,
 )
-from platform_core.data.gold_news_evidence_service import (
+from gold_intelligence.services.gold_news_evidence_service import (
     GoldNewsEvidence,
 )
-from platform_core.data.gold_move_analysis_service import (
+from gold_intelligence.services.gold_move_analysis_service import (
     GoldMoveAnalysisService,
 )
 
@@ -157,3 +157,4 @@ def test_usd_weakness_requires_specific_language():
     assert len(usd) == 1
     assert usd[0].evidence_count == 0
     assert usd[0].score > 0
+

@@ -19,7 +19,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
-from platform_core.data.gold_market_context_service import (
+from gold_intelligence.services.gold_market_context_service import (
     GoldMarketContext,
     GoldMarketContextService,
 )
@@ -376,3 +376,4 @@ class GoldIndiaOutlookService:
             scenarios=tuple(scenarios),
             summary=summary,
         )
+

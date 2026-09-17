@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from platform_core.data.gold_news_evidence_service import (
+from gold_intelligence.services.gold_news_evidence_service import (
     GoldNewsEvidence,
     GoldNewsEvidenceService,
 )
@@ -53,3 +53,4 @@ def test_gold_news_evidence_preserves_source():
         item.source
         for item in results
     )
+

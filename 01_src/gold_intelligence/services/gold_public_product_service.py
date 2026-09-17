@@ -6,19 +6,19 @@ from datetime import datetime, timezone
 import requests
 from bs4 import BeautifulSoup
 
-from platform_core.data.gold_acquisition_service import (
+from gold_intelligence.services.gold_acquisition_service import (
     GoldAcquisitionService,
 )
-from platform_core.data.gold_market_context_service import (
+from gold_intelligence.services.gold_market_context_service import (
     GoldMarketContextService,
 )
-from platform_core.data.gold_news_evidence_service import (
+from gold_intelligence.services.gold_news_evidence_service import (
     GoldNewsEvidenceService,
 )
-from platform_core.data.gold_move_analysis_service import (
+from gold_intelligence.services.gold_move_analysis_service import (
     GoldMoveAnalysisService,
 )
-from platform_core.data.gold_india_outlook_service import (
+from gold_intelligence.services.gold_india_outlook_service import (
     GoldIndiaOutlookService,
 )
 from platform_core.data.market_intelligence_pipeline_service import (
@@ -312,3 +312,4 @@ class GoldPublicProductService:
             scenarios=result.outlook.scenarios,
             evidence=tuple(result.evidence),
         )
+

@@ -8,10 +8,10 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
-from platform_core.data.gold_public_product_service import (
+from gold_intelligence.services.gold_public_product_service import (
     GoldPublicProductService,
 )
-from platform_core.data.gold_continuous_engine import (
+from gold_intelligence.services.gold_continuous_engine import (
     GoldContinuousEngine,
 )
 
@@ -47,7 +47,7 @@ app = FastAPI(
 app.mount(
     "/static",
     StaticFiles(
-        directory="01_src/web/gold_intelligence/static"
+        directory="01_src/gold_intelligence/ui"
     ),
     name="static",
 )
@@ -2080,4 +2080,8 @@ def health() -> dict[str, str]:
         "status": "ok",
         "product": "gold-intelligence",
     }
+
+
+
+
 

@@ -1,9 +1,9 @@
 ﻿from datetime import datetime, timezone
 
-from platform_core.data.gold_acquisition_service import (
+from gold_intelligence.services.gold_acquisition_service import (
     GoldObservation,
 )
-from platform_core.data.gold_market_context_service import (
+from gold_intelligence.services.gold_market_context_service import (
     GoldMarketContext,
 )
 from platform_core.data.market_intelligence_pipeline_service import (
@@ -225,3 +225,4 @@ def test_pipeline_preserves_stage_order():
         "analysis",
         "outlook",
     ]
+
