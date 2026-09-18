@@ -1,31 +1,46 @@
 ﻿async function updateTelemetry() {
     try {
-        const response = await fetch('/api/telemetry');
-        const data = await response.json();
-        
-        if (document.getElementById('clock')) {
-            document.getElementById('clock').innerText = data.time;
+        const res = await fetch("/api/telemetry");
+        if (res.ok) {
+            const data = await res.json();
+            if (document.getElementById("kernel-uptime")) document.getElementById("kernel-uptime").textContent = data.uptime || "0s";
+            if (document.getElementById("cpu-load")) document.getElementById("cpu-load").textContent = typeof data.cpu === "number" ? data.cpu + "%" : (data.cpu || "0%");
+            if (document.getElementById("memory-ram")) document.getElementById("memory-ram").textContent = data.ram || 0;
+            if (document.getElementById("stream-latency")) document.getElementById("stream-latency").textContent = data.latency || 0;
         }
-        if (document.getElementById('date')) {
-            document.getElementById('date').innerText = data.date;
-        }
-        if (document.getElementById('automation-status')) {
-            document.getElementById('automation-status').innerText = data.automation_status;
-        }
-        if (document.getElementById('uptime')) {
-            document.getElementById('uptime').innerText = data.uptime;
-        }
-        if (document.getElementById('cpu')) {
-            document.getElementById('cpu').innerText = data.cpu;
-        }
-        if (document.getElementById('ram')) {
-            document.getElementById('ram').innerText = data.ram;
-        }
-    } catch (err) {
-        console.error('Failed to fetch telemetry:', err);
+    } catch (e) {
+        console.error("Telemetry fetch error:", e);
     }
 }
 
-// Initial fetch and poll every 1 second
+async function checkGoldStatus() {
+    const badge = document.getElementById("gold-status-badge");
+    if (!badge) return;
+    try {
+        await fetch("http://127.0.0.1:8091/", { mode: "no-cors" });
+        badge.textContent = "ONLINE";
+        badge.className = "status-badge online";
+    } catch (err) {
+        badge.textContent = "OFFLINE";
+        badge.className = "status-badge offline";
+    }
+}
+
+function updateClocks() {
+    const now = new Date();
+    const liveClock = document.getElementById("live-clock");
+    const utcClock = document.getElementById("utc-clock");
+    const liveDate = document.getElementById("live-date");
+
+    if (liveClock) liveClock.textContent = now.toLocaleTimeString("en-US", { timeZone: "Asia/Kolkata", hour12: false }) + " IST";
+    if (utcClock) utcClock.textContent = now.toISOString().substr(11, 8) + " UTC";
+    if (liveDate) liveDate.textContent = now.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+}
+
+setInterval(updateTelemetry, 2000);
+setInterval(checkGoldStatus, 3000);
+setInterval(updateClocks, 1000);
+
 updateTelemetry();
-setInterval(updateTelemetry, 1000);
+checkGoldStatus();
+updateClocks();

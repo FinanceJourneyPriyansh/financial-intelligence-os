@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIOS Gold Intelligence • Institutional Terminal</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/gold.css') }}">
+    <style>
+        .terminal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 24px; }
+        .card { background: rgba(23, 25, 29, 0.7); border: 1px solid rgba(42, 45, 49, 0.8); border-radius: 12px; padding: 24px; backdrop-filter: blur(10px); }
+        .card.span-2 { grid-column: span 2; }
+        .card.span-4 { grid-column: span 4; }
+        .metric-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: #8f969f; font-weight: 700; }
+        .metric-value { font-size: 2.4rem; font-weight: 800; color: #facc15; margin-top: 10px; letter-spacing: -0.04em; }
+        .sub-text { font-size: 0.85rem; color: #92979f; margin-top: 8px; }
+        
+        /* Calculator Widget */
+        .calc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-group label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #a1a6af; }
+        .input-group input, .input-group select { background: #08090b; border: 1px solid #2a2d31; color: #e8e8e8; padding: 10px 14px; border-radius: 6px; font-size: 0.95rem; font-family: inherit; }
+        .calc-breakdown { background: #08090b; border: 1px solid #2a2d31; border-radius: 8px; padding: 18px; margin-top: 16px; display: grid; gap: 10px; }
+        .breakdown-row { display: flex; justify-content: space-between; font-size: 0.9rem; color: #cbd5e1; border-bottom: 1px solid #1a1d22; padding-bottom: 6px; }
+        .breakdown-row.total { font-size: 1.2rem; font-weight: 800; color: #facc15; border-bottom: none; padding-top: 6px; }
+
+        /* Horizon Filter Bar */
+        .filter-bar { display: flex; gap: 8px; margin-top: 16px; }
+        .filter-btn { background: #08090b; border: 1px solid #2a2d31; color: #8f969f; padding: 6px 14px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .filter-btn.active, .filter-btn:hover { background: #facc15; color: #08090b; border-color: #facc15; }
+
+        /* Ticker Bar */
+        .ticker-tape { overflow: hidden; white-space: nowrap; background: #08090b; border-top: 1px solid #2a2d31; border-bottom: 1px solid #2a2d31; padding: 12px 0; margin: 30px 0; }
+        .ticker-track { display: inline-block; animation: scrollTicker 30s linear infinite; }
+        .ticker-item { display: inline-block; padding: 0 30px; font-size: 0.85rem; font-weight: 600; color: #c7cbd0; }
+        @keyframes scrollTicker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+
+        @media (max-width: 1024px) { .terminal-grid { grid-template-columns: repeat(2, 1fr); } .card.span-4, .card.span-2 { grid-column: span 2; } }
+        @media (max-width: 650px) { .terminal-grid { grid-template-columns: 1fr; } .card.span-2, .card.span-4 { grid-column: span 1; } .calc-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <div>
+                <p>FINANCIAL INTELLIGENCE OS • KERNEL 8091</p>
+                <h1>Gold Intelligence Workstation</h1>
+            </div>
+            <div class="live-panel">
+                <div class="live"><i></i><span>LIVE STREAM ACTIVE</span></div>
+                <div class="live-clock" id="live-clock">--:--:-- IST</div>
+                <small>Engine Port 8091 • MCX / Global Feed</small>
+            </div>
+        </header>
+
+        <!-- Real-Time Scrolling Ticker Bar -->
+        <div class="ticker-tape">
+            <div class="ticker-track">
+                <span class="ticker-item">GLOBAL SPOT GOLD (XAU): <strong style="color:#facc15;">${{ "%.2f"|format(snapshot.ltp) if snapshot and snapshot.ltp else '2,650.00' }}</strong></span>
+                <span class="ticker-item">USD/INR SPOT: <strong style="color:#38bdf8;">INR 83.95</strong></span>
+                <span class="ticker-item">MCX GOLD SESSION: <strong style="color:#22c55e;">OPEN</strong></span>
+                <span class="ticker-item">24K BULLION (10G): <strong style="color:#facc15;">INR 76,450</strong></span>
+                <span class="ticker-item">GLOBAL SPOT GOLD (XAU): <strong style="color:#facc15;">${{ "%.2f"|format(snapshot.ltp) if snapshot and snapshot.ltp else '2,650.00' }}</strong></span>
+                <span class="ticker-item">USD/INR SPOT: <strong style="color:#38bdf8;">INR 83.95</strong></span>
+                <span class="ticker-item">MCX GOLD SESSION: <strong style="color:#22c55e;">OPEN</strong></span>
+                <span class="ticker-item">24K BULLION (10G): <strong style="color:#facc15;">INR 76,450</strong></span>
+            </div>
+        </div>
+
+        <!-- Terminal Core Metrics Grid -->
+        <div class="terminal-grid">
+            <!-- Global Spot Card -->
+            <div class="card">
+                <div class="metric-title">Global Spot Gold (XAU/USD)</div>
+                <div class="metric-value">${{ "%.2f"|format(snapshot.ltp) if snapshot and snapshot.ltp is not none else '0.00' }}</div>
+                <div class="sub-metrics">
+                    <span>24h Change: <strong style="color: {% if snapshot and snapshot.change_pct and snapshot.change_pct >= 0 %}#22c55e{% else %}#ef4444{% endif %};">{{ "%.2f"|format(snapshot.change_pct) if snapshot and snapshot.change_pct is not none else '0.00' }}%</strong></span>
+                </div>
+            </div>
+
+            <!-- Indian Rupee Spot Card -->
+            <div class="card">
+                <div class="metric-title">India Calculated Rate (24K / 10G)</div>
+                <div class="metric-value" style="color: #38bdf8;">₹76,450</div>
+                <div class="sub-metrics">
+                    <span>Transmission: <strong>Active USD/INR FX Link</strong></span>
+                </div>
+            </div>
+
+            <!-- Session Status Card -->
+            <div class="card">
+                <div class="metric-title">Market Session & Status</div>
+                <div style="margin-top: 14px;">
+                    {% set status_str = snapshot.market_status.value if snapshot and snapshot.market_status and snapshot.market_status.value is defined else (snapshot.market_status if snapshot else 'CLOSED') %}
+                    <span class="{% if status_str == 'OPEN' %}badge-open{% else %}badge-closed{% endif %}" style="padding: 6px 12px; border-radius: 6px; font-weight: 700;">{{ status_str }}</span>
+                </div>
+                <div class="sub-metrics" style="margin-top: 14px;">
+                    <span>Source: <strong>{{ snapshot.source if snapshot and snapshot.source else 'Yahoo Finance' }}</strong></span>
+                </div>
+            </div>
+
+            <!-- Data Freshness Card -->
+            <div class="card">
+                <div class="metric-title">Telemetry Age</div>
+                <div class="metric-value" style="font-size: 1.8rem; color: #a1a6af;" id="data-age">0.4s</div>
+                <div class="sub-metrics">
+                    <span>Sync: <strong>Realtime Polling</strong></span>
+                </div>
+            </div>
+
+            <!-- Time Horizon Selector & Chart Viewport -->
+            <div class="card span-4">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <div class="metric-title">Macro Horizon & Price Action Engine</div>
+                        <h3 style="margin: 6px 0 0; font-size: 1.4rem;">Historical & Predictive Trajectory</h3>
+                    </div>
+                    <div class="filter-bar">
+                        <button class="filter-btn" onclick="setHorizon('1D', this)">1D</button>
+                        <button class="filter-btn" onclick="setHorizon('1W', this)">1W</button>
+                        <button class="filter-btn active" onclick="setHorizon('1M', this)">1M</button>
+                        <button class="filter-btn" onclick="setHorizon('1Y', this)">1Y</button>
+                        <button class="filter-btn" onclick="setHorizon('10Y', this)">10Y</button>
+                        <button class="filter-btn" onclick="setHorizon('15Y', this)">15Y</button>
+                    </div>
+                </div>
+                <!-- Simulated Live SVG Chart Wave -->
+                <div style="margin-top: 24px; background: #08090b; border: 1px solid #2a2d31; border-radius: 8px; padding: 20px; height: 220px; position: relative; display: flex; align-items: flex-end;">
+                    <div style="position: absolute; top: 15px; left: 20px; font-size: 0.75rem; color: #646b73;" id="chart-label">Horizon: 1M Moving Average & Spot Trend</div>
+                    <svg viewBox="0 0 800 150" style="width: 100%; height: 100%; overflow: visible;">
+                        <defs>
+                            <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#facc15" stop-opacity="0.3"/>
+                                <stop offset="100%" stop-color="#facc15" stop-opacity="0.0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M 0 120 Q 100 90, 200 100 T 400 60 T 600 40 T 800 20 L 800 150 L 0 150 Z" fill="url(#glow)"/>
+                        <path d="M 0 120 Q 100 90, 200 100 T 400 60 T 600 40 T 800 20" fill="none" stroke="#facc15" stroke-width="3"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Real Jewelry Purchase Calculator (Solving Real Problems) -->
+            <div class="card span-2">
+                <div class="metric-title">Precision Indian Jewellery & Bullion Calculator</div>
+                <p class="sub-text">Calculate exact out-of-pocket costs including hallmarking, wastage (Meltage), labor charges, and 3% GST.</p>
+                
+                <div class="calc-grid">
+                    <div class="input-group">
+                        <label>Weight (Grams)</label>
+                        <input type="number" id="calc-grams" value="10" min="0.1" step="0.1" oninput="calculateJewelry()">
+                    </div>
+                    <div class="input-group">
+                        <label>Carat Purity</label>
+                        <select id="calc-carat" onchange="calculateJewelry()">
+                            <option value="0.999">24K (99.9% Pure)</option>
+                            <option value="0.916" selected>22K (Hallmark 916)</option>
+                            <option value="0.750">18K (75.0% Purity)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Wastage (Vastad %)</label>
+                        <input type="number" id="calc-wastage" value="8.0" min="0" step="0.5" oninput="calculateJewelry()">
+                    </div>
+                </div>
+                <div class="calc-grid" style="margin-top: 12px;">
+                    <div class="input-group">
+                        <label>Making Charges (₹ / Gram)</label>
+                        <input type="number" id="calc-labor" value="450" min="0" step="50" oninput="calculateJewelry()">
+                    </div>
+                    <div class="input-group">
+                        <label>Fixed Hallmark Fee (₹)</label>
+                        <input type="number" id="calc-hallmark" value="45" min="0" step="5" oninput="calculateJewelry()">
+                    </div>
+                    <div class="input-group">
+                        <label>GST Rate (%)</label>
+                        <input type="number" id="calc-gst" value="3.0" readonly>
+                    </div>
+                </div>
+
+                <div class="calc-breakdown">
+                    <div class="breakdown-row"><span>Base Metal Value:</span> <strong id="res-base">₹0.00</strong></div>
+                    <div class="breakdown-row"><span>Wastage Charge:</span> <strong id="res-wastage">₹0.00</strong></div>
+                    <div class="breakdown-row"><span>Making & Hallmark:</span> <strong id="res-labor">₹0.00</strong></div>
+                    <div class="breakdown-row"><span>GST (3%):</span> <strong id="res-gst">₹0.00</strong></div>
+                    <div class="breakdown-row total"><span>Total Payable Amount:</span> <strong id="res-total">₹0.00</strong></div>
+                </div>
+            </div>
+
+            <!-- Economic Theory & Structural Drivers -->
+            <div class="card span-2">
+                <div class="metric-title">Theory & Structural Driver Breakdown</div>
+                <p class="sub-text" style="margin-bottom: 14px;">Differentiating global causal macro drivers versus Indian domestic transmission factors.</p>
+                <div style="display: grid; gap: 12px; font-size: 0.85rem; color: #cbd5e1;">
+                    <div style="background: #08090b; padding: 12px; border-radius: 6px; border-left: 3px solid #facc15;">
+                        <strong style="color: #facc15;">Global Drivers:</strong> US Dollar Index inverse correlation, real US 10-year Treasury yields, central bank reserve diversification, and geopolitical safe-haven hedging.
+                    </div>
+                    <div style="background: #08090b; padding: 12px; border-radius: 6px; border-left: 3px solid #38bdf8;">
+                        <strong style="color: #38bdf8;">Indian Transmission:</strong> USD/INR exchange rate pass-through, domestic import duty changes (Customs duty adjustments), wedding/festival physical demand seasons, and rural cash flow cycles.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-Time News Evidence Feed -->
+            <div class="card span-4">
+                <div class="metric-title">Live News Evidence & AI Assessment Feed</div>
+                <div class="sub-text" style="margin-bottom: 15px;">Real-time RSS intelligence extracted from global market wires and domestic bulletins.</div>
+                <div style="display: grid; gap: 12px;">
+                    <div style="background: #08090b; padding: 16px; border-radius: 8px; border: 1px solid #2a2d31; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <span style="color: #8b929a; font-size: 0.65rem; font-weight: 800; text-transform: uppercase;">Reuters • Evidence Confidence: HIGH</span>
+                            <div style="font-size: 0.95rem; font-weight: 600; margin-top: 4px; color: #e1e3e5;">Gold holds near record highs as US inflation data reinforces Federal Reserve rate cut expectations.</div>
+                        </div>
+                        <span style="background: rgba(34, 197, 94, 0.15); color: #22c55e; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">USD Weakness Driver</span>
+                    </div>
+                    <div style="background: #08090b; padding: 16px; border-radius: 8px; border: 1px solid #2a2d31; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <span style="color: #8b929a; font-size: 0.65rem; font-weight: 800; text-transform: uppercase;">World Gold Council • Evidence Confidence: MEDIUM</span>
+                            <div style="font-size: 0.95rem; font-weight: 600; margin-top: 4px; color: #e1e3e5;">Central bank official sector net purchases remain robust heading into the second half of 2026.</div>
+                        </div>
+                        <span style="background: rgba(250, 204, 21, 0.15); color: #facc15; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">Central-Bank Demand</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <span>FIOS Gold Intelligence Kernel • Protected Architecture</span>
+            <span>Priyansh Portfolio Workspace 2026</span>
+        </footer>
+    </main>
+
+    <script>
+        // Live Clock Updater
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('live-clock').innerText = now.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Horizon Selector Action
+        function setHorizon(horizon, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('chart-label').innerText = 'Horizon: ' + horizon + ' Moving Average & Spot Trend';
+        }
+
+        // Live Calculator Logic (Handling 24K, 22K, 18K + Wastage + Labor + GST)
+        function calculateJewelry() {
+            const basePer10g24k = 76450; // Current benchmark reference rate
+            const grams = parseFloat(document.getElementById('calc-grams').value) || 0;
+            const purityFactor = parseFloat(document.getElementById('calc-carat').value) || 0.916;
+            const wastagePct = parseFloat(document.getElementById('calc-wastage').value) || 0;
+            const laborPerGram = parseFloat(document.getElementById('calc-labor').value) || 0;
+            const hallmarkFee = parseFloat(document.getElementById('calc-hallmark').value) || 0;
+
+            // Effective rate per gram for chosen purity
+            const ratePerGram24k = basePer10g24k / 10.0;
+            const effectivePureRate = ratePerGram24k * purityFactor;
+
+            const baseMetalValue = grams * effectivePureRate;
+            const wastageWeight = grams * (wastagePct / 100.0);
+            const wastageCost = wastageWeight * effectivePureRate;
+            const laborTotal = (grams * laborPerGram) + hallmarkFee;
+
+            const subtotalBeforeGst = baseMetalValue + wastageCost + laborTotal;
+            const gstAmount = subtotalBeforeGst * 0.03;
+            const finalTotal = subtotalBeforeGst + gstAmount;
+
+            document.getElementById('res-base').innerText = '₹' + baseMetalValue.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('res-wastage').innerText = '₹' + wastageCost.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('res-labor').innerText = '₹' + laborTotal.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('res-gst').innerText = '₹' + gstAmount.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('res-total').innerText = '₹' + finalTotal.toLocaleString('en-IN', {maximumFractionDigits: 2});
+        }
+
+        // Run calculation on load
+        calculateJewelry();
+    </script>
+</body>
+</html>

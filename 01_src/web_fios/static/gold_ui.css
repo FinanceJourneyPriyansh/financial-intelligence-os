@@ -1,0 +1,116 @@
+﻿/* FIOS Gold UI Interface Theme */
+:root {
+    --gold-primary: #f59e0b;
+    --gold-bright: #fbbf24;
+    --gold-dark: #b45309;
+    --gold-glow: rgba(245, 158, 11, 0.35);
+    --bg-dark: #070a12;
+    --card-bg: rgba(15, 23, 42, 0.75);
+    --border-gold: rgba(245, 158, 11, 0.25);
+}
+
+body {
+    background-color: var(--bg-dark) !important;
+    color: #f1f5f9 !important;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Metallic Gold Accent Text & Headers */
+h1, h2, h3, .gold-accent {
+    color: var(--gold-bright) !important;
+    text-shadow: 0 0 12px var(--gold-glow);
+}
+
+/* Gold Cards with Glassmorphic Border Glow */
+.card, section, div[class*="card"] {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-gold) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 10px var(--border-gold) !important;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    border-color: var(--gold-bright) !important;
+    box-shadow: 0 0 25px var(--gold-glow), inset 0 0 15px rgba(251, 191, 36, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* Alive Gold Bar Icon */
+.gold-bar-alive {
+    width: 60px;
+    height: 28px;
+    background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #78350f 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 15px var(--gold-bright);
+    animation: goldPulse 2.5s ease-in-out infinite alternate;
+    display: inline-block;
+    position: relative;
+}
+
+.gold-bar-alive::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    right: 4px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 2px;
+}
+
+@keyframes goldPulse {
+    0% { transform: scale(0.96); filter: drop-shadow(0 0 8px #f59e0b); }
+    100% { transform: scale(1.06); filter: drop-shadow(0 0 20px #fbbf24); }
+}
+
+/* Revolving Radar Targeting Sweep Effect */
+.radar-target {
+    position: relative;
+}
+
+.radar-target::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent 0deg, transparent 300deg, rgba(245, 158, 11, 0.15) 360deg);
+    animation: radarSweep 6s linear infinite;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+@keyframes radarSweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Infinite Continuous Marquee Ticker */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.9);
+    border-top: 1px solid var(--border-gold);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 8px 0;
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: marqueeScroll 25s linear infinite;
+}
+
+.marquee-content:hover {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}

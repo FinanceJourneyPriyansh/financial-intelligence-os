@@ -1,69 +1,105 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F.I.O.S OPERATING SYSTEM</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <title>FIOS Web Operating Dashboard</title>
+    <style>
+        body { background-color: #050a14; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 24px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 16px; margin-bottom: 24px; }
+        .header h1 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; color: #f8fafc; }
+        .user-tag { color: #38bdf8; font-weight: 700; }
+        .system-time { text-align: right; font-family: monospace; color: #94a3b8; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 20px; }
+        .card { background-color: #0b1329; border: 1px solid #1e293b; border-radius: 8px; padding: 20px; }
+        .card h3 { margin-top: 0; color: #38bdf8; font-size: 1rem; border-bottom: 1px solid #1e293b; padding-bottom: 8px; }
+        .telemetry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .metric { display: flex; flex-direction: column; }
+        .metric label { font-size: 0.8rem; color: #94a3b8; }
+        .metric span { font-size: 1.25rem; font-weight: bold; font-family: monospace; color: #f8fafc; }
+        .center-hero { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(11, 19, 41, 0.8) 70%); overflow: hidden; padding: 30px 10px; }
+        .fios-ring-system { position: relative; width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; }
+        .hud-glow { position: absolute; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%); filter: blur(10px); animation: coreGlowPulse 3s ease-in-out infinite alternate; }
+        .hud-ring { position: absolute; border-radius: 50%; border: 1.5px solid transparent; }
+        .ring-1 { width: 210px; height: 210px; border-top: 2px solid #06b6d4; border-bottom: 2px solid rgba(6, 182, 212, 0.2); border-left: 2px dashed #06b6d4; animation: rotateClockwise 18s linear infinite; }
+        .ring-2 { width: 175px; height: 175px; border-right: 2px solid #38bdf8; border-left: 2px solid rgba(56, 189, 248, 0.3); border-top: 2px dashed #38bdf8; animation: rotateCounter 12s linear infinite; }
+        .ring-3 { width: 140px; height: 140px; border: 2px dotted #22d3ee; animation: rotateClockwise 7s linear infinite; }
+        .center-shield { position: relative; z-index: 5; width: 52px; height: 52px; animation: shieldAlivePulse 2.5s ease-in-out infinite alternate; }
+        .shield-inner-diamond { transform-origin: center; animation: diamondBreathe 2s ease-in-out infinite alternate; }
+        .shield-outer-poly { animation: strokeGlow 2.5s ease-in-out infinite alternate; }
+        @keyframes shieldAlivePulse { 0% { transform: scale(0.95); filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6)); } 100% { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.95)); } }
+        @keyframes diamondBreathe { 0% { opacity: 0.6; fill: #06b6d4; } 100% { opacity: 1; fill: #38bdf8; } }
+        @keyframes strokeGlow { 0% { stroke: #06b6d4; fill: rgba(6, 182, 212, 0.1); } 100% { stroke: #22d3ee; fill: rgba(6, 182, 212, 0.35); } }
+        @keyframes coreGlowPulse { 0% { opacity: 0.3; transform: scale(0.85); } 100% { opacity: 0.8; transform: scale(1.15); } }
+        @keyframes rotateClockwise { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes rotateCounter { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        .fios-text-block { margin-top: 18px; z-index: 5; }
+        .fios-text-block h2 { margin: 0; font-size: 2.2rem; letter-spacing: 12px; color: #ffffff; text-shadow: 0 0 16px rgba(6, 182, 212, 0.8); font-weight: 800; padding-left: 12px; }
+        .fios-subtext { margin-top: 6px; font-size: 0.68rem; letter-spacing: 2.5px; color: #94a3b8; font-weight: 600; }
+        .fios-tagline { margin-top: 6px; font-size: 0.75rem; letter-spacing: 4px; color: #38bdf8; font-weight: 700; text-shadow: 0 0 10px rgba(56, 189, 248, 0.7); }
+        .fios-status-text { margin-top: 6px; font-size: 0.75rem; letter-spacing: 3px; color: #22c55e; font-weight: 700; text-shadow: 0 0 8px rgba(34, 197, 94, 0.6); }
+        .subsystem-item { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed #1e293b; }
+        .status-badge { padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+        .status-badge.online { background-color: #065f46; color: #34d399; }
+        .status-badge.offline { background-color: #7f1d1d; color: #f87171; }
+        .status-badge.checking { background-color: #78350f; color: #fbbf24; }
+    </style>
 </head>
 <body>
     <header class="header">
-        <div class="logo-group">
-            <h1>F.I.O.S <span class="badge">v2.0 LIVE</span></h1>
-            <p class="operator-tag">OPERATOR: <strong>PRIYANSH SONI</strong> | MISSION: <strong>FINANCIAL TELEMETRY & AI RISK ENGINE</strong></p>
+        <div>
+            <h1>FINANCIAL INTELLIGENCE OPERATING SYSTEM</h1>
+            <small style="color: #64748b;">Kernel Runtime | Operator: <span class="user-tag">PRIYANSH SONI</span></small>
         </div>
         <div class="system-time">
-            <div id="live-clock" class="time-display">--:--:-- IST</div>
-            <div id="live-date" class="date-display">--:--:-- UTC</div>
-            <div id="utc-clock" class="utc-display">--:--:--</div>
+            <div id="live-clock" style="font-size: 1.2rem; color: #38bdf8;">--:--:-- IST</div>
+            <div id="utc-clock" style="font-size: 0.8rem;">--:--:-- UTC</div>
+            <div id="live-date" style="font-size: 0.8rem;">------</div>
         </div>
     </header>
-
     <main class="dashboard-grid">
         <section class="card telemetry-card">
-            <div class="card-header">
-                <h3>SYSTEM TELEMETRY</h3>
-                <span class="status-indicator live">REALTIME</span>
-            </div>
+            <h3>SYSTEM TELEMETRY</h3>
             <div class="telemetry-grid">
                 <div class="metric"><label>Kernel Uptime</label><span id="kernel-uptime">0s</span></div>
                 <div class="metric"><label>CPU Load</label><span id="cpu-load">0%</span></div>
-                <div class="metric"><label>Memory RAM</label><span id="memory-ram">0 MB</span></div>
-                <div class="metric"><label>Stream Latency</label><span id="stream-latency">0 ms</span></div>
+                <div class="metric"><label>Memory RAM</label><span id="memory-ram">0</span></div>
+                <div class="metric"><label>Stream Latency</label><span id="stream-latency">0</span></div>
             </div>
         </section>
-
         <section class="card center-hero">
-            <div class="hero-circle">
-                <h2>FIOS</h2>
-                <span id="fios-status">SYSTEM ACTIVE</span>
+            <div class="fios-ring-system">
+                <div class="hud-glow"></div>
+                <div class="hud-ring ring-1"></div>
+                <div class="hud-ring ring-2"></div>
+                <div class="hud-ring ring-3"></div>
+                <svg class="center-shield" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="shield-outer-poly" points="50,12 85,28 85,62 50,88 15,62 15,28" stroke="#06b6d4" stroke-width="4"/>
+                    <polygon points="50,22 75,34 75,58 50,78 25,58 25,34" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+                    <path class="shield-inner-diamond" d="M50,32 L65,42 L50,68 L35,42 Z" fill="#22d3ee"/>
+                </svg>
+            </div>
+            <div class="fios-text-block">
+                <h2>F.I.O.S</h2>
+                <div class="fios-subtext">FINANCIAL INTELLIGENCE OPERATING SYSTEM</div>
+                <div class="fios-tagline">• FUTURE OF FINANCE •</div>
+                <div class="fios-status-text">SYSTEM ONLINE</div>
             </div>
         </section>
-
         <section class="card subsystems-card">
-            <div class="card-header">
-                <h3>AUTONOMOUS SUBSYSTEMS</h3>
-                <span class="status-indicator probed">PROBED</span>
-            </div>
+            <h3>AUTONOMOUS SUBSYSTEMS</h3>
             <div class="subsystem-list">
                 <div class="subsystem-item">
-                    <div>
-                        <strong>FIOS Core Web Server</strong>
-                        <small>Port 8090</small>
-                    </div>
+                    <div><strong>FIOS Core Web Server</strong><br><small style="color:#94a3b8;">Port 8090</small></div>
                     <span class="status-badge online">ONLINE</span>
                 </div>
                 <div class="subsystem-item">
-                    <div>
-                        <strong>Gold Intelligence Service</strong>
-                        <small>Port 8091</small>
-                    </div>
+                    <div><strong>Gold Intelligence Service</strong><br><small style="color:#94a3b8;">Port 8091</small></div>
                     <span id="gold-status-badge" class="status-badge checking">CHECKING</span>
                 </div>
             </div>
         </section>
     </main>
-
     <script src="/static/app.js"></script>
 </body>
 </html>

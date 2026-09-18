@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 import os, time, psutil
 from datetime import datetime
+import pytz
 
 app = FastAPI(title="FIOS Core Web Server")
 START_TIME = time.time()
@@ -17,13 +18,16 @@ app.add_middleware(
 )
 
 static_dir = os.path.join(os.path.dirname(__file__), "static")
-app.mount("/static", StaticFiles(directory=static_dir), name="static")
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 async def serve_index():
     index_path = os.path.join(static_dir, "index.html")
-    with open(index_path, "r", encoding="utf-8") as f:
-        return f.read()
+    if os.path.exists(index_path):
+        with open(index_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return HTMLResponse("<h1>FIOS Core Web Server Active</h1>")
 
 @app.get("/health")
 async def health_check():
@@ -31,17 +35,21 @@ async def health_check():
 
 @app.get("/api/telemetry")
 async def get_telemetry():
-    now = datetime.now()
-    uptime = int(time.time() - START_TIME)
-    cpu = psutil.cpu_percent(interval=None)
-    ram = int(psutil.virtual_memory().used / (1024 * 1024))
+    tz_ist = pytz.timezone('Asia/Kolkata')
+    now_ist = datetime.now(tz_ist)
+    now_utc = datetime.now(pytz.utc)
+    
+    uptime_seconds = int(time.time() - START_TIME)
+    cpu_usage = psutil.cpu_percent(interval=None)
+    ram_mb = int(psutil.virtual_memory().used / (1024 * 1024))
+    
     return {
-        "datetime": now.strftime("%Y-%m-%d %H:%M:%S"),
-        "time": now.strftime("%H:%M:%S"),
-        "date": now.strftime("%Y-%m-%d"),
-        "uptime": f"{uptime}s",
-        "cpu": f"{cpu}%",
-        "ram": f"{ram} MB",
+        "ist_time": now_ist.strftime("%H:%M:%S IST"),
+        "utc_time": now_utc.strftime("%H:%M:%S UTC"),
+        "date_str": now_ist.strftime("%Y-%m-%d"),
+        "uptime": f"{uptime_seconds}s",
+        "cpu": f"{cpu_usage}%",
+        "ram": f"{ram_mb} MB",
         "latency": "1 ms",
         "automation_status": "Active"
     }
